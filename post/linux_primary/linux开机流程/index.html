@@ -153,7 +153,7 @@
   </div>
 </div>
     <div class="post-content">
-      <p>步骤：</p>
+      <p><strong>步骤：</strong></p>
 <ul>
 <li>BIOS：开机主动执行韧体，会识别第一个可开机的装置。</li>
 <li>MBR：第一个可开机装置的第一个扇区内的主要启动记录区块，内存开机管理程序。</li>
@@ -163,7 +163,7 @@
 <blockquote>
 <p>韧体（Firmware）就是介于硬件与软件之间的一种本身具备程序代码的硬件装置。</p>
 </blockquote>
-<p>启动阶段：</p>
+<p><strong>启动阶段：</strong></p>
 <ul>
 <li>内核的引导</li>
 <li>运行 init</li>
@@ -171,13 +171,13 @@
 <li>建立终端</li>
 <li>用户登录系统</li>
 </ul>
-<p>init 程序的类型：</p>
+<p><strong>init 程序的类型：</strong></p>
 <ul>
 <li>Centos 6 配置文件：<code>/etc/inittab</code>、<code>/etc/init/*.conf</code></li>
 </ul>
-<h4 id="内核引导">内核引导</h4>
+<h4 id="内核引导"><strong>内核引导</strong></h4>
 <p>一开始时BIOS开机自检，按照BIOS设置的启动硬盘启动。操作接管硬件后，首先读取 <code>/boot</code> 目录下的内核文件。</p>
-<h4 id="运行-init">运行 init</h4>
+<h4 id="运行-init"><strong>运行 init</strong></h4>
 <p>init 进程是操作系统所有进程的起点</p>
 <p>Linux 系统的 7 个运行级别（runlevel）:</p>
 <ul>
@@ -192,14 +192,14 @@
 <blockquote>
 <p>一般常用的为 <code>3</code> 和 <code>5</code> 运行级别。</p>
 </blockquote>
-<h4 id="系统初始化">系统初始化</h4>
+<h4 id="系统初始化"><strong>系统初始化</strong></h4>
 <ul>
 <li>激活交换分区</li>
 <li>检查磁盘</li>
 <li>加载硬件模块</li>
 <li>优先执行的任务</li>
 </ul>
-<h4 id="建立终端">建立终端</h4>
+<h4 id="建立终端"><strong>建立终端</strong></h4>
 <p>init 进程启动后，init  会打开多个终端，便于用户登录。</p>
 
     </div>
