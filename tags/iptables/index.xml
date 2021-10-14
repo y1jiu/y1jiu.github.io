@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>iptables on 一旧的博客</title>
+    <link>http://localhost:1313/tags/iptables/</link>
+    <description>Recent content in iptables on 一旧的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 16 Apr 2019 01:37:56 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/iptables/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>iptables 原理</title>
+      <link>http://localhost:1313/post/linux_primary/iptables/</link>
+      <pubDate>Tue, 16 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/iptables/</guid>
+      <description>Linux 防火墙 Linux 系统的防火墙功能是由内核实现的 2.0版内核中，包过滤机制是 ipfw ，管理工具是 ipfwadm 2.2版内核中，包过滤机制是 ipchain ，管理工具是 ipchains 2.4内核及</description>
+    </item>
+    
+  </channel>
+</rss>

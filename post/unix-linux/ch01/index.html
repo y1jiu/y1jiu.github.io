@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>第一章 Unix 系统编程概述 - 一旧的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yijiu" /><meta name="description" content="相关命令 bc more 系统资源（内核提供的服务） 1.处理器（Processor） 执行指令 2.输入输出 （I/O） 数据流经内核 正确性：不会流错地方 有效性：" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/unix-linux/ch01/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="第一章 Unix 系统编程概述" />
+<meta property="og:description" content="相关命令 bc more 系统资源（内核提供的服务） 1.处理器（Processor） 执行指令 2.输入输出 （I/O） 数据流经内核 正确性：不会流错地方 有效性：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/unix-linux/ch01/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-05-10T01:37:56+08:00" />
+<meta property="article:modified_time" content="2019-05-10T01:37:56+08:00" />
+
+<meta itemprop="name" content="第一章 Unix 系统编程概述">
+<meta itemprop="description" content="相关命令 bc more 系统资源（内核提供的服务） 1.处理器（Processor） 执行指令 2.输入输出 （I/O） 数据流经内核 正确性：不会流错地方 有效性："><meta itemprop="datePublished" content="2019-05-10T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2019-05-10T01:37:56+08:00" />
+<meta itemprop="wordCount" content="2315">
+<meta itemprop="keywords" content="Linux,C语言," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="第一章 Unix 系统编程概述"/>
+<meta name="twitter:description" content="相关命令 bc more 系统资源（内核提供的服务） 1.处理器（Processor） 执行指令 2.输入输出 （I/O） 数据流经内核 正确性：不会流错地方 有效性："/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Y1jiu</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/more/">
+        <li class="mobile-menu-item">更多</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Y1jiu</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/more/">更多</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">第一章 Unix 系统编程概述</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-05-10 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%AF%BBunix/linux-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5%E6%95%99%E7%A8%8B/"> 读《Unix/Linux 编程实践教程》 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>相关命令</p>
+<ul>
+<li>bc</li>
+<li>more</li>
+</ul>
+<h4 id="系统资源内核提供的服务"><strong>系统资源（内核提供的服务）</strong></h4>
+<h5 id="1处理器processor"><strong>1.处理器（Processor）</strong></h5>
+<p>执行指令</p>
+<h5 id="2输入输出-io"><strong>2.输入输出 （I/O）</strong></h5>
+<p>数据流经内核</p>
+<p>正确性：不会流错地方</p>
+<p>有效性：无需考虑设备差异</p>
+<p>安全性：无法非法访问</p>
+<h5 id="3进程管理process-management"><strong>3.进程管理（Process Management）</strong></h5>
+<p>进程是指程序的一次运行，每个进程都有自己的资源，如内存、打开的文件、其他运行的系统资源。</p>
+<p>新建进程</p>
+<p>中止进程</p>
+<p>进程调度</p>
+<h5 id="4内存memory"><strong>4.内存（Memory）</strong></h5>
+<p>程序装载到内存才能运行</p>
+<p>内核：内存管理，给程序分配内存</p>
+<p>回收内存</p>
+<p>防止非法访问</p>
+<h5 id="5设备device"><strong>5.设备（Device）</strong></h5>
+<p>各种外设</p>
+<p>内核能屏蔽各种外设的差异</p>
+<h5 id="6计时器timers"><strong>6.计时器（Timers)</strong></h5>
+<p>定时触发</p>
+<h5 id="7进程间通信interprocess-communication"><strong>7.进程间通信（Interprocess Communication）</strong></h5>
+<h5 id="8网络networking"><strong>8.网络（Networking）</strong></h5>
+<p>进程间通信特殊方式</p>
+<h4 id="教程学习方法"><strong>教程学习方法</strong></h4>
+<p>1.分析程序（它能做什么）</p>
+<p>2.学习系统调用（如何实现）</p>
+<p>3.编程实现（自己编写）</p>
+<h4 id="目录操作"><strong>目录操作</strong></h4>
+<h5 id="1目录树"><strong>1.目录树</strong></h5>
+<p><img src="https://yijiu-blog.oss-cn-hongkong.aliyuncs.com/images/booknotes/unix-linux/dirtree.png?x-oss-process=style/blog-image" alt="-"></p>
+<p><code>/</code> 为根目录</p>
+<p><code>/home</code> 为用户主目录</p>
+<h5 id="2目录操作命令"><strong>2.目录操作命令</strong></h5>
+<ul>
+<li>
+<p><code>ls</code> ——列出目录内容</p>
+<p>ls dirname 会列出 dirname 目录中的内容</p>
+<p>ls etc</p>
+<p>ls /</p>
+</li>
+<li>
+<p><code>cd</code> ——改变当前目录</p>
+<p>只输入 cd 会返回主目录</p>
+<p>cd .. 转到上一层目录</p>
+</li>
+<li>
+<p><code>pwd</code> ——显示当前目录</p>
+<p>pwd 显示全路径，从根目录到当前目录</p>
+</li>
+<li>
+<p><code>mkdir</code>、<code>rmdir</code> ——新建、删除目录</p>
+<p>mkdir jokes  创建名字为 jokes 的目录</p>
+<p>rmdir jokes 删除名为 jokes 的目录（rmdir 删除目录，目录必须为空的）</p>
+</li>
+</ul>
+<h4 id="文件操作"><strong>文件操作</strong></h4>
+<h5 id="1文件操作命令"><strong>1.文件操作命令</strong></h5>
+<ul>
+<li>
+<p>文件命名规则</p>
+<p>Unix 文件名长度最大为 <code>250</code> 个字符</p>
+<p>名字中不能包括 <code> /</code> 目录符号</p>
+</li>
+<li>
+<p><code>cat</code> 查看文件内容</p>
+<p>cat 一下列完所有内容</p>
+</li>
+<li>
+<p><code>more</code> 查看文件内容</p>
+<p>more longfile</p>
+<p>显示一屏后暂停输出</p>
+<p>按空格键 输出下一屏</p>
+<p>按回车 输出下一行</p>
+<p>q 退出</p>
+<p>less 与 pg 命令功能与其类似</p>
+</li>
+<li>
+<p><code>cp</code> ——文件复制</p>
+<p>cp shopping-list last.week.list</p>
+<p>将文件 shopping-list 复制一份 ，新名字为 last.week.list</p>
+</li>
+<li>
+<p><code>rm</code> ——文件删除</p>
+<p>rm old.data junk shopping.june1992</p>
+<p>一次删除三个文件</p>
+<p>Unix 不提供恢复删除的功能，因为是多用户系统，磁盘空间一释放有可能立刻分配给其他用户</p>
+</li>
+<li>
+<p><code>mv</code> ——重命名或者移动文件</p>
+<p>两个功能：更改文件名，或者移动文件：</p>
+<p>改名：mv prog1.c first_program.c</p>
+<p>移动：mv first_program. mycode</p>
+<p>mycode为一个目录</p>
+</li>
+<li>
+<p><code>lpr.lp</code> ——打印文件</p>
+<p>lpr filename</p>
+<p>将 filename 传送到打印机打印 用 lpr 指定哪一台机器打印</p>
+</li>
+</ul>
+<h5 id="2文件许可权限"><strong>2.文件许可权限</strong></h5>
+<p>每个文件都有 <code>文件所有者</code>  （owner）与 <code>文件许可权限</code></p>
+<p>命令 ll 可以查看目录文件的详细信息，其中就包括文件许可权限。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ ll
+drwxr-xr-x <span class="m">2</span> yijiu yijiu <span class="m">4096</span>  4月 <span class="m">29</span> 02:11 CH01/
+drwxr-xr-x <span class="m">2</span> yijiu yijiu <span class="m">4096</span>  5月  <span class="m">3</span> 23:18 CH02/
+-rw-r--r-- <span class="m">1</span> yijiu yijiu   <span class="m">50</span>  4月 <span class="m">29</span> 01:08 README.md
+</code></pre></td></tr></table>
+</div>
+</div><p><code>-rw-r--r--</code> 即为文件许可权限，</p>
+<p>r: read</p>
+<p>w: write</p>
+<p>x: execute</p>
+<p>-rw- 为文件所有者user</p>
+<p>r&ndash; 为文件所有者同组的用户group</p>
+<p>r&ndash; 为其他用户other</p>
+<h4 id="系统角度看unix"><strong>系统角度看Unix</strong></h4>
+<h5 id="unix-系统三个重要方面"><strong>Unix 系统三个重要方面</strong></h5>
+<p>通信</p>
+<p>协作</p>
+<p>网络访问</p>
+<h5 id="bcunix-的计算器"><strong>bc：Unix 的计算器</strong></h5>
+<p>基于字符</p>
+<p>打开：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ bc
+</code></pre></td></tr></table>
+</div>
+</div><p>大整数运算</p>
+<p>可编程（定义变量、逻辑判断、循环结构）</p>
+<p>其实 bc 并不做任何运算</p>
+<p>dc 才是运算的那位（知识可能有点老旧）</p>
+<p>man 手册对 dc 的介绍：</p>
+<p>an arbitrary precision calculator</p>
+<p>dc 是一个计算器，能接收逆波兰表达式（后缀表达式），即操作数在前，操作符在后。2 + 3 的逆波兰表达式是：23 +</p>
+<p>bc 是 dc 的预处理器，将用户输入的表达式转换成逆波兰表达式，然后通过管道（pipe）交给 dc 。</p>
+<h4 id="动手实践"><strong>动手实践</strong></h4>
+<p><strong>学习方法：</strong></p>
+<p>1.分析程序（它能做什么）</p>
+<p>2.学习系统调用（如何实现）</p>
+<p>3.编程实现（自己编写）</p>
+<p>本次动手实践 试着编写一个程序来实现 more 命令的功能。</p>
+<ul>
+<li>
+<p>首先，more 能做什么？</p>
+<p>more 可以分页显示文件的内容</p>
+<p>more 会显示文件第一屏的内容</p>
+<p>屏幕底部会显示反白字体显示的文件百分比</p>
+<p>按空格键 下一屏内容出来</p>
+<p>按回车键 下一行内容显示出来</p>
+<p>输入 q 结束显示</p>
+<p>输入 h 是联机帮助</p>
+</li>
+<li>
+<p>第二个问题 more 怎么实现的？</p>
+<p>more 的工作流程：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">+--------&gt;show 24 lines from input
+|
+|  +-----&gt;print[more?] message
+|  |
+|  |      Input Enter, SPACE, or q
+|  |
+|  +----+ if Enter, advance one line
+|
++-------+ if SPACE
+
+          if q --&gt; exit
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p><strong>more01.c</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* more01.c - version 0.1 of more
+</span><span class="cm"> * read and print 24 lines then pause for a few special commands
+</span><span class="cm"> */</span>
+<span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#define PAGELEN 24
+</span><span class="cp">#define LINELEN 512
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">do_more</span><span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">see_more</span><span class="p">();</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">ac</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">av</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">ac</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">do_more</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="k">while</span><span class="p">(</span><span class="o">--</span><span class="n">ac</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span> <span class="p">(</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span> <span class="o">*</span> <span class="o">++</span><span class="n">av</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">do_more</span><span class="p">(</span> <span class="n">fp</span> <span class="p">);</span>
+                <span class="n">fclose</span><span class="p">(</span> <span class="n">fp</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">do_more</span><span class="p">(</span> <span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="p">)</span>
+    <span class="cm">/*
+</span><span class="cm">     * read PAGELEN lines,then call see_more() for further instructions
+</span><span class="cm">     */</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">line</span><span class="p">[</span><span class="n">LINELEN</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">num_of_lines</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">see_more</span><span class="p">(),</span><span class="n">reply</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span> <span class="n">fgets</span><span class="p">(</span> <span class="n">line</span><span class="p">,</span> <span class="n">LINELEN</span><span class="p">,</span> <span class="n">fp</span><span class="p">))</span>        <span class="cm">/* more input */</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">num_of_lines</span> <span class="o">==</span> <span class="n">PAGELEN</span> <span class="p">)</span>        <span class="cm">/* full screen? */</span>
+        <span class="p">{</span>
+            <span class="n">reply</span>  <span class="o">=</span> <span class="n">see_more</span><span class="p">();</span>             <span class="cm">/* y: ask user */</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">reply</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>                   <span class="cm">/* n: done */</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="n">num_of_lines</span> <span class="o">-=</span> <span class="n">reply</span><span class="p">;</span>           <span class="cm">/* reset count */</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">fputs</span><span class="p">(</span> <span class="n">line</span><span class="p">,</span> <span class="n">stdout</span> <span class="p">)</span> <span class="o">==</span> <span class="n">EOF</span> <span class="p">)</span>   <span class="cm">/* show line */</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>                         <span class="cm">/* or die */</span>
+        <span class="n">num_of_lines</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">see_more</span><span class="p">()</span>
+<span class="cm">/*
+</span><span class="cm"> * print message, wait for response, return # of lines to advance
+</span><span class="cm"> * q means no, space means yes, CR means one line
+</span><span class="cm"> */</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\033</span><span class="s">[7m more? </span><span class="se">\033</span><span class="s">[m&#34;</span><span class="p">);</span>            <span class="cm">/* reverse on a vt100 */</span>
+    <span class="k">while</span><span class="p">((</span><span class="n">c</span><span class="o">=</span><span class="n">getchar</span><span class="p">())</span> <span class="o">!=</span> <span class="n">EOF</span> <span class="p">)</span>               <span class="cm">/* get response */</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;q&#39;</span> <span class="p">)</span>                         <span class="cm">/* q -&gt; N */</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="p">)</span>                          <span class="cm">/* &#39; &#39; =&gt; next page */</span>
+            <span class="k">return</span> <span class="n">PAGELEN</span><span class="p">;</span>                    <span class="cm">/* how many to show */</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span>                         <span class="cm">/* Enter key =&gt; 1 line */</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>do_more() 将数据显示在显示器上</p>
+<p>see_more() 接收用户输入</p>
+<p>编译运行代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">/* The system is manjaro */
+$ cc more01.c -o more01
+$ more01 more01.c
+</code></pre></td></tr></table>
+</div>
+</div><p>more01.c 还需要改进的地方：</p>
+<ul>
+<li><code>more?</code>  上存在bug</li>
+<li>输入 q 与 空格键后，需要按回车键</li>
+<li>无法显示百分比</li>
+</ul>
+<p><strong>改进的more02.c</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* more02.c -version 0.2 of more 
+</span><span class="cm"> * read and print 24 lines then pause for a few special commands
+</span><span class="cm"> * feature of version 0.2: reads from /dev/tty/ for commands
+</span><span class="cm"> */</span>
+<span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#define PAGELEN 24
+</span><span class="cp">#define LINELEN 512
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">do_more</span><span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">see_more</span><span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">ac</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">av</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">ac</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">do_more</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+        <span class="k">while</span><span class="p">(</span><span class="o">--</span><span class="n">ac</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span> <span class="p">(</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="o">*++</span><span class="n">av</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">do_more</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+                <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">do_more</span><span class="p">(</span> <span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">)</span>
+<span class="cm">/*
+</span><span class="cm"> * read PAGELEN lines, then call see_more() for further instructions
+</span><span class="cm"> */</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">line</span><span class="p">[</span><span class="n">LINELEN</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">num_of_lines</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">see_more</span><span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="p">),</span> <span class="n">reply</span><span class="p">;</span>
+    <span class="n">FILE</span> <span class="o">*</span><span class="n">fp_tty</span><span class="p">;</span>
+    <span class="n">fp_tty</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span> <span class="s">&#34;/dev/tty&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span> <span class="p">);</span>          <span class="cm">/* NEW: cmd stream */</span>
+
+    <span class="k">if</span><span class="p">(</span> <span class="n">fp_tty</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="p">)</span>                        <span class="cm">/* if open fails */</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>                                <span class="cm">/* no use in running */</span>
+    <span class="k">while</span><span class="p">(</span> <span class="n">fgets</span><span class="p">(</span> <span class="n">line</span><span class="p">,</span> <span class="n">LINELEN</span><span class="p">,</span> <span class="n">fp</span> <span class="p">))</span>          <span class="cm">/* more input */</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">num_of_lines</span> <span class="o">==</span> <span class="n">PAGELEN</span> <span class="p">)</span>            <span class="cm">/* full screen */</span>
+        <span class="p">{</span>
+            <span class="n">reply</span> <span class="o">=</span> <span class="n">see_more</span><span class="p">(</span><span class="n">fp_tty</span><span class="p">);</span>           <span class="cm">/* NEW: pass FILE * */</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">reply</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>                      <span class="cm">/* n: done */</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="n">num_of_lines</span> <span class="o">-=</span> <span class="n">reply</span><span class="p">;</span>              <span class="cm">/* reset count */</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">fputs</span><span class="p">(</span> <span class="n">line</span><span class="p">,</span> <span class="n">stdin</span> <span class="p">)</span> <span class="o">==</span> <span class="n">EOF</span> <span class="p">)</span>       <span class="cm">/* show line */</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>                            <span class="cm">/* or die */</span>
+        <span class="n">num_of_lines</span><span class="o">++</span><span class="p">;</span>                         <span class="cm">/* count it */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">see_more</span><span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">cmd</span><span class="p">)</span>                         <span class="cm">/* NEW: accepts arg */</span>
+<span class="cm">/*
+</span><span class="cm"> * print message, wait for respones, reutrn # of lines to advance
+</span><span class="cm"> * q means no, space means yes, CR means one line
+</span><span class="cm"> */</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\033</span><span class="s">[7m more? </span><span class="se">\033</span><span class="s">[m&#34;</span><span class="p">);</span>             <span class="cm">/* reverse on a vt100 */</span>
+    <span class="k">while</span><span class="p">(</span> <span class="p">(</span><span class="n">c</span> <span class="o">=</span> <span class="n">getc</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span> <span class="o">!=</span> <span class="n">EOF</span> <span class="p">)</span>               <span class="cm">/* NEW: reads from tty */</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;q&#39;</span><span class="p">)</span>                            <span class="cm">/* q -&gt; N */</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="p">)</span>                            <span class="cm">/* &#39; &#39; -&gt; next page */</span>
+            <span class="k">return</span> <span class="n">PAGELEN</span><span class="p">;</span>                     <span class="cm">/* how many to show */</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span>                           <span class="cm">/* Enter key =&gt; 1 line */</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>改进后的 more02.c 还是需要按回车键，百分比也没实现，因为写一个完善的 more 需要做很多工作，还需要涉及许多知识，我们需要坚持学下去，才能云开见日。</p>
+<h4 id="unix-主要结构"><strong>Unix 主要结构</strong></h4>
+<p>内存分为 <code>系统空间</code>  和 <code>用户空间</code></p>
+<p>内核与它的数据结构位于系统空间</p>
+<p>用户程序位于用户空间</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Yijiu</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-05-10
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/c%E8%AF%AD%E8%A8%80/">C语言</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unix-linux/ch02/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">第二章 用户、文件操作与联机帮助：编写 who 命令</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tools/git/">
+            <span class="next-text nav-default">Git入门</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Y1jiu - <a href='https://beian.miit.gov.cn/'>蜀ICP备19017120号</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

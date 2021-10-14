@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on 一旧的博客</title>
+    <link>http://localhost:1313/categories/git/</link>
+    <description>Recent content in Git on 一旧的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 20 Apr 2019 01:37:56 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git入门</title>
+      <link>http://localhost:1313/post/tools/git/</link>
+      <pubDate>Sat, 20 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/tools/git/</guid>
+      <description>Git 是一个分布式版本控制系统。 Git 项目是由 Linus 编写的开源工具 SVN、CVS 属于集中式版本控制系统。 Git 属于分布式版本管理系统。 安装 Git Linux 1 2 3 4 5 # Ubuntu</description>
+    </item>
+    
+  </channel>
+</rss>

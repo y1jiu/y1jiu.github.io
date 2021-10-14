@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>读《Unix/Linux 编程实践教程》 on 一旧的博客</title>
+    <link>http://localhost:1313/categories/%E8%AF%BBunix/linux-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5%E6%95%99%E7%A8%8B/</link>
+    <description>Recent content in 读《Unix/Linux 编程实践教程》 on 一旧的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language><atom:link href="http://localhost:1313/categories/%E8%AF%BBunix/linux-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第二章 用户、文件操作与联机帮助：编写 who 命令</title>
+      <link>http://localhost:1313/post/unix-linux/ch02/</link>
+      <pubDate>Sat, 11 May 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/unix-linux/ch02/</guid>
+      <description>概念与技巧 联机帮助的作用与使用方法 Unix 的为文件操作函数：open 、read 、write 、 lseek 、 close 文件的建立与读写 文件描述符 缓冲：用户级的缓冲与内</description>
+    </item>
+    
+    <item>
+      <title>第一章 Unix 系统编程概述</title>
+      <link>http://localhost:1313/post/unix-linux/ch01/</link>
+      <pubDate>Fri, 10 May 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/unix-linux/ch01/</guid>
+      <description>相关命令 bc more 系统资源（内核提供的服务） 1.处理器（Processor） 执行指令 2.输入输出 （I/O） 数据流经内核 正确性：不会流错地方 有效性：</description>
+    </item>
+    
+  </channel>
+</rss>

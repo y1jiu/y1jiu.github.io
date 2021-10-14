@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Git入门 - 一旧的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yijiu" /><meta name="description" content="Git 是一个分布式版本控制系统。 Git 项目是由 Linus 编写的开源工具 SVN、CVS 属于集中式版本控制系统。 Git 属于分布式版本管理系统。 安装 Git Linux 1 2 3 4 5 # Ubuntu" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/tools/git/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Git入门" />
+<meta property="og:description" content="Git 是一个分布式版本控制系统。 Git 项目是由 Linus 编写的开源工具 SVN、CVS 属于集中式版本控制系统。 Git 属于分布式版本管理系统。 安装 Git Linux 1 2 3 4 5 # Ubuntu" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/tools/git/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-04-20T01:37:56+08:00" />
+<meta property="article:modified_time" content="2019-04-20T01:37:56+08:00" />
+
+<meta itemprop="name" content="Git入门">
+<meta itemprop="description" content="Git 是一个分布式版本控制系统。 Git 项目是由 Linus 编写的开源工具 SVN、CVS 属于集中式版本控制系统。 Git 属于分布式版本管理系统。 安装 Git Linux 1 2 3 4 5 # Ubuntu"><meta itemprop="datePublished" content="2019-04-20T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2019-04-20T01:37:56+08:00" />
+<meta itemprop="wordCount" content="3887">
+<meta itemprop="keywords" content="Linux,Git,GitHub," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git入门"/>
+<meta name="twitter:description" content="Git 是一个分布式版本控制系统。 Git 项目是由 Linus 编写的开源工具 SVN、CVS 属于集中式版本控制系统。 Git 属于分布式版本管理系统。 安装 Git Linux 1 2 3 4 5 # Ubuntu"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Y1jiu</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/more/">
+        <li class="mobile-menu-item">更多</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Y1jiu</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/more/">更多</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Git入门</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-20 </span>
+        <div class="post-category">
+            <a href="/categories/git/"> Git </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#安装-git"><strong>安装 Git</strong></a></li>
+            <li><a href="#创建版本库"><strong>创建版本库</strong></a></li>
+            <li><a href="#仓库状态"><strong>仓库状态</strong></a></li>
+            <li><a href="#远程仓库"><strong>远程仓库</strong></a></li>
+            <li><a href="#分支管理"><strong>分支管理</strong></a></li>
+            <li><a href="#标签管理"><strong>标签管理</strong></a></li>
+            <li><a href="#gitignore"><strong>.gitignore</strong></a></li>
+            <li><a href="#命令配置别名"><strong>命令配置别名</strong></a></li>
+            <li><a href="#git-恢复本地误删的文件"><strong>Git 恢复本地误删的文件</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><strong>Git</strong> 是一个分布式版本控制系统。</p>
+<blockquote>
+<p>Git 项目是由 Linus 编写的开源工具</p>
+</blockquote>
+<p>SVN、CVS 属于集中式版本控制系统。</p>
+<p>Git 属于分布式版本管理系统。</p>
+<h3 id="安装-git"><strong>安装 Git</strong></h3>
+<h4 id="linux"><strong>Linux</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Ubuntu</span>
+$ sudo apt install git
+
+<span class="c1"># Centos</span>
+$ sudo yum install git
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="windows"><strong>Windows</strong></h4>
+<p>直接官网下载：<a href="https://git-scm.com/downloads">Git - download</a> 。</p>
+<h4 id="配置信息"><strong>配置信息</strong></h4>
+<p>安装完 Git 后，需要在命令行配置你的名字和 Email 地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git config --global user.name <span class="s2">&#34;Your Name&#34;</span>
+$ git config --global user.name <span class="s2">&#34;email@example.com&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>--global</code> 参数是全局设置，代表你的机器电脑上所有的 Git 仓库都会使用这个配置。</p>
+<h3 id="创建版本库"><strong>创建版本库</strong></h3>
+<p>版本库就是仓库（Repository），可以理解为是一个目录。</p>
+<p>目录里的文件都被 Git 管理，Git 可以跟踪每个文件的修改、删除、添加，任何时刻都可以追踪历史或复原。</p>
+<p>创建一个版本库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 找到一个空目录 Test，进入</span>
+$ <span class="nb">cd</span> Test
+<span class="c1"># 通过 git init 将这个目录变为 Git 管理的仓库</span>
+$ git init
+</code></pre></td></tr></table>
+</div>
+</div><p><code>git init</code> 后仓库就建好了，目录中会多一个 <code>.git</code> 的目录，这个 <code>.git</code> 是 Git 用来跟踪管理版本库的，不能修改，删除。</p>
+<p>版本控制系统跟踪的是<strong>文本文件</strong>的改动。可以跟踪到具体哪一行发生了那些改动。而面对二进制文件，版本控制系统只能知道文件的大小发生了什么变化，内容无从得知。</p>
+<p>文本文件建议使用 <code>UTF-8 编码 </code>。</p>
+<p>将文件添加到仓库的两个步骤：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 把文件添加到仓库</span>
+$ git add index.html
+$ git add .
+<span class="c1"># 告诉Git,把文件提交到仓库</span>
+$ git commit -m <span class="s2">&#34;add index.html&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>git commit -m &quot;&quot;</code> 中 <code>-m</code> 后面输入本次提交的说明，而且是强制必须填写。</p>
+<h3 id="仓库状态"><strong>仓库状态</strong></h3>
+<p><code>git status</code> 能查看仓库当前状态。</p>
+<p><code>git diff</code> 能比较工作目录中的文件和暂存区快照之间的差异。（文件内容之间的修改变化）</p>
+<h4 id="版本回退"><strong>版本回退</strong></h4>
+<p><code>git log</code> 能显示提交日志信息。</p>
+<p>回退到上一个版本，Git 用 <code>HEAD</code> 表示当前版本，上一个版本为 <code>HEAD^</code> ，上上一个版本为 <code>HEAD^^</code> ，以此类推。如果是上100个版本，可以这样表示：<code>HEAD~100</code> 。</p>
+<p>退回上一个版本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git reset --hard HEAD^
+</code></pre></td></tr></table>
+</div>
+</div><p>退回指定的某个版本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git reset --hard 85e8a
+</code></pre></td></tr></table>
+</div>
+</div><p><code>git reflog</code> 命令记录了每一次命令操作历史，可用于找出特定的版本号回退。</p>
+<h4 id="工作区和暂存区"><strong>工作区和暂存区</strong></h4>
+<p>工作区（Working Directory）就是电脑里看得见的目录（文件夹），之前 <code>git init</code> 后的目录就是工作区。</p>
+<h4 id="版本库"><strong>版本库</strong></h4>
+<p><code>.git</code> 不算工作区，属于版本库（Repository）。</p>
+<p>版本库里有称为 stage 的<strong>暂存区</strong>，还有 Git 为我们创建的第一个分支 <code>master</code> ，以及一个指向 master 的指针叫 <code>HEAD</code> 。</p>
+<p>将文件添加入版本库有两步骤：</p>
+<ul>
+<li><code>git add</code> 把文件添加进去，实际就是把文件修改添加到暂存区。</li>
+<li><code>git commit</code> 提交更改，实际就是把暂存区的所有内容提交到当前分支（master）</li>
+</ul>
+<h4 id="管理修改"><strong>管理修改</strong></h4>
+<p>Git跟踪并管理的是修改，而非文件。</p>
+<p><code>git commit</code> 只负责把暂存区(git add 的内容)的修改提交，不会提交工作区的修改。</p>
+<p>使用 <code>git diff HEAD -- file</code> 命令可以查看工作区和版本库里面最新版本的区别。</p>
+<p>每次修改，如果不用 <code>git add</code> 到暂存区，那就不会加入到 <code>commit</code> 中。</p>
+<h4 id="撤销修改"><strong>撤销修改</strong></h4>
+<p><code>git checkout -- file</code> 命令可以丢弃工作区的修改，它能把文件在工作区的修改全部撤销，两种情况：</p>
+<ul>
+<li>文件修改后还没有放到暂存区，这时撤销修改就回到和版本库一模一样的状态</li>
+<li>文件已经添加到暂存区后，又作了修改，这时撤销修改就回到添加到暂存区的状态</li>
+</ul>
+<p>总之，就是让这个文件回到最近一次 <code>git commit</code> 或 <code>git add</code> 时的状态。</p>
+<p><code>git checkout -- file</code> 中的 <code>--</code> 如果不写，命令就变成<strong>切换到另一个分支</strong>的功能。</p>
+<p><code>git reset HEAD &lt;file&gt;</code> 命令可以把暂存区(git add 的内容)的修改撤销。</p>
+<p><code>git reset</code> 命令既可以回退版本，也可以把暂存区的修改回退到工作区。当用 <code>HEAD </code>时，表示最新的版本。</p>
+<h4 id="删除文件"><strong>删除文件</strong></h4>
+<p>从版本库中删除某文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git rm &lt;file&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>误删了可以使用以下命令恢复到最新版本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git checkout -- &lt;file&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p><code>git checkout</code> 其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以还原。</p>
+<p>从来没有被添加到版本库就被删除的文件，是无法恢复的。</p>
+<h3 id="远程仓库"><strong>远程仓库</strong></h3>
+<p>使用的远程仓库为 <a href="https://github.com/">GitHub</a></p>
+<h4 id="创建-ssh_key"><strong>创建 SSH_KEY</strong></h4>
+<p>在用户主目录进入 <code>.ssh</code> 目录，查看 <code>id_rsa</code> 和 <code>id_rsa_pub</code> 这两个文件，没有就创建：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ ssh-keygen -t rsa -C <span class="s2">&#34;youremail@example.com&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一路回车，使用默认值。</p>
+<p><code>id_rsa </code>是私钥</p>
+<p><code>id_rsa.pub</code>是公钥</p>
+<h5 id="添加-ssh_key-到-github">添加 ssh_key 到 Github</h5>
+<p>登录 GitHub -&gt; Settings -&gt; SSH and GPG keys -&gt; New SSH key</p>
+<p>复制 <code>id_rsa_pub</code> 的内容到 Key 文本框中，添加。</p>
+<h4 id="添加远程库"><strong>添加远程库</strong></h4>
+<p>本地仓库关联到 GitHub 远程仓库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git remote add origin git@github.com:Username/Test.git
+</code></pre></td></tr></table>
+</div>
+</div><p>Username 替换成自己的 GitHub 账号名。</p>
+<p><code>origin</code> ：远程库。</p>
+<p>将本地库所有内容推送到远程库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git push -u origin master
+</code></pre></td></tr></table>
+</div>
+</div><p>将当前分支 <code>master</code> 推送到远程，第一次推送，需要添加 <code>-u</code> 参数，将本地的 <code>master</code> 分支和远程的 <code>master</code> 分支关联起来。</p>
+<p>下一次推送，不需要添加<code>-u</code> 参数了。</p>
+<h4 id="克隆远程仓库"><strong>克隆远程仓库</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git clone &lt;url地址&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>Git 支持多种地址协议，默认的 <code>git://</code> 使用的是 <code>ssh</code> ，还支持 <code>https</code> 。</p>
+<h3 id="分支管理"><strong>分支管理</strong></h3>
+<h4 id="创建与合并分支"><strong>创建与合并分支</strong></h4>
+<p><code>HEAD</code> 指向当前分支。</p>
+<p>Git 创建分支很快，其本质就是新建一个指针(例如叫<code>dev</code>)，指向 <code>master</code> 相同的提交，再把 <code>HEAD</code> 指向 <code>dev</code>，代表当前在 <code>dev</code> 分支上。</p>
+<p>在 <code>dev</code> 分支下，对工作区的修改和提交就是针对 <code>dev</code> 分支了，新提交一次后，<code>dev</code> 指针往前移动一步，而 <code>master</code> 原地不动。</p>
+<p>创建 <code>dev</code> 分支，并切换到 <code>dev</code> 分支：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git checkout -b dev
+</code></pre></td></tr></table>
+</div>
+</div><p><code>git checkout </code>命令加上 <code>-b </code> 参数表示创建并切换，相当于以下两条命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git branch dev
+$ git checkout dev
+</code></pre></td></tr></table>
+</div>
+</div><p>查看当前有哪些分支：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git branch
+</code></pre></td></tr></table>
+</div>
+</div><p><code>git branch </code> 命令会列出所有分支，当前分支前面会标一个 <code>* </code>号。</p>
+<h5 id="合并分支"><strong>合并分支</strong></h5>
+<p>把 <code>master</code> 指向 <code>dev</code> 的当前提交，就完成了把 <code>dec</code> 合并到 <code>master</code> 上。</p>
+<p>合并完成后，删除 <code>dev</code> 分支就是把 <code>dev</code> 指针删除掉，只剩 <code>master</code> 分支。</p>
+<p>把 <code>dev</code> 分支的工作成果合并到 <code>master</code> 分支上（首先要先切换回 master 分支）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ git merge dev
+</code></pre></td></tr></table>
+</div>
+</div><p><code>git merge</code> 命令是将指定分支与当前所在分支合并。合并后 <code>master</code> 分支内容和 <code>dev</code> 分支的相同。</p>
+<p>删除 <code>dev</code> 分支：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git branch -d dev
+</code></pre></td></tr></table>
+</div>
+</div><p><code>-D</code> 参数可以强行删除 未合并的分支。</p>
+<h5 id="git-switch"><strong>git switch</strong></h5>
+<p>此命令与 <code>git checkout &lt;branch&gt;</code> <strong>切换分支</strong>作用相同。</p>
+<p>创建并切换到新的<code>dev</code>分支，可以使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git switch -c dev
+</code></pre></td></tr></table>
+</div>
+</div><p>切换到 <code>master</code> 分支：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git switch master
+</code></pre></td></tr></table>
+</div>
+</div><p>分支的作用很强大，应该使用分支完成某个模块、任务、功能，再合并到主分支上，最后删除。</p>
+<h4 id="解决冲突"><strong>解决冲突</strong></h4>
+<p><code>dev</code> 分支完成了提交（add、commit），切换到 <code>master</code> 分支，对文件修改后提交，现在两个分支各自都有新的提交，这种情况下合并（merge），可能会产生冲突，在修改处，</p>
+<p>Git用 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> ，<code>=======</code>，<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>  记出不同分支的内容，修改后，再提交，就不会冲突了。</p>
+<p>用 <code>git log --graph</code>  命令可以看到分支合并情况。</p>
+<h4 id="分支管理策略"><strong>分支管理策略</strong></h4>
+<p>默认合并分支时，Git 采用的是 <strong>Fast forward</strong> 模式，这个模式下，删除分支后，就没有这个分支的信息了。</p>
+<p>禁用 <strong>Fast forward</strong> 模式，Git 就会在合并(merge)的时候，生成一个新的 commit，这样就可以看到这个分支的历史信息。</p>
+<p>合并 <code>dev</code> 分支时，使用 <code>--no-ff</code> 参数，禁用 <strong>Fast forward</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git merge --no-ff -m <span class="s2">&#34;merge with dev&#34;</span> dev
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="分支策略"><strong>分支策略</strong></h5>
+<p>项目上，<code>master</code> 分支应该是一个稳定分支，用于发布新版本，而不是在这上面写代码。</p>
+<p>应该在类似 <code>dev</code> 分支上工作，每个工作人员在 <code>dev</code> 上有自己的分支，往 <code>dev</code> 上合并，等项目完成新版本后，再由专门人员合并到 <code>master</code> 分支。</p>
+<h4 id="bug分支"><strong>Bug分支</strong></h4>
+<p>修复 bug 可以创建一个新的 bug 分支进行修复，修复完合并，删除分支。</p>
+<p>修复前如果在 <code>dev</code> 分支下有未完成的工作，使用命令 <code>git stash</code> ，将当前工作现场隐藏起来，切换到有 bug 的分支，建立临时的分支来修复 bug。</p>
+<p>回到工作区，用 <code>git stash list</code> 命令查看被隐藏的工作现场，通过<code>git stash apply</code>（隐藏内容不删除） 或 <code>git stash pop</code>（恢复后隐藏内容删除） 来恢复。</p>
+<p>在 <code>master</code> 分支上修复的bug，想要合并到当前 <code>dev</code> 分支，可以用 <code>git cherry-pick &lt;commit&gt;</code> 命令，把bug提交的修改“复制”到当前分支，避免重复劳动。</p>
+<h4 id="feature分支"><strong>Feature分支</strong></h4>
+<p>开发一个新feature，最好新建一个分支。</p>
+<p>如果要丢弃一个没有被合并过的分支，可以通过 <code>git branch -D &lt;name&gt;</code> 强行删除。</p>
+<h4 id="多人协作"><strong>多人协作</strong></h4>
+<ul>
+<li>
+<p>用 <code>git push origin &lt;branch-name&gt;</code> 推送自己的修改。</p>
+</li>
+<li>
+<p>推送失败得话，原因是远程分支比本地分支更加新，需先 <code>git pull</code> 合并。</p>
+</li>
+<li>
+<p>合并有冲突，需要先解决，再提交</p>
+</li>
+<li>
+<p><code>git pull</code> 提示 <code>no tracking information </code> 说明本地分支与远程分支链接关系没有创建，通过命令 <code>git branch --set-upstream-to &lt;branch-name&gt; origin/&lt;branch-name&gt;</code> 建立链接关系。</p>
+</li>
+<li>
+<p>查看远程库信息：<code>git remote -v</code> 。</p>
+</li>
+<li>
+<p>本地新建的分支不推送到远程，其他人是不可见的。</p>
+</li>
+</ul>
+<h4 id="rebase"><strong>Rebase</strong></h4>
+<p><code>git rebase</code> 操作可以把本地未push的分叉提交历史整理成直线。</p>
+<p>rebase 的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。</p>
+<h3 id="标签管理"><strong>标签管理</strong></h3>
+<p>发布一个新版本时，需要先在版本库打一个标签（tag），确认版本信息。</p>
+<p>标签时版本库的一个快照。</p>
+<p>标签实质是指向某个 commit 的指针。</p>
+<p>标签意义是起一个有意义的名字，让人容易记住。</p>
+<h4 id="创建标签"><strong>创建标签</strong></h4>
+<p>便签打在分支上</p>
+<p>创建新标签：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git tag v1.0
+</code></pre></td></tr></table>
+</div>
+</div><p>查看所有标签：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git tag
+</code></pre></td></tr></table>
+</div>
+</div><p>标签默认打在最新的 commit 上，也可以往历史的 commit 上打标签：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 查看历史提交的 commit id</span>
+$ git log --pretty<span class="o">=</span>oneline --abbrev-commit
+</code></pre></td></tr></table>
+</div>
+</div><p>指定 commit id 打标签：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git tag v0.5 4c98e5e
+</code></pre></td></tr></table>
+</div>
+</div><p><code>4c98e5e</code> 为 commit id。</p>
+<p>可以用 <code>git show &lt;tagname&gt;</code> 查看便签信息。</p>
+<p>可以创建有说明的标签，用 <code>-a</code> 指定标签名，<code>-m</code> 指定说明文字：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git tag -a v0.7 -m <span class="s2">&#34;version 0.7 released&#34;</span> 0d78ccb
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="操作标签"><strong>操作标签</strong></h4>
+<p>删除标签：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git tag -d v0.5
+</code></pre></td></tr></table>
+</div>
+</div><p>创建的便签存储在本地，不会自动推送到远程。</p>
+<p>推送标签：<code>git push origin &lt;tagname&gt; </code> 。</p>
+<h5 id="删除远程标签"><strong>删除远程标签</strong></h5>
+<p>先在本地删除：<code>git tag -d v0.7</code> 。</p>
+<p>再远程删除：<code>git push origin :refs/tags/v0.7</code> 。</p>
+<h3 id="gitignore"><strong>.gitignore</strong></h3>
+<p>特殊文件、保密文件、二进制文件等不想提交到仓库中，在 Git 工作区根目录创建一个 <code>.gitignore</code> 文件，可以把需要忽略的文件名、文件目录填进去，Git 会自动忽略这些文件。</p>
+<p><a href="https://github.com/github/gitignore">GitHub 推荐的配置文件</a></p>
+<p>主要忽略的文件：</p>
+<ul>
+<li>操作系统自动生成的文件，缩略图等</li>
+<li>编译生成的中间文件、可执行文件</li>
+<li>带敏感信息的配置文件</li>
+</ul>
+<p><code>git add -f &lt;file&gt;</code> 使用 <code>-f</code> 强制添加到 Git</p>
+<p>检查 <code>.gitignore</code> 哪写错了：<code>git check-ignore -v &lt;filename&gt;</code> 。</p>
+<h4 id="gitignore-不生效问题"><strong>.gitignore 不生效问题</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 把本地缓存删除，再提交</span>
+$ git rm -r --cached .
+$ git add .
+$ git commit -m <span class="s1">&#39;update .gitignore&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="gitignore-忽略规则"><strong>.gitignore 忽略规则</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#                 注释
+*.o               忽略所有 .o 结尾的文件
+!foo.o            foo.o例外(不忽略此名的文件)
+/dist             忽略 根目录下 /dist 里的所有文件
+docs/             忽略 docs/ 目录下所有文件
+**/foo:           表示忽略/foo,a/foo,a/b/foo等
+...
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="命令配置别名"><strong>命令配置别名</strong></h3>
+<p>使用 <code>ci</code> 表示 <code>commit</code> 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ git config --global alias.ci commit
+</code></pre></td></tr></table>
+</div>
+</div><p><code>--global</code> 表示全局参数</p>
+<p>每个Git 仓库配置文件在 <code>.git/config</code> 文件中。</p>
+<p>别名就在这个文件的 <code>[alias]</code> 配置项下。</p>
+<p>当前用户的 Git 配置文件放在用户主目录下的一个隐藏文件：<code>.gitconfig</code> 里，别名也可以修改这个文件的 <code>[alias]</code> 项。</p>
+<h3 id="git-恢复本地误删的文件"><strong>Git 恢复本地误删的文件</strong></h3>
+<ul>
+<li><code>git status </code></li>
+</ul>
+<p>查看本地改动的暂存记录，找到误删的文件(文件夹)。</p>
+<ul>
+<li><code>git reset HEAD [误删文件(文件夹)路径]</code></li>
+<li><code>git checkout [误删文件(文件夹)路径]</code></li>
+</ul>
+<h4 id="参考资料"><strong>参考资料</strong></h4>
+<ul>
+<li><a href="https://git-scm.com/book/zh/v2">Git 文档</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰 - Git教程</a></li>
+<li><a href="https://www.cnblogs.com/kevingrace/p/5690241.html">Git忽略提交规则 - .gitignore配置运维总结</a></li>
+<li><a href="https://www.processon.com/view/link/5c6e2755e4b03334b523ffc3#map">鹅厂git命令思维导图</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Yijiu</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-04-20
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/git/">Git</a>
+          <a href="/tags/github/">GitHub</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unix-linux/ch01/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">第一章 Unix 系统编程概述</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/linux_in_action/linux%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD/">
+            <span class="next-text nav-default">Linux 平均负载</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Y1jiu - <a href='https://beian.miit.gov.cn/'>蜀ICP备19017120号</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>一旧的博客</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on 一旧的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 10 Nov 2019 01:37:56 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第一次搭建 Kubernetes</title>
+      <link>http://localhost:1313/post/cn_k8s/%E6%90%AD%E5%BB%BAkubernetes/</link>
+      <pubDate>Sun, 10 Nov 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/cn_k8s/%E6%90%AD%E5%BB%BAkubernetes/</guid>
+      <description>前言 初次尝试 Kubernetes 的安装部署，设备是两台云服务器，使用的工具是 kubeadm ，使用它部署一个完整的 Kubernetes 集群。其中会提到很多注意事项。初次尝试，欢迎吐槽。 准备工</description>
+    </item>
+    
+    <item>
+      <title>第二章 用户、文件操作与联机帮助：编写 who 命令</title>
+      <link>http://localhost:1313/post/unix-linux/ch02/</link>
+      <pubDate>Sat, 11 May 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/unix-linux/ch02/</guid>
+      <description>概念与技巧 联机帮助的作用与使用方法 Unix 的为文件操作函数：open 、read 、write 、 lseek 、 close 文件的建立与读写 文件描述符 缓冲：用户级的缓冲与内</description>
+    </item>
+    
+    <item>
+      <title>第一章 Unix 系统编程概述</title>
+      <link>http://localhost:1313/post/unix-linux/ch01/</link>
+      <pubDate>Fri, 10 May 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/unix-linux/ch01/</guid>
+      <description>相关命令 bc more 系统资源（内核提供的服务） 1.处理器（Processor） 执行指令 2.输入输出 （I/O） 数据流经内核 正确性：不会流错地方 有效性：</description>
+    </item>
+    
+    <item>
+      <title>Git入门</title>
+      <link>http://localhost:1313/post/tools/git/</link>
+      <pubDate>Sat, 20 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/tools/git/</guid>
+      <description>Git 是一个分布式版本控制系统。 Git 项目是由 Linus 编写的开源工具 SVN、CVS 属于集中式版本控制系统。 Git 属于分布式版本管理系统。 安装 Git Linux 1 2 3 4 5 # Ubuntu</description>
+    </item>
+    
+    <item>
+      <title>Linux 平均负载</title>
+      <link>http://localhost:1313/post/linux_in_action/linux%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD/</link>
+      <pubDate>Sat, 20 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_in_action/linux%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD/</guid>
+      <description>1 2 $ uptime 13:13:15 up 7:24, 1 users, load average: 0.43, 0.68, 0.57 1 2 3 13:13:15 # 当前时间 up 7:24, # 系统运行时间 1 users # 当前登录用户数 1 2 load average: 0.43, 0.68, 0.57 # 三个数字，依次表示过去1分钟、5分钟、1</description>
+    </item>
+    
+    <item>
+      <title>dstat</title>
+      <link>http://localhost:1313/post/linux_primary/tool_dstat/</link>
+      <pubDate>Wed, 17 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/tool_dstat/</guid>
+      <description>dstat 介绍： dstat命令是一个用来替换vmstat、iostat、netstat、nfsstat和ifstat这些命令的工具，是一个全能系统信</description>
+    </item>
+    
+    <item>
+      <title>iptables 原理</title>
+      <link>http://localhost:1313/post/linux_primary/iptables/</link>
+      <pubDate>Tue, 16 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/iptables/</guid>
+      <description>Linux 防火墙 Linux 系统的防火墙功能是由内核实现的 2.0版内核中，包过滤机制是 ipfw ，管理工具是 ipfwadm 2.2版内核中，包过滤机制是 ipchain ，管理工具是 ipchains 2.4内核及</description>
+    </item>
+    
+    <item>
+      <title>sar命令 – 系统运行状态统计</title>
+      <link>http://localhost:1313/post/linux_primary/sar%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Tue, 16 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/sar%E5%91%BD%E4%BB%A4/</guid>
+      <description>sar 命令对系统运行状态进行取样，获取大量取样数据。 CPU利用率 命令：sar -p ，查看一天的CPU利用率。 命令：sar -u 1 10 ，每隔一秒更新一次，共</description>
+    </item>
+    
+    <item>
+      <title>删除文件磁盘容量无变化</title>
+      <link>http://localhost:1313/post/linux_primary/%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E7%A3%81%E7%9B%98%E5%AE%B9%E9%87%8F%E6%97%A0%E5%8F%98%E5%8C%96/</link>
+      <pubDate>Sat, 13 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E7%A3%81%E7%9B%98%E5%AE%B9%E9%87%8F%E6%97%A0%E5%8F%98%E5%8C%96/</guid>
+      <description>在 Linux 上如果我们使用了 rm 命令删除一个文件，但是如果已经有进程打开了这个文件，却没有关闭这个文件的 句柄，那么 linux 内核就不会释放这个文件的磁盘空间。</description>
+    </item>
+    
+    <item>
+      <title>Linux loadavg</title>
+      <link>http://localhost:1313/post/linux_primary/linux_loadavg/</link>
+      <pubDate>Fri, 12 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/linux_loadavg/</guid>
+      <description>定义：特定时间间隔内运行队列中平均的进程数，进程数由内核统计得来。 top 、w 、uptime 等命令可以查看 Linux loadavg。 load 是从 /proc/loadavg 中读取的。 显示</description>
+    </item>
+    
+    <item>
+      <title>软链接和硬链接区别</title>
+      <link>http://localhost:1313/post/linux_primary/%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Fri, 12 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%8C%BA%E5%88%AB/</guid>
+      <description>Linux 中一切皆文件： 普通文件 目录文件 链接文件 设备文件 文件描述符（file descriptor）： 文件描述符是内核为了高效管理已经被打开的文件所创</description>
+    </item>
+    
+    <item>
+      <title>free 命令 - 查看内存使用情况</title>
+      <link>http://localhost:1313/post/linux_primary/free/</link>
+      <pubDate>Thu, 11 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/free/</guid>
+      <description>free 命令用于显示系统中物理上的空闲和已用内存、交换内存。还可以显示被内核使用的缓冲和缓存。 上面所提的信息都是通过文件 /proc/meminfo 收集到的。 常用参数： -b 以</description>
+    </item>
+    
+    <item>
+      <title>Linux 权限</title>
+      <link>http://localhost:1313/post/linux_primary/linux%E6%9D%83%E9%99%90/</link>
+      <pubDate>Thu, 11 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/linux%E6%9D%83%E9%99%90/</guid>
+      <description>linux 文件类型 - 普通文件 d 目录文件 b 块特殊文件 c 字符特殊文件 l 符号链接 f 命名管道 s 套接字文件 文件权限 字符权限表示方法 r 读 w 写 x 执行 数字权限的表示</description>
+    </item>
+    
+    <item>
+      <title>Linux 开机流程</title>
+      <link>http://localhost:1313/post/linux_primary/linux%E5%BC%80%E6%9C%BA%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Wed, 10 Apr 2019 01:40:50 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/linux%E5%BC%80%E6%9C%BA%E6%B5%81%E7%A8%8B/</guid>
+      <description>步骤： BIOS：开机主动执行韧体，会识别第一个可开机的装置。 MBR：第一个可开机装置的第一个扇区内的主要启动记录区块，内存开机管理程序。 开机</description>
+    </item>
+    
+    <item>
+      <title>Linux 常用命令</title>
+      <link>http://localhost:1313/post/linux_primary/linux_command/</link>
+      <pubDate>Wed, 10 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux_primary/linux_command/</guid>
+      <description>构建块 1.cat 打印文件 ​ cat 命令用于连接文件并打印到标准输出设备上。cat可以用来制作镜像文件。 语法格式: cat [-AbeEnstTuv] [&amp;ndash;help] [&amp;ndash;version] fileName 参数说明： ​ -n 由1开始对所有输出</description>
+    </item>
+    
+  </channel>
+</rss>

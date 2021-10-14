@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>iptables 原理 - 一旧的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yijiu" /><meta name="description" content="Linux 防火墙 Linux 系统的防火墙功能是由内核实现的 2.0版内核中，包过滤机制是 ipfw ，管理工具是 ipfwadm 2.2版内核中，包过滤机制是 ipchain ，管理工具是 ipchains 2.4内核及" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/linux_primary/iptables/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="iptables 原理" />
+<meta property="og:description" content="Linux 防火墙 Linux 系统的防火墙功能是由内核实现的 2.0版内核中，包过滤机制是 ipfw ，管理工具是 ipfwadm 2.2版内核中，包过滤机制是 ipchain ，管理工具是 ipchains 2.4内核及" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/linux_primary/iptables/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-04-16T01:37:56+08:00" />
+<meta property="article:modified_time" content="2019-04-16T01:37:56+08:00" />
+
+<meta itemprop="name" content="iptables 原理">
+<meta itemprop="description" content="Linux 防火墙 Linux 系统的防火墙功能是由内核实现的 2.0版内核中，包过滤机制是 ipfw ，管理工具是 ipfwadm 2.2版内核中，包过滤机制是 ipchain ，管理工具是 ipchains 2.4内核及"><meta itemprop="datePublished" content="2019-04-16T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2019-04-16T01:37:56+08:00" />
+<meta itemprop="wordCount" content="1596">
+<meta itemprop="keywords" content="Linux,iptables," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="iptables 原理"/>
+<meta name="twitter:description" content="Linux 防火墙 Linux 系统的防火墙功能是由内核实现的 2.0版内核中，包过滤机制是 ipfw ，管理工具是 ipfwadm 2.2版内核中，包过滤机制是 ipchain ，管理工具是 ipchains 2.4内核及"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Y1jiu</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/more/">
+        <li class="mobile-menu-item">更多</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Y1jiu</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/more/">更多</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">iptables 原理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-16 </span>
+        <div class="post-category">
+            <a href="/categories/linux-%E5%9F%BA%E7%A1%80/"> Linux 基础 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#linux-防火墙"><strong>Linux 防火墙</strong></a></li>
+            <li><a href="#iptables-的四表五链"><strong>iptables 的四表五链</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="linux-防火墙"><strong>Linux 防火墙</strong></h3>
+<p>Linux 系统的防火墙功能是由内核实现的</p>
+<ul>
+<li>2.0版内核中，包过滤机制是 <code>ipfw</code> ，管理工具是 <code>ipfwadm</code></li>
+<li>2.2版内核中，包过滤机制是 <code>ipchain</code> ，管理工具是 <code>ipchains</code></li>
+<li>2.4内核及以后的内核中，包过滤机制是 <code>netfilter</code> ，管理工具是 <code>iptables</code></li>
+</ul>
+<blockquote>
+<p>包过滤机制可认为是内核中的程序，管理工具是用户接口（命令行工具），通过管理工具输入一些命令与规则，从而实现过滤。</p>
+</blockquote>
+<h4 id="netfilter"><strong>netfilter</strong></h4>
+<ul>
+<li>位于 linux 内核中的包过滤防火墙功能体系</li>
+<li>工作于内核中，成为 Linux 防火墙的 “内核态”</li>
+<li>对传输来的数据包拆开检查</li>
+</ul>
+<h4 id="iptables"><strong>iptables</strong></h4>
+<ul>
+<li>位于 <code>/sbin/iptables</code> ，是用来管理防火墙的命令行工具</li>
+<li>为防火墙体系提供过滤规则/策略，决定如何过滤或处理到达防火墙主机的数据包
+<ul>
+<li>对网络中的数据包通过表的形式进行一些限定和规则的修改</li>
+</ul>
+</li>
+<li>称为 Linux 防火墙的 “用户态”</li>
+</ul>
+<blockquote>
+<p><code>netfilter</code> 工作在 TCP/IP 协议的网络层</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">外部网络(链路层)-----&gt;网络防火墙(网络层)-----&gt;受保护网络(链路层)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="iptables-的四表五链"><strong>iptables 的四表五链</strong></h3>
+<h4 id="规则链"><strong>规则链</strong></h4>
+<ul>
+<li>规则的作用在于对数据包进行过滤或处理，根据处理时机的不同，各种规则被组织在不同的 “链中”</li>
+<li>规则链是防火墙规则/策略的集合</li>
+</ul>
+<h4 id="默认的-5-种规则链"><strong>默认的 5 种规则链</strong></h4>
+<ul>
+<li><strong>INPUT</strong> -&gt; 处理入站的数据包</li>
+<li><strong>OUTPUT</strong> -&gt; 处理出站的数据包</li>
+<li><strong>FORWARD</strong> -&gt; 处理转发的数据包（目标ip不是本机）</li>
+<li><strong>PREROUTING</strong> -&gt; 选择路由前处理数据包（所有包先经过此处，判断包是入站还是转发还是丢弃）</li>
+<li><strong>POSTROUTING</strong> -&gt; 选择路由后处理数据包（出站和转发的数据包都在此处出去）</li>
+</ul>
+<h4 id="规则表"><strong>规则表</strong></h4>
+<p>具有某一类<strong>相似</strong>用途的防火墙规则，按照不同处理时机区分到不同的规则链以后，被归置到不同的“表”中，规则表是规则链的集合。</p>
+<h4 id="默认的-4-个规则表"><strong>默认的 4 个规则表</strong></h4>
+<ul>
+<li><strong>raw 表</strong> -&gt; 确定是否对该数据包进行状态跟踪</li>
+<li><strong>mangle 表</strong> -&gt; 为数据包设置标记</li>
+<li><strong>nat 表</strong> -&gt; 修改数据包中的源、目的 ip 地址或端口</li>
+<li><strong>filter 表</strong> -&gt; 确定是否放行该数据包（过滤）</li>
+</ul>
+<h4 id="iptables-命令的语法格式"><strong>iptables 命令的语法格式</strong></h4>
+<ul>
+<li>iptables [-t 表名] 管理选项 [链名] 条件匹配 -j 执行动作
+<ul>
+<li>默认原则：不指定表名时，默认表示 <code>filter表</code></li>
+<li>不指定链名时，默认表示该表内所有链</li>
+<li>除非设置规则链的缺省策略，<strong>否则需要指定匹配条件</strong></li>
+</ul>
+</li>
+</ul>
+<p>演示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 禁止192.168.182.10主机访问本机的ssh</span>
+$ iptables -t filter -A INPUT -s 192.168.182.10 -p tcp --dport <span class="m">22</span> -j DROP
+
+</code></pre></td></tr></table>
+</div>
+</div><p>查看本机 iptables 所有规则：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ iptables -L -n
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="参数说明"><strong>参数说明</strong></h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-F</td>
+<td style="text-align:center">清空规则链</td>
+<td style="text-align:center">iptables -F</td>
+</tr>
+<tr>
+<td style="text-align:center">-L</td>
+<td style="text-align:center">查看规则链</td>
+<td style="text-align:center">iptables -L</td>
+</tr>
+<tr>
+<td style="text-align:center">-A</td>
+<td style="text-align:center">追加规则</td>
+<td style="text-align:center">iptables -A INPUT</td>
+</tr>
+<tr>
+<td style="text-align:center">-D</td>
+<td style="text-align:center">删除规则</td>
+<td style="text-align:center">iptables -D INPUT 1</td>
+</tr>
+<tr>
+<td style="text-align:center">-R</td>
+<td style="text-align:center">修改规则</td>
+<td style="text-align:center">iptable -R INPUT 1 -s 192.168.120.0 -j DROP</td>
+</tr>
+<tr>
+<td style="text-align:center">-I</td>
+<td style="text-align:center">在头部插入规则</td>
+<td style="text-align:center">iptables -I INPUT 1 &ndash;dport 80 -j ACCEPT</td>
+</tr>
+<tr>
+<td style="text-align:center">-L</td>
+<td style="text-align:center">查看规则</td>
+<td style="text-align:center">iptables -L INPUT</td>
+</tr>
+<tr>
+<td style="text-align:center">-N</td>
+<td style="text-align:center">新的规则</td>
+<td style="text-align:center">iptables -N allowed</td>
+</tr>
+<tr>
+<td style="text-align:center">-V</td>
+<td style="text-align:center">查看iptables版本</td>
+<td style="text-align:center">iptables -V</td>
+</tr>
+<tr>
+<td style="text-align:center">-p</td>
+<td style="text-align:center">协议（tcp/udp/icmp）</td>
+<td style="text-align:center">iptables -A INPUT -p tcp</td>
+</tr>
+<tr>
+<td style="text-align:center">-s</td>
+<td style="text-align:center">匹配原地址，加&quot; ! &ldquo;表示除这个IP外</td>
+<td style="text-align:center">iptables -A INPUT -s 192.168.1.1</td>
+</tr>
+<tr>
+<td style="text-align:center">-d</td>
+<td style="text-align:center">匹配目的地址</td>
+<td style="text-align:center">iptables -A INPUT -d 192.168.12.1</td>
+</tr>
+<tr>
+<td style="text-align:center">&ndash;sport</td>
+<td style="text-align:center">匹配源端口流入的数据</td>
+<td style="text-align:center">iptables -A INPUT -p tcp &ndash;sport 22</td>
+</tr>
+<tr>
+<td style="text-align:center">&ndash;dport</td>
+<td style="text-align:center">匹配目的端口流出的数据</td>
+<td style="text-align:center">iptables -A INPUT -p tcp &ndash;dport 22</td>
+</tr>
+<tr>
+<td style="text-align:center">-i</td>
+<td style="text-align:center">匹配入口网卡流入的数据</td>
+<td style="text-align:center">iptables -A INPUT -i eth0</td>
+</tr>
+<tr>
+<td style="text-align:center">-o</td>
+<td style="text-align:center">匹配出口网卡流出的数据</td>
+<td style="text-align:center">iptables -A FORWARD -o eth0</td>
+</tr>
+<tr>
+<td style="text-align:center">-j</td>
+<td style="text-align:center">要进行的处理动作:DROP(丢弃)，REJECT(拒绝)，ACCEPT(接受)，SANT(基于原地址的转换)</td>
+<td style="text-align:center">iptable -A INPUT 1 -s 192.168.120.0 -j DROP</td>
+</tr>
+<tr>
+<td style="text-align:center">&ndash;to-source</td>
+<td style="text-align:center">指定SANT转换后的地址</td>
+<td style="text-align:center">iptables -t nat -A POSTROUTING -s 192.168.10.0/24 -j SANT &ndash;to-source 172.16.100.1</td>
+</tr>
+<tr>
+<td style="text-align:center">-t</td>
+<td style="text-align:center">表名(raw、mangle、nat、filter)</td>
+<td style="text-align:center">iptables -t nat</td>
+</tr>
+<tr>
+<td style="text-align:center">-m</td>
+<td style="text-align:center">使用扩展模块来进行数据包的匹配(multiport/tcp/state/addrtype)</td>
+<td style="text-align:center">iptables -m multiport</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>对于<strong>filter</strong>来讲一般只能做在3个链上：INPUT ，FORWARD ，OUTPUT</p>
+</li>
+<li>
+<p>对于<strong>nat</strong>来讲一般也只能做在3个链上：PREROUTING ，OUTPUT ，POSTROUTING</p>
+</li>
+<li>
+<p>而<strong>mangle</strong>则是5个链都可以做：PREROUTING，INPUT，FORWARD，OUTPUT，POSTROUTING</p>
+</li>
+</ul>
+<h4 id="详解-j-action">详解-j ACTION</h4>
+<p>常用的ACTION：</p>
+<ul>
+<li>
+<p>DROP：悄悄丢弃</p>
+<ul>
+<li>一般我们多用DROP来隐藏我们的身份，以及隐藏我们的链表</li>
+</ul>
+</li>
+<li>
+<p>REJECT：明示拒绝</p>
+</li>
+<li>
+<p>ACCEPT：接受</p>
+</li>
+<li>
+<p>custom_chain：转向一个自定义的链</p>
+</li>
+<li>
+<p>DNAT：目的地址转换，修改网络包目的ip地址的</p>
+</li>
+<li>
+<p>SNAT：修改网络包源ip地址的</p>
+</li>
+<li>
+<p>MASQUERADE：源地址伪装</p>
+</li>
+<li>
+<p>REDIRECT：重定向：主要用于实现端口重定向</p>
+</li>
+<li>
+<p>MARK：打防火墙标记的</p>
+</li>
+<li>
+<p>RETURN：返回</p>
+<ul>
+<li>在自定义链执行完毕后使用返回，来返回原规则链。</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Yijiu</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-04-16
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/iptables/">iptables</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux_primary/tool_dstat/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">dstat</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/linux_primary/sar%E5%91%BD%E4%BB%A4/">
+            <span class="next-text nav-default">sar命令 – 系统运行状态统计</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Y1jiu - <a href='https://beian.miit.gov.cn/'>蜀ICP备19017120号</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

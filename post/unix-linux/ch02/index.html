@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>第二章 用户、文件操作与联机帮助：编写 who 命令 - 一旧的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yijiu" /><meta name="description" content="概念与技巧 联机帮助的作用与使用方法 Unix 的为文件操作函数：open 、read 、write 、 lseek 、 close 文件的建立与读写 文件描述符 缓冲：用户级的缓冲与内" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/unix-linux/ch02/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="第二章 用户、文件操作与联机帮助：编写 who 命令" />
+<meta property="og:description" content="概念与技巧 联机帮助的作用与使用方法 Unix 的为文件操作函数：open 、read 、write 、 lseek 、 close 文件的建立与读写 文件描述符 缓冲：用户级的缓冲与内" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/unix-linux/ch02/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-05-11T01:37:56+08:00" />
+<meta property="article:modified_time" content="2019-05-11T01:37:56+08:00" />
+
+<meta itemprop="name" content="第二章 用户、文件操作与联机帮助：编写 who 命令">
+<meta itemprop="description" content="概念与技巧 联机帮助的作用与使用方法 Unix 的为文件操作函数：open 、read 、write 、 lseek 、 close 文件的建立与读写 文件描述符 缓冲：用户级的缓冲与内"><meta itemprop="datePublished" content="2019-05-11T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2019-05-11T01:37:56+08:00" />
+<meta itemprop="wordCount" content="5695">
+<meta itemprop="keywords" content="Linux,C语言," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="第二章 用户、文件操作与联机帮助：编写 who 命令"/>
+<meta name="twitter:description" content="概念与技巧 联机帮助的作用与使用方法 Unix 的为文件操作函数：open 、read 、write 、 lseek 、 close 文件的建立与读写 文件描述符 缓冲：用户级的缓冲与内"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Y1jiu</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/more/">
+        <li class="mobile-menu-item">更多</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Y1jiu</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/more/">更多</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">第二章 用户、文件操作与联机帮助：编写 who 命令</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-05-11 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%AF%BBunix/linux-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5%E6%95%99%E7%A8%8B/"> 读《Unix/Linux 编程实践教程》 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#21-介-绍"><strong>2.1 介 绍</strong></a></li>
+            <li><a href="#22-关于命令-who"><strong>2.2 关于命令 who</strong></a></li>
+            <li><a href="#23-问题1who-命令能做些什么"><strong>2.3 问题1：who 命令能做些什么</strong></a></li>
+            <li><a href="#24-问题2who-命令是如何工作的"><strong>2.4 问题2：who 命令是如何工作的？</strong></a></li>
+            <li><a href="#25-问题3如何编写-who"><strong>2.5 问题3：如何编写 who</strong></a></li>
+            <li><a href="#缓冲技术"><strong>缓冲技术</strong></a></li>
+            <li><a href="#总结">总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><strong>概念与技巧</strong></p>
+<ul>
+<li>联机帮助的作用与使用方法</li>
+<li>Unix 的为文件操作函数：<code>open</code> 、<code>read</code>  、<code>write</code>  、 <code>lseek</code> 、 <code>close</code></li>
+<li>文件的建立与读写</li>
+<li>文件描述符</li>
+<li>缓冲：用户级的缓冲与内核级的缓冲</li>
+<li>内核模式、用户模式与系统调用的代价</li>
+<li>Unix 表示时间的方法和时间格式间的转换</li>
+<li>借助 utmp 文件来列出已登录的用户</li>
+<li>系统调用中的错误检测与处理</li>
+</ul>
+<p><strong>相关的系统调用</strong></p>
+<ul>
+<li><code>open</code> 、<code>read</code>  、<code>write</code>  、<code>creat</code>  、 <code>lseek</code> 、 <code>close</code></li>
+<li><code>perror</code></li>
+</ul>
+<p><strong>相关命令</strong></p>
+<ul>
+<li>man</li>
+<li>who</li>
+<li>cp</li>
+<li>login</li>
+</ul>
+<h3 id="21-介-绍"><strong>2.1 介 绍</strong></h3>
+<p><code>who</code>  命令用于显示系统中活动用户的情况。</p>
+<p>通过分析 <code>who</code>  命令学习 Unix 的文件操作，还将学习 Unix 下的联机帮助。</p>
+<h3 id="22-关于命令-who"><strong>2.2 关于命令 who</strong></h3>
+<p>本章第一个程序围绕着三个问题来学习：</p>
+<ul>
+<li>who 命令能做什么？</li>
+<li>who 命令是如何工作的？</li>
+<li>如何编写 who 命令？</li>
+</ul>
+<p><strong>命令也是程序</strong></p>
+<p>Unix 系统中所有命令的是编写的程序，大多数是使用C语言写的。</p>
+<p>系统命令一般放在以下目录里：<code>/bin</code> 、 <code>/sbin</code> 、 <code>/usr/bin</code> 、<code>/usr/sbin</code> 、 <code>/usr/local/bin</code> 。</p>
+<p>目录里的都是标准命令，你也可以编写自己的命令。</p>
+<h3 id="23-问题1who-命令能做些什么"><strong>2.3 问题1：who 命令能做些什么</strong></h3>
+<p>在终端输入 who 命令，输出如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ who
+yijiu    tty7         2019-05-18 17:13 <span class="o">(</span>:0<span class="o">)</span>
+root     tty3		  2019-05-18 19:17 <span class="o">(</span>:0<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>每一行代表一个已经登录的用户</p>
+<p>第一列是用户名</p>
+<p>第二列是终端名</p>
+<p>第三列是登录时间</p>
+<p><strong>阅读手册</strong></p>
+<p>进一步了解 who 的用法，需要借助联机帮助。</p>
+<p>联机帮助的命令是 man ，查看 who 的帮助，输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ man who
+WHO<span class="o">(</span>1<span class="o">)</span>                          User Commands                         WHO<span class="o">(</span>1<span class="o">)</span>
+
+NAME
+       who - show who is logged on
+
+SYNOPSIS
+       who <span class="o">[</span>OPTION<span class="o">]</span>... <span class="o">[</span> FILE <span class="p">|</span> ARG1 ARG2 <span class="o">]</span>
+
+DESCRIPTION
+       Print information about users who are currently logged in.
+
+       -a, --all
+              same as -b -d --login -p -r -t -T -u
+
+       -b, --boot
+              <span class="nb">time</span> of last system boot
+
+       -d, --dead
+              print dead processes
+
+       -H, --heading
+              print line of column headings
+
+ Manual page who<span class="o">(</span>1<span class="o">)</span> line 1/85 24% <span class="o">(</span>press h <span class="k">for</span> <span class="nb">help</span> or q to quit<span class="o">)</span>
+ 
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>联机帮助都有相同的基本格式</p>
+<p>从第一行的 WHO(1) 可知这是 who 命令的帮助，小结编号是1， Unix 联机帮助有很多节：</p>
+<ul>
+<li>第1节是关于用户命令的帮助</li>
+<li>第2节是关于系统调用的帮助</li>
+<li>第5节是关于配置文件的帮助</li>
+</ul>
+<p>联机帮助的结构：</p>
+<ul>
+<li>名字（NAME）：包括命令名字与命令的简短说明</li>
+<li>概要（SYNOPSIS）：给出了命令的用法说明，包括<strong>命令格式、参数和选项列表</strong>。选项指的是一个 <code>-</code>  短线候面跟着一个或多个英文字母，如-a、-Bc 等等。命令的选项会影响命令所进行的操作。</li>
+<li>描述（DESCRIPTION）：关于命令的详细阐述，不同系统会存在不同的描述内容，其中包含许多例子。它描述了命令所有功能，是权威解释。</li>
+<li>选项（OPTIONS）：给出了每个选项的说明。</li>
+<li>参阅（SEE ALSO）：其他主题。</li>
+</ul>
+<h3 id="24-问题2who-命令是如何工作的"><strong>2.4 问题2：who 命令是如何工作的？</strong></h3>
+<p>已知 who 命令是用来显示出当前中已登录的用户信息。</p>
+<p>学习 Unix 的资料其实就在系统中，需要学习如何找到这些资料：</p>
+<p><strong>1.从 Unix 中学习 Unix</strong></p>
+<p>以下四种方法有助于学习 Unix：</p>
+<ul>
+<li>阅读联机帮助</li>
+<li>搜索联机帮助</li>
+<li>阅读 .h 文件</li>
+<li>从参阅部分（SEE ALSO） 得到启示</li>
+</ul>
+<p><strong>2.阅读联机帮助</strong></p>
+<p>以 who 为例，在命令行输入命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ man who
+...
+
+DESCRIPTION
+       Print information about users who are currently logged in.
+       
+...
+
+If  FILE  is not specified, use /var/run/utmp.  /var/log/wtmp as FILE is common.  If ARG1 ARG2 given, -m presumed: <span class="s1">&#39;am i&#39;</span>  or <span class="s1">&#39;mom  likes&#39;</span> are usual.
+</code></pre></td></tr></table>
+</div>
+</div><p>从上述的 DESCRIPTION 来看，已登录用户信息放在文件 <code>/var/run/utmp</code>  中（不同系统文件存放位置也许会有差异），who 通过读取改文件来获取信息。</p>
+<p>接下来我们可以通过搜索联机帮助来了解这个文件的结构信息。</p>
+<p><strong>3.搜索联机帮助</strong></p>
+<p>使用带 <code>-k</code>  的 man 命令可以根据关键字搜索联机帮助。</p>
+<p>接下来查找 ”utmp“ 的信息，在命令行输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ man -k utmp
+endutent <span class="o">(</span>3<span class="o">)</span>         - access utmp file entries
+endutxent <span class="o">(</span>3<span class="o">)</span>        - access utmp file entries
+getutent <span class="o">(</span>3<span class="o">)</span>         - access utmp file entries
+getutent_r <span class="o">(</span>3<span class="o">)</span>       - access utmp file entries
+getutid <span class="o">(</span>3<span class="o">)</span>          - access utmp file entries
+getutid_r <span class="o">(</span>3<span class="o">)</span>        - access utmp file entries
+getutline <span class="o">(</span>3<span class="o">)</span>        - access utmp file entries
+getutline_r <span class="o">(</span>3<span class="o">)</span>      - access utmp file entries
+getutmp <span class="o">(</span>3<span class="o">)</span>          - copy utmp structure to utmpx, and vice versa
+getutmpx <span class="o">(</span>3<span class="o">)</span>         - copy utmp structure to utmpx, and vice versa
+getutxent <span class="o">(</span>3<span class="o">)</span>        - access utmp file entries
+getutxid <span class="o">(</span>3<span class="o">)</span>         - access utmp file entries
+getutxline <span class="o">(</span>3<span class="o">)</span>       - access utmp file entries
+login <span class="o">(</span>3<span class="o">)</span>            - write utmp and wtmp entries
+<span class="nb">logout</span> <span class="o">(</span>3<span class="o">)</span>           - write utmp and wtmp entries
+pututline <span class="o">(</span>3<span class="o">)</span>        - access utmp file entries
+pututxline <span class="o">(</span>3<span class="o">)</span>       - access utmp file entries
+setutent <span class="o">(</span>3<span class="o">)</span>         - access utmp file entries
+setutxent <span class="o">(</span>3<span class="o">)</span>        - access utmp file entries
+systemd-update-utmp <span class="o">(</span>8<span class="o">)</span> - Write audit and utmp updates at bootup, runlevel changes and sh...
+systemd-update-utmp-runlevel.service <span class="o">(</span>8<span class="o">)</span> - Write audit and utmp updates at bootup, runlev...
+systemd-update-utmp.service <span class="o">(</span>8<span class="o">)</span> - Write audit and utmp updates at bootup, runlevel change...
+utmp <span class="o">(</span>5<span class="o">)</span>             - login records
+utmpdump <span class="o">(</span>1<span class="o">)</span>         - dump UTMP and WTMP files in raw format
+utmpname <span class="o">(</span>3<span class="o">)</span>         - access utmp file entries
+utmpx <span class="o">(</span>5<span class="o">)</span>            - login records
+utmpxname <span class="o">(</span>3<span class="o">)</span>        - access utmp file entries
+</code></pre></td></tr></table>
+</div>
+</div><p>注意这一行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">utmp <span class="o">(</span>5<span class="o">)</span>             - login records
+</code></pre></td></tr></table>
+</div>
+</div><p>这好像就是我们需要的，注意 ”5“ 是小结编号（不同系统的编号可能有所不同），我们需要使用它查找帮助内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ man <span class="m">5</span> umtp
+UTMP<span class="o">(</span>5<span class="o">)</span>                          Linux Programmer<span class="err">&#39;</span>s Manual                         UTMP<span class="o">(</span>5<span class="o">)</span>
+
+NAME
+       utmp, wtmp - login records
+
+SYNOPSIS
+       <span class="c1">#include &lt;utmp.h&gt;</span>
+
+DESCRIPTION
+       The  utmp  file allows one to discover information about who is currently using the
+       system.  There may be more users currently using the system, because not  all  pro‐
+       grams use utmp logging.
+
+       Warning:  utmp  must not be writable by the user class <span class="s2">&#34;other&#34;</span>, because many system
+       programs <span class="o">(</span>foolishly<span class="o">)</span> depend on its integrity.  You risk faked system  logfiles  and
+       modifications of system files <span class="k">if</span> you leave utmp writable to any user other than the
+       owner and group owner of the file.
+
+       The file is a sequence of utmp structures, declared as follows  in  &lt;utmp.h&gt;  <span class="o">(</span>note
+       that  this is only one of several definitions around<span class="p">;</span> details depend on the version
+       of libc<span class="o">)</span>:
+           /* Values <span class="k">for</span> ut_type field, below */
+
+           <span class="c1">#define EMPTY         0 /* Record does not contain valid info</span>
+                                      <span class="o">(</span>formerly known as UT_UNKNOWN on Linux<span class="o">)</span> */
+           <span class="c1">#define RUN_LVL       1 /* Change in system run-level (see</span>
+                                      init<span class="o">(</span>8<span class="o">))</span> */
+           <span class="c1">#define BOOT_TIME     2 /* Time of system boot (in ut_tv) */</span>
+           <span class="c1">#define NEW_TIME      3 /* Time after system clock change</span>
+           
+...
+
+FILES
+	   /usr/include/utmp.h
+       /var/run/utmp
+       /var/log/wtmp
+
+...
+ Manual page utmp<span class="o">(</span>5<span class="o">)</span> line <span class="m">1</span> <span class="o">(</span>press h <span class="k">for</span> <span class="nb">help</span> or q to quit<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>从上面说明我们可以知道 utmp 这个文件里保存的是<strong>结构数组</strong>，数组元素是 utmp 类型的结构，可以在 <code>utmp.h</code>  文件中找到 utmp 类型的定义，接下来我们要找到 utmp.h 的位置，在 FILES 部分我们看到，utmp.h 的位置在 /usr/include 里。</p>
+<p>上述提到的 wtmp 文件，这个文件记录了关于登录与注册的信息。</p>
+<p>接下来分析 utmp.h 这个文件。</p>
+<p><strong>4.阅读 .h 文件</strong></p>
+<p>Unix 系统中，大多数头文件都存放在 /usr/include 这个目录里，C语言编译器在源程序中发现以下的定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">include</span><span class="o">&lt;</span><span class="n">stdio</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>它会到 /usr/include 中寻找相应的头文件。</p>
+<p>接下来使用 命令more 查看 utmp.h :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ more /usr/include/utmp.h
+...
+struct utmp<span class="o">{</span>
+    char ut_user<span class="o">[</span>32<span class="o">]</span>；        /* User login name */
+    char ut_id<span class="o">[</span>14<span class="o">]</span>；          /* /etc/inittab id - IDENT_LEN in init */
+    char ut_line<span class="o">[</span>32<span class="o">]</span><span class="p">;</span>         /* device name<span class="o">(</span>console, lnxx<span class="o">)</span> */
+    short ut_type<span class="p">;</span>            /* <span class="nb">type</span> of entry */
+    pid_t ut_pid<span class="p">;</span>             /* process id */
+    struct exit_status<span class="o">{</span>
+        short e_termination<span class="p">;</span>  /* Process termination status */
+        short e_exit<span class="p">;</span>         /* Process <span class="nb">exit</span> status */
+    <span class="o">}</span> ut_exit<span class="p">;</span>                /* The <span class="nb">exit</span> status of a process marked as DEAD_PROCESS */
+    time_t ut_time<span class="p">;</span>           /* Time entry was made */
+    char ut_host<span class="o">[</span>64<span class="o">]</span><span class="p">;</span>         /* Host name same as MAXHOSTNAMELEN */
+<span class="o">}</span><span class="p">;</span>
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>我们直接看 utmp 结构所保存的登录记录，包含8个成员变量：</p>
+<ul>
+<li>ut_user：数组保存登录名</li>
+<li>ut_line：数组保存设备名（用户终端类型）</li>
+<li>ut_time：保存登录时间</li>
+<li>ut_host：保存用户用于登录的远程计算机时间</li>
+</ul>
+<p>utmp 这个结构其他成员没有被 who 命令所用。</p>
+<p>各个平台上的 utmp 结构不会完全相等，现在的 linux 系统的 utmp.h 里的内容有所改动，但不影响我们学习。</p>
+<h4 id="who-的工作原理"><strong>who 的工作原理</strong></h4>
+<p>who 通过读文件来获取需要的信息，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">      打 开 utmp
+
++----&gt;读 取 记 录 +---+
+|                    |
++-----+显 示 记 录    |
+                     |
+      关 闭 utmp&lt;-----+
+</code></pre></td></tr></table>
+</div>
+</div><p>文件中的结构数组存放登录用户的信息，所以直接的想法就是把记录一个一个地读出并显示出来。</p>
+<p>下面开始实践。</p>
+<h3 id="25-问题3如何编写-who"><strong>2.5 问题3：如何编写 who</strong></h3>
+<p>为了顺利编写，我们需要借助联机帮助，并把程序输出结果与系统 who 命令做比较。所以编写 who 程序又有两件事是要做的：</p>
+<ul>
+<li>从文件中读取数据结构</li>
+<li>将结构中的信息以合适的形式显示出来</li>
+</ul>
+<h4 id="251-问题如何从文件中读取数据结构"><strong>2.5.1 问题：如何从文件中读取数据结构</strong></h4>
+<p>可以使用 getc 和 fgets 函数从文件中读取字符或字符串，可以使用 getc 逐个字节地读取，但是这样太繁琐，效率低。</p>
+<p>还是到联机帮助中寻找答案吧，可以找与 file 和 read 都有关的帮助。</p>
+<p>但是 man 命令的选项 -k 只支持一个关键字查找，太慢了，我们使用 grep 命令来查找相关主题：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ man -k file <span class="p">|</span> grep <span class="nb">read</span>
+__freadable <span class="o">(</span>3<span class="o">)</span>      - interfaces to stdio FILE structure
+__freading <span class="o">(</span>3<span class="o">)</span>       - interfaces to stdio FILE structure
+_llseek <span class="o">(</span>2<span class="o">)</span>          - reposition read/write file offset
+eventfd_read <span class="o">(</span>3<span class="o">)</span>     - create a file descriptor <span class="k">for</span> event notification
+fgetwc <span class="o">(</span>3<span class="o">)</span>           - <span class="nb">read</span> a wide character from a FILE stream
+fgetws <span class="o">(</span>3<span class="o">)</span>           - <span class="nb">read</span> a wide-character string from a FILE stream
+fts_read <span class="o">(</span>3<span class="o">)</span>         - traverse a file hierarchy
+getwc <span class="o">(</span>3<span class="o">)</span>            - <span class="nb">read</span> a wide character from a FILE stream
+git-prune-packed <span class="o">(</span>1<span class="o">)</span> - Remove extra objects that are already in pack files
+llseek <span class="o">(</span>2<span class="o">)</span>           - reposition read/write file offset
+lseek <span class="o">(</span>2<span class="o">)</span>            - reposition read/write file offset
+lseek64 <span class="o">(</span>3<span class="o">)</span>          - reposition 64-bit read/write file offset
+pread <span class="o">(</span>2<span class="o">)</span>            - <span class="nb">read</span> from or write to a file descriptor at a given offset
+pread64 <span class="o">(</span>2<span class="o">)</span>          - <span class="nb">read</span> from or write to a file descriptor at a given offset
+pwrite <span class="o">(</span>2<span class="o">)</span>           - <span class="nb">read</span> from or write to a file descriptor at a given offset
+pwrite64 <span class="o">(</span>2<span class="o">)</span>         - <span class="nb">read</span> from or write to a file descriptor at a given offset
+<span class="nb">read</span> <span class="o">(</span>2<span class="o">)</span>             - <span class="nb">read</span> from a file descriptor
+readahead <span class="o">(</span>2<span class="o">)</span>        - initiate file readahead into page cache
+readelf <span class="o">(</span>1<span class="o">)</span>          - Displays information about ELF files.
+readfile <span class="o">(</span>3am<span class="o">)</span>       - <span class="k">return</span> the entire contents of a file as a string
+readlink <span class="o">(</span>1<span class="o">)</span>         - print resolved symbolic links or canonical file names
+readprofile <span class="o">(</span>8<span class="o">)</span>      - <span class="nb">read</span> kernel profiling information
+rwarray <span class="o">(</span>3am<span class="o">)</span>        - write and <span class="nb">read</span> gawk arrays to/from files
+tee <span class="o">(</span>1<span class="o">)</span>              - <span class="nb">read</span> from standard input and write to standard output and files
+ureadahead <span class="o">(</span>8<span class="o">)</span>       - Read files in advance during boot
+x86_64-linux-gnu-readelf <span class="o">(</span>1<span class="o">)</span> - Displays information about ELF files.
+</code></pre></td></tr></table>
+</div>
+</div><p>其中最有可能的是 read(2) ,其他的看起来都不像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">read</span> <span class="o">(</span>2<span class="o">)</span>             - <span class="nb">read</span> from a file descriptor
+<span class="c1">#从文件描述符读取</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>进一步查看 read(2)的帮助：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ man <span class="m">2</span> <span class="nb">read</span>
+READ<span class="o">(</span>2<span class="o">)</span>                         Linux Programmer<span class="err">&#39;</span>s Manual                         READ<span class="o">(</span>2<span class="o">)</span>
+
+NAME
+       <span class="nb">read</span> - <span class="nb">read</span> from a file descriptor
+
+SYNOPSIS
+       <span class="c1">#include &lt;unistd.h&gt;</span>
+
+       ssize_t read<span class="o">(</span>int fd, void *buf, size_t count<span class="o">)</span><span class="p">;</span>
+
+DESCRIPTION
+       read<span class="o">()</span>  attempts to <span class="nb">read</span> up to count bytes from file descriptor fd into the buffer
+       starting at buf.
+
+       On files that support seeking, the <span class="nb">read</span> operation commences at  the  file  offset,
+       and  the file offset is incremented by the number of bytes read.  If the file off‐
+       <span class="nb">set</span> is at or past the end of file, no bytes are read, and read<span class="o">()</span> returns zero.
+
+       If count is zero, read<span class="o">()</span> may detect the errors described below.  In the absence of
+       any  errors,  or  <span class="k">if</span>  read<span class="o">()</span> does not check <span class="k">for</span> errors, a read<span class="o">()</span> with a count of <span class="m">0</span>
+       returns zero and has no other effects.
+
+       According to POSIX.1, <span class="k">if</span> count is greater than SSIZE_MAX, the result is  implemen‐
+       tation-defined<span class="p">;</span> see NOTES <span class="k">for</span> the upper limit on Linux.
+
+RETURN VALUE
+       On success, the number of bytes <span class="nb">read</span> is returned <span class="o">(</span>zero indicates end of file<span class="o">)</span>, and
+       the file position is advanced by this number.  It is not an error <span class="k">if</span>  this  number
+       is smaller than the number of bytes requested<span class="p">;</span> this may happen <span class="k">for</span> example because
+       fewer bytes are actually available right now <span class="o">(</span>maybe because we were close to  end-
+       of-file,  or  because  we are reading from a pipe, or from a terminal<span class="o">)</span>, or because
+       read<span class="o">()</span> was interrupted by a signal.  See also NOTES.
+
+       On error, -1 is returned, and errno is <span class="nb">set</span> appropriately.  In  this  <span class="k">case</span>,  it  is
+       left unspecified whether the file position <span class="o">(</span><span class="k">if</span> any<span class="o">)</span> changes.
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这个系统调用可以将文件中一定数目的字节读入一个缓冲区，因为每次都要读入一个数据结构，所以要用 sizeof(struct utmp) 来指定每次读入的字节数。</p>
+<p>read 函数需要一个文件描述符作为输入参数，如何得到文件描述符呢？在 read 联机帮助中最后部分有以下描述：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">SEE ALSO
+       close<span class="o">(</span>2<span class="o">)</span>, fcntl<span class="o">(</span>2<span class="o">)</span>,  ioctl<span class="o">(</span>2<span class="o">)</span>,  lseek<span class="o">(</span>2<span class="o">)</span>,  open<span class="o">(</span>2<span class="o">)</span>,  pread<span class="o">(</span>2<span class="o">)</span>,  readdir<span class="o">(</span>2<span class="o">)</span>,  read‐
+       link<span class="o">(</span>2<span class="o">)</span>, readv<span class="o">(</span>2<span class="o">)</span>, <span class="k">select</span><span class="o">(</span>2<span class="o">)</span>, write<span class="o">(</span>2<span class="o">)</span>, fread<span class="o">(</span>3<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其中包含对 open(2) 的引用，在命令行输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ man <span class="m">2</span> open
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>查看了 open 的联机帮助，从 open 中又可以找到对 close 的引用，通过阅读联机帮助，可以知道以上3个系统调用都是进行文件操作必需的。</p>
+<h4 id="252-答案使用-openread-和-close"><strong>2.5.2 答案：使用 open、read 和 close</strong></h4>
+<p>使用标题三个系统调用可以从 utmp 文件中取得用户登录信息，下面为它们的基本用法。</p>
+<p><strong>1.打开一个文件：open</strong></p>
+<p>这个系统调用在<strong>进程与文件之间建议一条连接</strong>，这个连接被称为<strong>文件描述符</strong>，它就像一条由进程通向内核的管道。</p>
+<p>open 的基本用法如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">open</th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目标</td>
+<td style="text-align:center">打开一个文件</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>头文件</td>
+<td style="text-align:center">#include&lt;fcntl.h&gt;</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>函数原型</td>
+<td style="text-align:center">int fd = open(char *name, int how)</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>参数</td>
+<td style="text-align:center">name</td>
+<td style="text-align:center">文件名</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:center">how</td>
+<td style="text-align:center">O_RDONLY，O_WRONLY，or O_RDWR</td>
+</tr>
+<tr>
+<td>返回值</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">遇到错误</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">成功返回</td>
+</tr>
+</tbody>
+</table>
+<p>打开一个文件，必须指定<strong>文件名</strong>和<strong>打开模式</strong>，有3种打开模式：只读、只写、可读可写，分别对应的是 <code>O_RDONLY</code> 、<code>O_WRONLY</code>、 <code>O_RDWR</code>，在头文件 /usr/include/fcntl.h 有定义。</p>
+<p>打开文件时内核提供的服务，打开过程中内核检测错误，系统调用会返回 -1</p>
+<p>错误类型：</p>
+<ul>
+<li>文件不存在</li>
+<li>权限不够</li>
+<li>访问文件所在目录权限不够</li>
+</ul>
+<p>Unix 不禁止一个文件同时被多个进程访问。</p>
+<p>文件顺利打开，内核会返回一个正整数的值，这个数值就是<strong>文件描述符</strong>。</p>
+<p>打开文件会建立进程和文件之间的连接，文件描述符就是用来唯一标识这个连接的。</p>
+<p>同时打开多个文件，它们的文件描述符不同。</p>
+<p>一个文件打开多次，文件描述符也不同。</p>
+<p>必须通过文件描述符对文件进行操作。</p>
+<p><strong>2.从文件读取数据 ：read</strong></p>
+<p>通过 read 函数来读取数据，read 的用法如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>read</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目标</td>
+<td>把数据读取到缓冲区</td>
+<td></td>
+</tr>
+<tr>
+<td>头文件</td>
+<td>#include&lt;unistd.h&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td>函数原型</td>
+<td>ssize_t numread = read(int fd, void *buf, size_t qty)</td>
+<td></td>
+</tr>
+<tr>
+<td>参数</td>
+<td>fd</td>
+<td>文件描述符(指定文件)</td>
+</tr>
+<tr>
+<td></td>
+<td>buf</td>
+<td>用来存放数据的目的缓冲区</td>
+</tr>
+<tr>
+<td></td>
+<td>qty</td>
+<td>要读取的字节数</td>
+</tr>
+<tr>
+<td>返回值</td>
+<td>-1</td>
+<td>遇到错误</td>
+</tr>
+<tr>
+<td></td>
+<td>numread</td>
+<td>成功读取(返回字节数目)</td>
+</tr>
+</tbody>
+</table>
+<p>read 系统调用请求内核从 <code>fd</code>  所指定的文件中读取 qty 字节的数据，存放到 <code>buf</code> 所指定的内存空间中，内核如果成功读取了数据，就返回所读取的<strong>字节数目</strong>，否则返回 -1。</p>
+<p><strong>3.关闭文件：close</strong></p>
+<p>当我们不需要对文件进行读写操作时，就要把文件关闭。close 的用法如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>close</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目标</td>
+<td>关闭一个文件</td>
+<td></td>
+</tr>
+<tr>
+<td>头文件</td>
+<td>#include&lt;unistd.h&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td>函数原型</td>
+<td>int result = close(int fd)</td>
+<td></td>
+</tr>
+<tr>
+<td>参数</td>
+<td>fd</td>
+<td>文件描述符</td>
+</tr>
+<tr>
+<td>返回值</td>
+<td>-1</td>
+<td>遇到错误</td>
+</tr>
+<tr>
+<td></td>
+<td>0</td>
+<td>成功关闭</td>
+</tr>
+</tbody>
+</table>
+<p>close 这个系统调用会关闭<strong>进程</strong>和文件 <code>fd</code> 之间的连接，关闭过程发送错误会返回 -1，例如 fd 所指文件不存在。</p>
+<h4 id="253-编写-who1c"><strong>2.5.3 编写 who1.c</strong></h4>
+<p>who 的工作原理是先打开文件，然后读数据，最后关闭文件，根据上述所需的系统调用，可以编写如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* who1.c -a first version of the who program
+</span><span class="cm"> *           open, read UTMP file, and show results
+</span><span class="cm"> */</span>
+<span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;utmp.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">show_info</span><span class="p">();</span>
+
+<span class="cp">#define SHOWHOST                   </span><span class="cm">/* include remote machine on putput */</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">utmp</span>  <span class="n">current_record</span><span class="p">;</span>   <span class="cm">/* read info into here */</span>
+    <span class="kt">int</span> <span class="n">utmpfd</span><span class="p">;</span>                    <span class="cm">/* read from this descriptor */</span>
+    <span class="kt">int</span> <span class="n">reclen</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">current_record</span><span class="p">);</span>
+
+    <span class="k">if</span><span class="p">((</span><span class="n">utmpfd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">UTMP_FILE</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">))</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">perror</span><span class="p">(</span><span class="n">UTMP_FILE</span><span class="p">);</span>         <span class="cm">/* UTMP_FILE is in utmp.h */</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="n">utmpfd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">current_record</span><span class="p">,</span> <span class="n">reclen</span><span class="p">)</span> <span class="o">==</span> <span class="n">reclen</span> <span class="p">)</span>
+        <span class="n">show_info</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">current_record</span><span class="p">);</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">utmpfd</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>                      <span class="cm">/* went ok */</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+</span><span class="cm"> * show info()
+</span><span class="cm"> * displays contents of the utmp struct in human readable form
+</span><span class="cm"> * *note* these sizes should not be hardwired
+</span><span class="cm"> */</span>
+
+<span class="kt">int</span> <span class="nf">show_info</span><span class="p">(</span><span class="k">struct</span> <span class="n">utmp</span> <span class="o">*</span><span class="n">utbufp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;% -8.8s&#34;</span><span class="p">,</span><span class="n">utbufp</span> <span class="o">-&gt;</span> <span class="n">ut_name</span><span class="p">);</span>   <span class="cm">/* the logname */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">);</span>                           <span class="cm">/* a space */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;% -8.8s&#34;</span><span class="p">,</span><span class="n">utbufp</span> <span class="o">-&gt;</span> <span class="n">ut_line</span><span class="p">);</span>   <span class="cm">/* the tty */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%10ld&#34;</span><span class="p">,</span><span class="n">utbufp</span> <span class="o">-&gt;</span> <span class="n">ut_time</span><span class="p">);</span>     <span class="cm">/* login time */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">);</span>
+<span class="cp">#ifdef SHOWHOST
+</span><span class="cp"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;(%s)&#34;</span><span class="p">,</span> <span class="n">utbufp</span> <span class="o">-&gt;</span> <span class="n">ut_host</span><span class="p">);</span>     <span class="cm">/* the host */</span>
+<span class="cp">#endif
+</span><span class="cp"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>                          <span class="cm">/*newline */</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>主函数 main 使用 while 循环从文件中逐条地把数据读取出来,存放在记录 current_record 中。最后调用函数 show_info 把登录信息显示出来，当文件中没有数据时，循环结束，最后关闭文件返回。</p>
+<h4 id="254-编译代码"><strong>2.5.4 编译代码</strong></h4>
+<p>将代码编译运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ cc who0.c -o who1
+$ ./who1
+root   ~        <span class="m">1558890521</span> <span class="o">(</span>4.19.34-1-MANJARO<span class="o">)</span>
+yijiu    tty7     <span class="m">1558861750</span> <span class="o">(</span>:0<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>将上述输出与系统 who 命令的输出做对比：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ who
+root     ~            2019-05-26 02:09 <span class="o">(</span>:0<span class="o">)</span>
+yijiu    tty7         2019-05-26 17:09 <span class="o">(</span>:0<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>自己编写的 who 能工作了，能显示用户名和终端名，但还存在两处问题：</p>
+<ul>
+<li>消除空白记录</li>
+<li>正确显示登录时间</li>
+</ul>
+<h4 id="255-编写-who2c"><strong>2.5.5 编写 who2.c</strong></h4>
+<p>针对 who1.c 的两个问题，继续编写第2个版本，继续改进。</p>
+<p>解决方法还是通过阅读联机帮助和头文件。</p>
+<ol>
+<li>消除空白记录</li>
+</ol>
+<p>系统自带的 who 命令只会列出已登录用户的信息， 而我们编写的 who1 除了列出已登录用户的信息，还会显示其他的信息，这些信息都来自于 utmp 文件。</p>
+<p>实际上 utmp 文件包含了所有终端的信息，以及那些尚未被用到的终端的信息也会存放在 utmp 中，所有我们要修改刚刚的程序，做到能区分出哪些终端对应 <code>活动</code>  的用户。那如何区分？</p>
+<p>一条简单的思路：过滤掉那些用户名为空的记录。</p>
+<p>但还是有问题的，用户名为 LOGIN 的那一行对应的是控制台，而不是一个真实的用户。最好就是能指出某一条记录确实对应着已登录的用户：</p>
+<p>在 /usr/include/utmp.h 中有以下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* Definitions for ut_type */</span>
+<span class="cp">#define EMPTY          0
+</span><span class="cp">#define RUN_LVL        1
+</span><span class="cp">#define BOOT_TIME      2
+</span><span class="cp">#define OLD_TIME       3
+</span><span class="cp">#define NEW_TIME       4
+</span><span class="cp">#define INIT_PROCESS   5  </span><span class="cm">/* Process spawned by &#34;init&#34; */</span><span class="cp">
+</span><span class="cp">#define LOGIN_PROCESS  6  </span><span class="cm">/* A &#34;getty&#34; process waiting for login */</span><span class="cp">
+</span><span class="cp">#define USER_PROCESS   7  </span><span class="cm">/* A user process */</span><span class="cp">
+</span><span class="cp">#define DEAD_PROCERSS  8  
+</span></code></pre></td></tr></table>
+</div>
+</div><p>utmp 结构中有一个成员 ut_type，当它的值为 7 (USER_PROCESS)时，表示这是一个已经登录的用户。根据这一点，对原来的程序做以下修改，就可以消除空白行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">show_info</span><span class="p">(</span> <span class="k">struct</span> <span class="n">utmp</span> <span class="o">*</span><span class="n">utbufp</span> <span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">utbufp</span> <span class="o">-&gt;</span> <span class="n">ut_type</span> <span class="o">!=</span> <span class="n">USER_PROCESS</span> <span class="p">)</span> <span class="cm">/* users only */</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;% -8.8s&#34;</span><span class="p">,</span><span class="n">utbufp</span> <span class="o">-&gt;</span> <span class="n">ut_name</span><span class="p">);</span> <span class="cm">/* the username */</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>2.以可读的方式显示登录时间</p>
+<h3 id="缓冲技术"><strong>缓冲技术</strong></h3>
+<p>lseek 的用法如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">lseek</th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">目标</td>
+<td style="text-align:center">使指针指向文件中的指定位置</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">头文件</td>
+<td style="text-align:center">#include&lt;sys/type.h&gt;</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">#include&lt;unistd.h&gt;</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">函数原型</td>
+<td style="text-align:center">off_t oldpos = lseek(int fd, off_t dist, int base)</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">fd</td>
+<td style="text-align:center">文件描述符</td>
+</tr>
+<tr>
+<td style="text-align:center">参数</td>
+<td style="text-align:center">dist</td>
+<td style="text-align:center">移动的距离</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">base</td>
+<td style="text-align:center">SEEK_SET =&gt; 文件的开始、 SEEK_CUR =&gt; 当前结尾、 SEEK_END =&gt; 文件结尾</td>
+</tr>
+<tr>
+<td style="text-align:center">返回值</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">遇到错误</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">oldpos</td>
+<td style="text-align:center">指针变化前的位置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="总结">总结</h3>
+<ul>
+<li>who 命令通过读系统日志的内容显示当前已经登录的用户。</li>
+<li>Unix 系统把数据存放到文件中，可以通过以下系统调用操作文件。
+<ul>
+<li>open(filename, how)</li>
+<li>creat(filename, mode)</li>
+<li>read(fd, buffer, amt)</li>
+<li>write(fd, buffer, amt)</li>
+<li>lseek(fd, distance, base)</li>
+<li>close(fd)</li>
+</ul>
+</li>
+<li>进程对文件的读/写都要通过文件描述符，文件描述符表示文件和进程之间的连接。</li>
+<li>每次系统调用都会导致用户模式和内核模式的切换以及执行内核代码，所以减少程序中的系统调用发生的次数可以提高程序的运行效率。</li>
+<li>程序可以通过缓冲技术来减少系统调用的次数，仅当写缓冲区满或读缓冲区空时才调用内核服务。</li>
+<li>Unix 内核可以通过内核缓冲来减少访问磁盘I/O的次数。</li>
+<li>Unix 中时间的处理方式是记录从某一时间开始经过的秒数。</li>
+<li>当系统调用出错时会把全局变量 errno 的值设为相应的错误代码，然后返回 -1 ，程序可以通过检查 errno  来确定错误的类型，并采取相应的措施。</li>
+<li>显示错误信息 perror 函数。</li>
+<li>所有只是在系统中都有，联机帮助中有命令的说明，有些还会涉及命令的实现，头文件中有结构和系统常量的定义，还有函数原型的说明。</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Yijiu</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-05-11
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/c%E8%AF%AD%E8%A8%80/">C语言</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/cn_k8s/%E6%90%AD%E5%BB%BAkubernetes/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">第一次搭建 Kubernetes</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/unix-linux/ch01/">
+            <span class="next-text nav-default">第一章 Unix 系统编程概述</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Y1jiu - <a href='https://beian.miit.gov.cn/'>蜀ICP备19017120号</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

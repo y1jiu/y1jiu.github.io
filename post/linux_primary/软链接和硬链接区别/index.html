@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>软链接和硬链接区别 - 一旧的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yijiu" /><meta name="description" content="Linux 中一切皆文件： 普通文件 目录文件 链接文件 设备文件 文件描述符（file descriptor）： 文件描述符是内核为了高效管理已经被打开的文件所创" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/linux_primary/%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%8C%BA%E5%88%AB/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="软链接和硬链接区别" />
+<meta property="og:description" content="Linux 中一切皆文件： 普通文件 目录文件 链接文件 设备文件 文件描述符（file descriptor）： 文件描述符是内核为了高效管理已经被打开的文件所创" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/linux_primary/%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%8C%BA%E5%88%AB/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-04-12T01:37:56+08:00" />
+<meta property="article:modified_time" content="2019-04-12T01:37:56+08:00" />
+
+<meta itemprop="name" content="软链接和硬链接区别">
+<meta itemprop="description" content="Linux 中一切皆文件： 普通文件 目录文件 链接文件 设备文件 文件描述符（file descriptor）： 文件描述符是内核为了高效管理已经被打开的文件所创"><meta itemprop="datePublished" content="2019-04-12T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2019-04-12T01:37:56+08:00" />
+<meta itemprop="wordCount" content="680">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="软链接和硬链接区别"/>
+<meta name="twitter:description" content="Linux 中一切皆文件： 普通文件 目录文件 链接文件 设备文件 文件描述符（file descriptor）： 文件描述符是内核为了高效管理已经被打开的文件所创"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Y1jiu</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/more/">
+        <li class="mobile-menu-item">更多</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Y1jiu</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/more/">更多</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">软链接和硬链接区别</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-12 </span>
+        <div class="post-category">
+            <a href="/categories/linux-%E5%9F%BA%E7%A1%80/"> Linux 基础 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Linux 中一切皆文件：</p>
+<ul>
+<li>普通文件</li>
+<li>目录文件</li>
+<li>链接文件</li>
+<li>设备文件</li>
+</ul>
+<p><strong>文件描述符（file descriptor）：</strong>
+文件描述符是内核为了高效管理已经被打开的文件所创建的索引，其值是一个非负整数，用于指代被打开的文件，所有执行 I/O 操作的系统调用都通过文件描述符。</p>
+<table>
+<thead>
+<tr>
+<th>文件描述符</th>
+<th>名称</th>
+<th>符号常量</th>
+<th>文件流</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>标准输入</td>
+<td>STDIN_FILENO</td>
+<td>stdin</td>
+</tr>
+<tr>
+<td>1</td>
+<td>标准输出</td>
+<td>STDOUT_FILENO</td>
+<td>stdout</td>
+</tr>
+<tr>
+<td>2</td>
+<td>标准错误</td>
+<td>STDERR_FILENO</td>
+<td>stderr</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ nohup java -jar app.jar &gt;log 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>2&gt;&amp;1</code> 中的 2 就是表示 <code>标准错误</code> ，1 就是 <code>标准输出</code>，中间的 <code>&amp;</code> 表示后面跟的数字是文件描述符而不是一个文件，防止 标准错误重定向到一个名为 1 的文件中。</p>
+<p>Linux 系统用 <code>ln</code> 命令来创建文件链接：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 硬链接</span>
+ln /root/file.txt ./file_1
+<span class="c1">#软链接</span>
+ln -s dir file
+</code></pre></td></tr></table>
+</div>
+</div><p>ln 指令默认创建的是硬链接，如果加入了 -s 参数，则会生成一个软链接。</p>
+<p><strong>硬链接</strong> 的作用是允许一个文件拥有多个有效路径名，它使得多个文件具有相同的 inode，事实上只要有文件(inode)指向一个区块，这个区块上的信息就不会从硬盘消失，硬链接可以通过此机制防止发生“误删”，只要存在硬链接，文件内容不会被删除，除非把所有硬链接删除完。</p>
+<p><strong>软链接</strong> 又叫 <code>符号链接</code> ，软链接包含了另一个文件的路径名，包含的是对于文件的 inode 记录，软链接的 inode 和 源文件不相同。</p>
+<p>软链接可以是 <code>任意文件和目录</code>，可以 <code>链接不同文件系统的文件</code> ，甚至可以链接不存在的文件与目录。</p>
+<p>删除软链接只会删除链接文件，不会删除文件本身，类似于 windows 系统的快捷方式。</p>
+<p>总结：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>软链接</th>
+<th>硬链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>inode</td>
+<td>软链接文件与源文件拥有不同的 inode 好，不相同的文件</td>
+<td>硬链接和原文件共用一个 inode，类似一文件有多个文件名</td>
+</tr>
+<tr>
+<td>文件属性</td>
+<td>链接文件</td>
+<td>与原文件完全平等关系</td>
+</tr>
+<tr>
+<td>跨文件系统</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>链接数目</td>
+<td>软链接数目不会增加，文件大小不相同</td>
+<td>硬链接文件显示的大小和源文件相同</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Yijiu</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-04-12
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux_primary/linux_loadavg/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux loadavg</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/linux_primary/free/">
+            <span class="next-text nav-default">free 命令 - 查看内存使用情况</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Y1jiu - <a href='https://beian.miit.gov.cn/'>蜀ICP备19017120号</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

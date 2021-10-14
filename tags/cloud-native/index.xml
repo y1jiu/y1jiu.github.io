@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cloud native on 一旧的博客</title>
+    <link>http://localhost:1313/tags/cloud-native/</link>
+    <description>Recent content in cloud native on 一旧的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 10 Nov 2019 01:37:56 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/cloud-native/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第一次搭建 Kubernetes</title>
+      <link>http://localhost:1313/post/cn_k8s/%E6%90%AD%E5%BB%BAkubernetes/</link>
+      <pubDate>Sun, 10 Nov 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/cn_k8s/%E6%90%AD%E5%BB%BAkubernetes/</guid>
+      <description>前言 初次尝试 Kubernetes 的安装部署，设备是两台云服务器，使用的工具是 kubeadm ，使用它部署一个完整的 Kubernetes 集群。其中会提到很多注意事项。初次尝试，欢迎吐槽。 准备工</description>
+    </item>
+    
+  </channel>
+</rss>

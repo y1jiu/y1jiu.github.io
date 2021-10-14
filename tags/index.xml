@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 一旧的博客</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on 一旧的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 10 Nov 2019 01:37:56 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cloud native</title>
+      <link>http://localhost:1313/tags/cloud-native/</link>
+      <pubDate>Sun, 10 Nov 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/cloud-native/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>http://localhost:1313/tags/kubernetes/</link>
+      <pubDate>Sun, 10 Nov 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>http://localhost:1313/tags/linux/</link>
+      <pubDate>Sun, 10 Nov 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C语言</title>
+      <link>http://localhost:1313/tags/c%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sat, 11 May 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/c%E8%AF%AD%E8%A8%80/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>http://localhost:1313/tags/git/</link>
+      <pubDate>Sat, 20 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GitHub</title>
+      <link>http://localhost:1313/tags/github/</link>
+      <pubDate>Sat, 20 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux IN ACTION</title>
+      <link>http://localhost:1313/tags/linux-in-action/</link>
+      <pubDate>Sat, 20 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/linux-in-action/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux 工具</title>
+      <link>http://localhost:1313/tags/linux-%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 17 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/linux-%E5%B7%A5%E5%85%B7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iptables</title>
+      <link>http://localhost:1313/tags/iptables/</link>
+      <pubDate>Tue, 16 Apr 2019 01:37:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/iptables/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

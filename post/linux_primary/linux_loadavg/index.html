@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux loadavg - 一旧的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yijiu" /><meta name="description" content="定义：特定时间间隔内运行队列中平均的进程数，进程数由内核统计得来。 top 、w 、uptime 等命令可以查看 Linux loadavg。 load 是从 /proc/loadavg 中读取的。 显示" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/linux_primary/linux_loadavg/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux loadavg" />
+<meta property="og:description" content="定义：特定时间间隔内运行队列中平均的进程数，进程数由内核统计得来。 top 、w 、uptime 等命令可以查看 Linux loadavg。 load 是从 /proc/loadavg 中读取的。 显示" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/linux_primary/linux_loadavg/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-04-12T01:37:56+08:00" />
+<meta property="article:modified_time" content="2019-04-12T01:37:56+08:00" />
+
+<meta itemprop="name" content="Linux loadavg">
+<meta itemprop="description" content="定义：特定时间间隔内运行队列中平均的进程数，进程数由内核统计得来。 top 、w 、uptime 等命令可以查看 Linux loadavg。 load 是从 /proc/loadavg 中读取的。 显示"><meta itemprop="datePublished" content="2019-04-12T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2019-04-12T01:37:56+08:00" />
+<meta itemprop="wordCount" content="476">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux loadavg"/>
+<meta name="twitter:description" content="定义：特定时间间隔内运行队列中平均的进程数，进程数由内核统计得来。 top 、w 、uptime 等命令可以查看 Linux loadavg。 load 是从 /proc/loadavg 中读取的。 显示"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Y1jiu</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/more/">
+        <li class="mobile-menu-item">更多</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Y1jiu</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/more/">更多</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux loadavg</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-12 </span>
+        <div class="post-category">
+            <a href="/categories/linux-%E5%9F%BA%E7%A1%80/"> Linux 基础 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#运行队列run-queue"><strong>运行队列（Run Queue）</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>定义：特定时间间隔内运行队列中平均的进程数，进程数由内核统计得来。</p>
+<blockquote>
+<p><code>top</code> 、<code>w</code> 、<code>uptime</code> 等命令可以查看 Linux loadavg。</p>
+<p>load 是从 <code>/proc/loadavg</code> 中读取的。</p>
+<p>显示的三个数值是 1min、5min、15min的平均负载。</p>
+</blockquote>
+<h3 id="运行队列run-queue"><strong>运行队列（Run Queue）</strong></h3>
+<p><code>runqueue</code> 的数据结构定义了许多内容，每个CPU的核上都会维护一个 <code>runqueue</code>数据结构。 其中的 <code>nr_running</code> 和 <code>nr_uninterruptible</code>分别放了这个CPU核上处于 R 状态和 D 状态的进程数量。</p>
+<ul>
+<li>R：正在运行的和准备就绪的等待运行的进程（running&amp;runnable）</li>
+<li>D：不可中断的进程(I/O)(uninterruptible)</li>
+</ul>
+<p>不可中断进程：</p>
+<ul>
+<li>此进程不在CPU执行指令，但是它还是占用着CPU。</li>
+<li>进程在做其他事，一般是磁盘I/O。</li>
+<li>不可中断是因为所在的事很重要，打断得话后果很严重，如进程在读取磁盘数据，打断的话可能会导致数据不一致。</li>
+</ul>
+<p><strong>运行队列是内核为每个CPU核维护的一个数据结构。</strong></p>
+<p><strong>运行队列里包含了 R 状态的进程和 D 状态的进程。</strong></p>
+<p>loadavg 在 Linux 里面写死了会计算 3 个数值，分别是 1min, 5min, 15min 的 loadavg 结果。</p>
+<blockquote>
+<p>不能仅靠 loadavg 判断系统性能指标，还得查看其他得参数，综合判断。</p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Yijiu</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-04-12
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux_primary/%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E7%A3%81%E7%9B%98%E5%AE%B9%E9%87%8F%E6%97%A0%E5%8F%98%E5%8C%96/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">删除文件磁盘容量无变化</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/linux_primary/%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%8C%BA%E5%88%AB/">
+            <span class="next-text nav-default">软链接和硬链接区别</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Y1jiu - <a href='https://beian.miit.gov.cn/'>蜀ICP备19017120号</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

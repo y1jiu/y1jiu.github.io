@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>sar命令 – 系统运行状态统计 - 一旧的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yijiu" /><meta name="description" content="sar 命令对系统运行状态进行取样，获取大量取样数据。 CPU利用率 命令：sar -p ，查看一天的CPU利用率。 命令：sar -u 1 10 ，每隔一秒更新一次，共" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/linux_primary/sar%E5%91%BD%E4%BB%A4/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="sar命令 – 系统运行状态统计" />
+<meta property="og:description" content="sar 命令对系统运行状态进行取样，获取大量取样数据。 CPU利用率 命令：sar -p ，查看一天的CPU利用率。 命令：sar -u 1 10 ，每隔一秒更新一次，共" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/linux_primary/sar%E5%91%BD%E4%BB%A4/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-04-16T01:37:56+08:00" />
+<meta property="article:modified_time" content="2019-04-16T01:37:56+08:00" />
+
+<meta itemprop="name" content="sar命令 – 系统运行状态统计">
+<meta itemprop="description" content="sar 命令对系统运行状态进行取样，获取大量取样数据。 CPU利用率 命令：sar -p ，查看一天的CPU利用率。 命令：sar -u 1 10 ，每隔一秒更新一次，共"><meta itemprop="datePublished" content="2019-04-16T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2019-04-16T01:37:56+08:00" />
+<meta itemprop="wordCount" content="758">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="sar命令 – 系统运行状态统计"/>
+<meta name="twitter:description" content="sar 命令对系统运行状态进行取样，获取大量取样数据。 CPU利用率 命令：sar -p ，查看一天的CPU利用率。 命令：sar -u 1 10 ，每隔一秒更新一次，共"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Y1jiu</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/more/">
+        <li class="mobile-menu-item">更多</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Y1jiu</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/more/">更多</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">sar命令 – 系统运行状态统计</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-16 </span>
+        <div class="post-category">
+            <a href="/categories/linux-%E5%9F%BA%E7%A1%80/"> Linux 基础 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#cpu利用率"><strong>CPU利用率</strong></a></li>
+            <li><a href="#内存利用率"><strong>内存利用率</strong></a></li>
+            <li><a href="#磁盘io"><strong>磁盘I/O</strong></a></li>
+            <li><a href="#网络流量"><strong>网络流量</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><code>sar</code> 命令对系统运行状态进行取样，获取大量取样数据。</p>
+<h3 id="cpu利用率"><strong>CPU利用率</strong></h3>
+<p>命令：<code>sar -p</code> ，查看一天的CPU利用率。</p>
+<p>命令：<code>sar -u 1 10</code> ，每隔一秒更新一次，共更新显示10次。</p>
+<p><strong>输出项：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">输出项</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CPU</td>
+<td style="text-align:center">all 表示统计信息为所有CPU的平均值</td>
+</tr>
+<tr>
+<td style="text-align:center">%user</td>
+<td style="text-align:center">表示在用户级别(application)运行所使用CPU总时间之百分比</td>
+</tr>
+<tr>
+<td style="text-align:center">%nice</td>
+<td style="text-align:center">表示在用户级别，用于nice操作所使用CPU总时间之百分比</td>
+</tr>
+<tr>
+<td style="text-align:center">%system</td>
+<td style="text-align:center">表示在内核(kernel)级别运行所使用CPU总时间之百分比</td>
+</tr>
+<tr>
+<td style="text-align:center">%iowait</td>
+<td style="text-align:center">表示用于I/O等待操作所使用的CPU总时间之百分比</td>
+</tr>
+<tr>
+<td style="text-align:center">%steal</td>
+<td style="text-align:center">管理程序(hypervisor)为另一个虚拟进程提供服务而等待虚拟CPU之百分比</td>
+</tr>
+<tr>
+<td style="text-align:center">%idle</td>
+<td style="text-align:center">表示CPU空闲时间占用CPU总时间之百分比</td>
+</tr>
+</tbody>
+</table>
+<h3 id="内存利用率"><strong>内存利用率</strong></h3>
+<p>命令：<code>sar -r</code> ，查看一天的内存利用率。</p>
+<p>命令：<code>sar -r 1 10</code> ，每隔一秒更新一次，共更新显示10次。</p>
+<p><strong>输出项：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">输出项</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">kbmemfree</td>
+<td style="text-align:center">空闲内存总量，不包括 buffer + cache 的空间</td>
+</tr>
+<tr>
+<td style="text-align:center">kbmemused</td>
+<td style="text-align:center">已使用的内存总量，包含应用使用量 + buffer + cached</td>
+</tr>
+<tr>
+<td style="text-align:center">%memused</td>
+<td style="text-align:center">kbmemused 和内存总量(不包括swap)的百分比</td>
+</tr>
+<tr>
+<td style="text-align:center">kbbuffers和kbcached</td>
+<td style="text-align:center">buffer 和 cache</td>
+</tr>
+<tr>
+<td style="text-align:center">kbcommit</td>
+<td style="text-align:center">保证系统所需的内存</td>
+</tr>
+<tr>
+<td style="text-align:center">%commit</td>
+<td style="text-align:center">kbcommit与内存总量(包括swap)的百分比</td>
+</tr>
+</tbody>
+</table>
+<h3 id="磁盘io"><strong>磁盘I/O</strong></h3>
+<p>命令：<code>sar -d</code>，查看一天的磁盘I/O使用情况</p>
+<p>命令：<code>sar -d 1 10</code> ，每隔一秒更新一次，共更新显示10次。</p>
+<p><strong>输出项：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">输出项</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">await</td>
+<td style="text-align:center">表示平均每次设备I/O操作的等待时间(单位毫秒)</td>
+</tr>
+<tr>
+<td style="text-align:center">svctm</td>
+<td style="text-align:center">表示平均每次设备I/O操作的服务时间(单位毫秒)</td>
+</tr>
+<tr>
+<td style="text-align:center">%util</td>
+<td style="text-align:center">表示一秒中有百分之几的时间用于I/O操作</td>
+</tr>
+</tbody>
+</table>
+<h3 id="网络流量"><strong>网络流量</strong></h3>
+<p>命令：<code>sar -n DEV</code> ，查看一天的网络流量使用。</p>
+<p>命令：<code>sar -n DEV 1 10</code>，每隔一秒更新一次，共更新显示10次。</p>
+<p><strong>输出项：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">输出项</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IFACE</td>
+<td style="text-align:center">网络设备名称</td>
+</tr>
+<tr>
+<td style="text-align:center">rxpck/s</td>
+<td style="text-align:center">每秒接受到的数据包数目</td>
+</tr>
+<tr>
+<td style="text-align:center">txpck/s</td>
+<td style="text-align:center">每秒中发送出去的包数目</td>
+</tr>
+<tr>
+<td style="text-align:center">rxkB/s</td>
+<td style="text-align:center">每秒接收到的字节数</td>
+</tr>
+<tr>
+<td style="text-align:center">txkB/s</td>
+<td style="text-align:center">每秒发送出去的字节数</td>
+</tr>
+<tr>
+<td style="text-align:center">rxcmp/s</td>
+<td style="text-align:center">每秒接收到的压缩包数目</td>
+</tr>
+<tr>
+<td style="text-align:center">txcmp/s</td>
+<td style="text-align:center">每秒发送出去的压缩包数目</td>
+</tr>
+<tr>
+<td style="text-align:center">rxmcst/s</td>
+<td style="text-align:center">每秒接收到的多播包的包数目</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Yijiu</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-04-16
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux_primary/iptables/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">iptables 原理</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/linux_primary/%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E7%A3%81%E7%9B%98%E5%AE%B9%E9%87%8F%E6%97%A0%E5%8F%98%E5%8C%96/">
+            <span class="next-text nav-default">删除文件磁盘容量无变化</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Y1jiu - <a href='https://beian.miit.gov.cn/'>蜀ICP备19017120号</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

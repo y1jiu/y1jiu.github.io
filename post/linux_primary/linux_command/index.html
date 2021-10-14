@@ -1,0 +1,2486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux 常用命令 - 一旧的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yijiu" /><meta name="description" content="构建块 1.cat 打印文件 ​ cat 命令用于连接文件并打印到标准输出设备上。cat可以用来制作镜像文件。 语法格式: cat [-AbeEnstTuv] [&amp;ndash;help] [&amp;ndash;version] fileName 参数说明： ​ -n 由1开始对所有输出" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/linux_primary/linux_command/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux 常用命令" />
+<meta property="og:description" content="构建块 1.cat 打印文件 ​ cat 命令用于连接文件并打印到标准输出设备上。cat可以用来制作镜像文件。 语法格式: cat [-AbeEnstTuv] [&ndash;help] [&ndash;version] fileName 参数说明： ​ -n 由1开始对所有输出" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/linux_primary/linux_command/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-04-10T01:37:56+08:00" />
+<meta property="article:modified_time" content="2019-04-10T01:37:56+08:00" />
+
+<meta itemprop="name" content="Linux 常用命令">
+<meta itemprop="description" content="构建块 1.cat 打印文件 ​ cat 命令用于连接文件并打印到标准输出设备上。cat可以用来制作镜像文件。 语法格式: cat [-AbeEnstTuv] [&ndash;help] [&ndash;version] fileName 参数说明： ​ -n 由1开始对所有输出"><meta itemprop="datePublished" content="2019-04-10T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2019-04-10T01:37:56+08:00" />
+<meta itemprop="wordCount" content="24343">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux 常用命令"/>
+<meta name="twitter:description" content="构建块 1.cat 打印文件 ​ cat 命令用于连接文件并打印到标准输出设备上。cat可以用来制作镜像文件。 语法格式: cat [-AbeEnstTuv] [&ndash;help] [&ndash;version] fileName 参数说明： ​ -n 由1开始对所有输出"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Y1jiu</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/more/">
+        <li class="mobile-menu-item">更多</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Y1jiu</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/more/">更多</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux 常用命令</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-10 </span>
+        <div class="post-category">
+            <a href="/categories/linux-%E5%9F%BA%E7%A1%80/"> Linux 基础 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#构建块"><strong>构建块</strong></a>
+          <ul>
+            <li><a href="#1cat-打印文件"><strong>1.cat 打印文件</strong></a></li>
+            <li><a href="#2clear-清除屏幕"><strong>2.clear 清除屏幕</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#比较文件"><strong>比较文件</strong></a>
+          <ul>
+            <li><a href="#1diff-比较文件"><strong>1.diff 比较文件</strong></a></li>
+            <li><a href="#2comm-比较文件"><strong>2.comm 比较文件</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#目录"><strong>目录</strong></a>
+          <ul>
+            <li><a href="#1cd-切换目录"><strong>1.cd 切换目录</strong></a></li>
+            <li><a href="#2chmod---设置权限"><strong>2.chmod   设置权限</strong></a></li>
+            <li><a href="#3du---文件目录大小"><strong>3.du   文件/目录大小</strong></a></li>
+            <li><a href="#4file-------文件类型"><strong>4.file       文件类型</strong></a></li>
+            <li><a href="#5ls----显示目录内容"><strong>5.ls    显示目录内容</strong></a></li>
+            <li><a href="#6mkdir---创建目录"><strong>6.mkdir   创建目录</strong></a></li>
+            <li><a href="#7mv---修改名移动"><strong>7.mv   修改名/移动</strong></a></li>
+            <li><a href="#8pwd----查看路径"><strong>8.pwd    查看路径</strong></a></li>
+            <li><a href="#9rm---删除"><strong>9.rm   删除</strong></a></li>
+            <li><a href="#10rmdir--输出空目录"><strong>10.rmdir  输出空目录</strong></a></li>
+            <li><a href="#11tree--树"><strong>11.tree  树</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#显示数据"><strong>显示数据</strong></a>
+          <ul>
+            <li><a href="#1cat--打印文件"><strong>1.cat  打印文件</strong></a></li>
+            <li><a href="#2echo---字符串输出"><strong>2.echo   字符串输出</strong></a></li>
+            <li><a href="#3less--浏览文件"><strong>3.less  浏览文件</strong></a></li>
+            <li><a href="#4more-浏览文件"><strong>4.more 浏览文件</strong></a></li>
+            <li><a href="#5which-查找文件"><strong>5.which 查找文件</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#文档资料"><strong>文档资料</strong></a>
+          <ul>
+            <li><a href="#1man--联机帮助"><strong>1.man  联机帮助</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#编辑"><strong>编辑</strong></a>
+          <ul>
+            <li><a href="#vivim"><strong>Vi/Vim</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#文件"><strong>文件</strong></a>
+          <ul>
+            <li><a href="#1chmod--设置权限"><strong>1.chmod  设置权限</strong></a></li>
+            <li><a href="#2cp--复制"><strong>2.cp  复制</strong></a></li>
+            <li><a href="#3du--文件目录大小"><strong>3.du  文件/目录大小</strong></a></li>
+            <li><a href="#4find--查找文件"><strong>4.find  /查找文件</strong></a></li>
+            <li><a href="#5in-链接"><strong>5.In 链接</strong></a></li>
+            <li><a href="#6ls-显示目录内容"><strong>6.ls 显示目录内容</strong></a></li>
+            <li><a href="#7mv-修改名目录"><strong>7.mv 修改名/目录</strong></a></li>
+            <li><a href="#8rm--删除"><strong>8.rm  删除</strong></a></li>
+            <li><a href="#9touch--新建文件"><strong>9.touch  新建文件</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#文件系统"><strong>文件系统</strong></a>
+          <ul>
+            <li><a href="#1df---磁盘使用情况"><strong>1.df   磁盘使用情况</strong></a></li>
+            <li><a href="#2mount--挂载"><strong>2.mount  挂载</strong></a></li>
+            <li><a href="#3umount--卸除文件系统"><strong>3.umount  卸除文件系统</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#登录与注销"><strong>登录与注销</strong></a>
+          <ul>
+            <li><a href="#1login-登入系统"><strong>1.login 登入系统</strong></a></li>
+            <li><a href="#2passwd--修改密码"><strong>2.passwd  修改密码</strong></a></li>
+            <li><a href="#3halt--关闭系统"><strong>3.halt  关闭系统</strong></a></li>
+            <li><a href="#4reboot-重启计算机"><strong>4.reboot 重启计算机</strong></a></li>
+            <li><a href="#5shutdown-关机"><strong>5.shutdown 关机</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#进程与作业控制"><strong>进程与作业控制</strong></a>
+          <ul>
+            <li><a href="#1--各种进程控制"><strong>1.&amp;  各种进程控制</strong></a></li>
+            <li><a href="#2---z--中断"><strong>2.   ^Z  中断</strong></a></li>
+            <li><a href="#3top--进程动态"><strong>3.top  进程动态</strong></a></li>
+            <li><a href="#4kill--删除执行"><strong>4.kill  删除执行</strong></a></li>
+            <li><a href="#5nice---优先序来执行程序"><strong>5.nice   优先序来执行程序</strong></a></li>
+            <li><a href="#6ps--进程状态"><strong>6.ps  进程状态</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#shell">shell</a>
+          <ul>
+            <li><a href="#1"><strong>1.!</strong></a></li>
+            <li><a href="#2bash-shell"><strong>2.bash shell</strong></a></li>
+            <li><a href="#3exit--退出shell"><strong>3.exit  退出shell</strong></a></li>
+            <li><a href="#4fc"><strong>4.fc</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#选择数据"><strong>选择数据</strong></a>
+          <ul>
+            <li><a href="#1grep-查找字符串"><strong>1.grep 查找字符串</strong></a></li>
+            <li><a href="#2awk"><strong>2.awk</strong></a></li>
+            <li><a href="#3sed"><strong>3.sed</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#系统工具"><strong>系统工具</strong></a>
+          <ul>
+            <li><a href="#1reboot-重启"><strong>1.reboot 重启</strong></a></li>
+            <li><a href="#2shutdown--关机"><strong>2.shutdown  关机</strong></a></li>
+            <li><a href="#3su---变更身份"><strong>3.su   变更身份</strong></a></li>
+            <li><a href="#4sudo-管理员身份"><strong>4.sudo 管理员身份</strong></a></li>
+            <li><a href="#5uname---显示系统信息"><strong>5.uname   显示系统信息</strong></a></li>
+            <li><a href="#6uptime"><strong>6.uptime</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#终端"><strong>终端</strong></a>
+          <ul>
+            <li><a href="#1tty"><strong>1.tty</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#文本格式化"><strong>文本格式化</strong></a>
+          <ul>
+            <li><a href="#1fmt"><strong>1.fmt</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#工具"><strong>工具</strong></a>
+          <ul>
+            <li><a href="#1bcdc--计算器"><strong>1.bc/dc  计算器</strong></a></li>
+            <li><a href="#2cal-日历"><strong>2.cal 日历</strong></a></li>
+            <li><a href="#3date-日期时间"><strong>3.date 日期时间</strong></a></li>
+            <li><a href="#4sleep-延迟"><strong>4.sleep 延迟</strong></a></li>
+            <li><a href="#5wc"><strong>5.wc</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#用户与用户标识"><strong>用户与用户标识</strong></a>
+          <ul>
+            <li><a href="#1id---显示用户id"><strong>1.id   显示用户ID</strong></a></li>
+            <li><a href="#2last---显示用户最近登录信息"><strong>2.last   显示用户最近登录信息</strong></a></li>
+            <li><a href="#3who--显示系统使用者"><strong>3.who  显示系统使用者</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#变量"><strong>变量</strong></a>
+          <ul>
+            <li><a href="#1echo"><strong>1.echo</strong></a></li>
+            <li><a href="#2export--设置或显示环境变量"><strong>2.export  设置或显示环境变量</strong></a></li>
+            <li><a href="#3setenv-查询或显示环境变量"><strong>3.setenv 查询或显示环境变量。</strong></a></li>
+            <li><a href="#4unset-删除变量或函数"><strong>4.unset 删除变量或函数</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#压缩"><strong>压缩</strong></a>
+          <ul>
+            <li><a href="#1tar"><strong>1.tar</strong></a></li>
+            <li><a href="#2zip"><strong>2.zip</strong></a></li>
+            <li><a href="#3unzip"><strong>3.unzip</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#托管"><strong>托管</strong></a>
+          <ul>
+            <li><a href="#1git"><strong>1.git</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#软件"><strong>软件</strong></a>
+          <ul>
+            <li><a href="#1gccg"><strong>1.gcc/g++</strong></a></li>
+            <li><a href="#2curl"><strong>2.curl</strong></a></li>
+            <li><a href="#3wget"><strong>3.wget</strong></a></li>
+            <li><a href="#4aptapt-get"><strong>4.apt/apt-get</strong></a></li>
+            <li><a href="#5yum"><strong>5.yum</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#网络"><strong>网络</strong></a>
+          <ul>
+            <li><a href="#1ifconfig---设置网络设备"><strong>1.ifconfig   设置网络设备</strong></a></li>
+            <li><a href="#2ip--网络配置工具"><strong>2.ip  网络配置工具</strong></a></li>
+            <li><a href="#3ping--检测主机"><strong>3.ping  检测主机</strong></a></li>
+            <li><a href="#4netstat-----显示网络状态"><strong>4.netstat     显示网络状态</strong></a></li>
+            <li><a href="#5telnet--远端登入"><strong>5.telnet  远端登入</strong></a></li>
+            <li><a href="#6ftp-文件传输"><strong>6.ftp 文件传输</strong></a></li>
+            <li><a href="#7tftp-文件传输"><strong>7.tftp 文件传输</strong></a></li>
+            <li><a href="#8route--路由表"><strong>8.route  路由表</strong></a></li>
+            <li><a href="#9rlogin-远端登入"><strong>9.rlogin 远端登入</strong></a></li>
+            <li><a href="#10rcp--复制远程文件"><strong>10.rcp  复制远程文件</strong></a></li>
+            <li><a href="#11finger--查询资料"><strong>11.finger  查询资料</strong></a></li>
+            <li><a href="#12mail---邮件"><strong>12.mail   邮件</strong></a></li>
+            <li><a href="#13nslookup--dns域名"><strong>13.nslookup  DNS域名</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="构建块"><strong>构建块</strong></h2>
+<h3 id="1cat-打印文件"><strong>1.cat 打印文件</strong></h3>
+<p>​	cat 命令用于连接文件并打印到标准输出设备上。cat可以用来制作镜像文件。</p>
+<p><strong>语法格式:</strong> cat [-AbeEnstTuv] [&ndash;help] [&ndash;version] fileName</p>
+<p><strong>参数说明</strong>：</p>
+<p>​	-n 由1开始对所有输出的行数编号</p>
+<p>​	-b 空白行不编号</p>
+<p><strong>实例</strong></p>
+<p>​	把 textfile1 的文档内容加上行号后输入 textfile2 这个文档里（复制）：</p>
+<p>​		cat -n textfile1 &gt; textfile2</p>
+<p>​	清空 /etc/test.txt 文档内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">$cat</span> /dev/null &gt; /etc/test.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2clear-清除屏幕"><strong>2.clear 清除屏幕</strong></h3>
+<p>​	Linux clear命令用于清除屏幕。</p>
+<p><strong>实例</strong></p>
+<p>clear</p>
+<h2 id="比较文件"><strong>比较文件</strong></h2>
+<h3 id="1diff-比较文件"><strong>1.diff 比较文件</strong></h3>
+<p>​	diff 命令用于比较文件的差异。</p>
+<p>​	diff 以逐行的方式，比较文本文件的异同处。如果指定要比较目录，则diff会比较目录中相同文件名的文件，但不会比较其中子目录。</p>
+<p><strong>参数说明</strong>：</p>
+<p>​	&lt;行数&gt; 指定要显示多少行的文本。此参数必须与-c或-u参数一并使用。</p>
+<p>​	-a diff预设只会逐行比较文本文件。</p>
+<p>​	-c 显示全部内文，并标出不同之处</p>
+<p>​	-i 不检查大小写不同</p>
+<p>​	-u 以合并的方式来显示文件内容的不同。</p>
+<p><strong>实例：</strong></p>
+<p>​	比较两个文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ diff log001.log log002.log
+</code></pre></td></tr></table>
+</div>
+</div><p>​	并排格式输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ diff log2014.log log2013.log  -y -W <span class="m">50</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2comm-比较文件"><strong>2.comm 比较文件</strong></h3>
+<p>​	comm 命令用于比较两个已排过序的文件。</p>
+<p><strong>语法格式</strong>：</p>
+<p>​	comm [-123] [&ndash;help] [&ndash;version] [第1个文件] [第2个文件]</p>
+<p><strong>参数说明</strong>：</p>
+<p>​	-1 不显示只在第1个文件里出现过的列。</p>
+<p>​	-2 不显示只在第2个文件里出现过的列。</p>
+<p>​	&ndash;version 显示版本信息</p>
+<p><strong>实例：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ comm aaa.txt bbb.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>​	输出的第一列只包含在aaa.txt中出现的行，第二列包含在bbb.txt中出现的行，第三列包含在aaa.txt和bbb.txt中相同的行。</p>
+<h2 id="目录"><strong>目录</strong></h2>
+<h3 id="1cd-切换目录"><strong>1.cd 切换目录</strong></h3>
+<p>​	cd 命令用于切换当前工作目录至 dirName(目录参数)</p>
+<p>​	只输入 cd，会直接到达home目录下</p>
+<p>​	“~” 表示 home 目录，“.” 则表示当前所在目录，“..” 则表示当前目录的上一层目录</p>
+<p><strong>语法：</strong></p>
+<p>​	cd [dirName]</p>
+<p>​	dirName为切换的目标目录</p>
+<p><strong>实例：</strong></p>
+<p>​	跳到 /usr/bin/ :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> /usr/bin
+</code></pre></td></tr></table>
+</div>
+</div><p>​	跳到自己的home目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> ~
+</code></pre></td></tr></table>
+</div>
+</div><p>​	跳到当前目录的上一层目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> ..
+</code></pre></td></tr></table>
+</div>
+</div><p>​	跳到目前目录的上上两层 :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> ../..
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2chmod---设置权限"><strong>2.chmod   设置权限</strong></h3>
+<p>​	Linux/Unix 的文件调用权限分为三级 : 文件拥有者、群组、其他。利用 chmod 可以藉以控制文件如何被他人所调用。</p>
+<p><strong>语法：</strong></p>
+<p>​	chmod [-cfvR] [&ndash;help] [&ndash;version] mode file&hellip;</p>
+<p><strong>参数：</strong></p>
+<p>​	r代表可读取，w代表可写入，x代表可执行，X代表只有当该文件是个子目录或者该文件被设定过为可执行。</p>
+<p>​	u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。</p>
+<p>​	+ 表示增加权限、- 表示取消权限、= 表示唯一设定权限。</p>
+<p><strong>实例：</strong></p>
+<p>​	将文件 file1.txt 设为所有人皆可读取 :</p>
+<p>​		chmod a+r file1.txt</p>
+<p>​	将 ex1.py 设定为只有该文件拥有者可以执行 :</p>
+<p>​		chmod u+x ex1.py</p>
+<p>​	此外chmod也可以用数字来表示权限如 :</p>
+<p>​		chmod 777 file</p>
+<p>​		其中a,b,c各为一个数字，分别表示User、Group、及Other的权限。</p>
+<p>​		r=4，w=2，x=1</p>
+<p>​		若要rwx属性则4+2+1=7；</p>
+<p>​	        若要rw-属性则4+2=6；</p>
+<p>​                若要r-x属性则4+1=5。</p>
+<h3 id="3du---文件目录大小"><strong>3.du   文件/目录大小</strong></h3>
+<p>​	du命令用于显示目录或文件的大小。</p>
+<p>​	du会显示指定的目录或文件所占用的磁盘空间。</p>
+<p><strong>参数：</strong></p>
+<p>​	-b 显示目录或文件大小时，以byte为单位。</p>
+<p>​	-s 仅显示总计</p>
+<p>​	-h 以K，M，G 为单位，提高信息可读性</p>
+<p><strong>实例：</strong></p>
+<p>​	方便阅读的格式显示test目录所占空间情况：</p>
+<p>​		 du -h test</p>
+<h3 id="4file-------文件类型"><strong>4.file       文件类型</strong></h3>
+<p>​	 file命令用于辨识文件类型。通过file指令，我们得以辨识该文件的类型。</p>
+<p><strong>语法：</strong></p>
+<p>​	file [-bcLvz] [-f &lt;名称文件&gt;] [-f &lt;文件名字&gt;] [-m &lt;魔法数字文件&gt;&hellip;] [文件或目录&hellip;]</p>
+<p><strong>参数：</strong></p>
+<p>​	-b 列出辨识结果时，不显示文件名称。</p>
+<p>​	-c 详细显示指令执行过程，便于排错或分析程序执行的情形。</p>
+<p>​	-z 尝试去解读压缩文件的内容</p>
+<p><strong>实例:</strong></p>
+<p>​	file install.log</p>
+<p>​		install.log: UTF-8 Unicode text</p>
+<h3 id="5ls----显示目录内容"><strong>5.ls    显示目录内容</strong></h3>
+<p>​	 ls命令用于显示指定工作目录下之内容（列出目前工作目录所含之文件及子目录)。</p>
+<p><strong>参数：</strong></p>
+<p>​	-a 显示所有文件及目录 （.文件）</p>
+<p>​	-l 除文件名称外，亦将文件型态、权限、拥有者、文件大小等资讯详细列出</p>
+<p>​	-t 将文件依建立时间之先后次序列出</p>
+<p>​</p>
+<h3 id="6mkdir---创建目录"><strong>6.mkdir   创建目录</strong></h3>
+<p>​	mkdir命令用于建立名称为 dirName 之子目录。</p>
+<p><strong>段落：</strong></p>
+<p>​	mkdir [-p] dirName</p>
+<p><strong>参数说明</strong>：</p>
+<p>​	-p 确保目录名称存在，不存在就建一个</p>
+<p><strong>实例：</strong></p>
+<p>​	在工作目录下，建立一个名为 AAA 的子目录 :</p>
+<p>​		mkdir AAA</p>
+<p>​	在工作目录下的 BBB 目录中，建立一个名为 Test 的子目录。 若 BBB 目录原本不存在，则建立一个。（注：本例若不加 -p，且原本 BBB目录不存在，则产生错误。）</p>
+<p>​		mkdir -p BBB/Test</p>
+<h3 id="7mv---修改名移动"><strong>7.mv   修改名/移动</strong></h3>
+<p>​	mv命令用来为文件或目录改名、或将文件或目录移入其它位置。</p>
+<p><strong>语法：</strong></p>
+<p>​</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mv <span class="o">[</span>options<span class="o">]</span> <span class="nb">source</span> dest
+mv <span class="o">[</span>options<span class="o">]</span> source... directory
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>参数说明：</strong></p>
+<p>​	-i 若指定目录已有同名文件，则先询问是否覆盖旧文件;</p>
+<p>​	-f 在mv操作要覆盖某已有的目标文件时不给任何指示;</p>
+<p><strong>命令格式：</strong></p>
+<p>​	mv 文件名 文件名   //将源文件名改为目标文件名</p>
+<p>​	mv 文件名 目录名   //将文件移动到目标目录</p>
+<p>​	mv 目录名 目录名   // 目标目录已存在，将源目录移动到目标目录；不存在则改名</p>
+<p>​	mv 目录名 文件名   // 出错</p>
+<p><strong>实例：</strong></p>
+<p>​	将文件 aaa 更名为 bbb :</p>
+<p>​		mv aaa bbb</p>
+<p>​	将info目录放入logs目录中。注意，如果logs目录不存在，则该命令将info改名为logs。</p>
+<p>​		mv info/ logs</p>
+<p>​	再如将/usr/student下的所有文件和目录移到当前目录下，命令行为：</p>
+<p>​		mv /usr/student/*  .</p>
+<h3 id="8pwd----查看路径"><strong>8.pwd    查看路径</strong></h3>
+<p>​	pwd命令用于显示工作目录。执行pwd指令可立刻得知您目前所在的工作目录的<strong>绝对路径</strong>名称。</p>
+<p><strong>语法：</strong></p>
+<p>​	pwd [&ndash;help] [&ndash;version]</p>
+<p>参数（一般不使用参数）</p>
+<p>​	&ndash;help 在线帮助</p>
+<p>​	&ndash;version 显示版本信息</p>
+<p><strong>实例：</strong></p>
+<p>​	pwd</p>
+<h3 id="9rm---删除"><strong>9.rm   删除</strong></h3>
+<p>​	 rm命令用于删除一个文件或者目录。</p>
+<p><strong>语法：</strong></p>
+<p>​	rm [options] name&hellip;</p>
+<p><strong>参数：</strong></p>
+<p>​	-i 删除前逐一询问确认</p>
+<p>​	-f 即使原档案属性设为唯读，亦直接删除，无需逐一确认。（强制删除）</p>
+<p>​	-r 将目录及以下之档案亦逐一删除。（删除目录需要配合选项-r使用）</p>
+<p><strong>实例：</strong></p>
+<p>​	删除文件可以直接使用rm命令，若删除目录则必须配合选项&quot;-r&quot;，例如：</p>
+<p>​		rm  -r  homework</p>
+<p>​	删除当前目录下的所有文件及目录，命令行为：</p>
+<p>​		rm  -r  *</p>
+<p>文件一旦通过rm命令删除，则无法恢复，所以必须格外小心地使用该命令。</p>
+<h3 id="10rmdir--输出空目录"><strong>10.rmdir  输出空目录</strong></h3>
+<p>​	 rmdir命令删除空的目录。</p>
+<p><strong>语法：</strong></p>
+<p>​	rmdir [-p] dirName</p>
+<p><strong>参数：</strong></p>
+<p>​	-p 是当子目录被删除后使它也成为空目录的话，则顺便一并删除</p>
+<p><strong>实例</strong>：</p>
+<p>​	将工作目录下，名为 AAA 的子目录删除 :</p>
+<p>​		rmdir AAA</p>
+<p>​	在工作目录下的 BBB 目录中，删除名为 Test 的子目录。若 Test 删除后，BBB 目录成为空目录，则 BBB 亦予删除。</p>
+<p>​		rmdir -p BBB/Test</p>
+<h3 id="11tree--树"><strong>11.tree  树</strong></h3>
+<p>​	tree命令用于以树状图列出目录的内容。执行tree指令，它会列出指定目录下的所有文件，包括子目录里的文件。</p>
+<p><strong>语法：</strong></p>
+<p>​	tree [-aACdDfFgilnNpqstux] [-I &lt;范本样式&gt;] [-P &lt;范本样式&gt;] [目录&hellip;]</p>
+<p><strong>参数：</strong></p>
+<p>​	-a 显示所有文件和目录</p>
+<p>​	-c 在文件目录清单加上色彩，便于区分各种类型</p>
+<p>​	-s 列出文件或目录大小（配合-h，显示大小单位）</p>
+<p>​	-p 列出权限标识</p>
+<p>​	-f 在每个文件或目录前显示完整的相对路径名称</p>
+<p><strong>实例:</strong></p>
+<p>​	以树状图列出当前目录结构。可直接使用如下命令：</p>
+<p>​		tree</p>
+<h2 id="显示数据"><strong>显示数据</strong></h2>
+<h3 id="1cat--打印文件"><strong>1.cat  打印文件</strong></h3>
+<p>​	(构建块中有详细介绍)</p>
+<h3 id="2echo---字符串输出"><strong>2.echo   字符串输出</strong></h3>
+<p>​	用于字符串的输出。常用于shell编程中。</p>
+<p><strong>语法：</strong></p>
+<p>​	echo string</p>
+<p><strong>实例：</strong></p>
+<p>​	显示普通字符串：</p>
+<p>​		echo &ldquo;It is a test&rdquo;        //此句双引号省略，效果也一样</p>
+<p>​	显示转义字符</p>
+<p>​		echo &ldquo;\&ldquo;It is a test\&rdquo;&rdquo;      // 用 \ ”  来显示“</p>
+<p>​		结果：&ldquo;It is a test&rdquo;</p>
+<p>​	原样输出字符串，不进行转义或取变量(用单引号)</p>
+<p>​		echo &lsquo;$name\&quot;&rsquo;</p>
+<p>​		输出结果：$name\&quot;</p>
+<p>​	显示命令执行结果，这里使用的是反引号 <strong>`</strong>, 而不是单引号 <strong>'</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">echo</span><span class="w"> </span><span class="o">`</span><span class="kt">date</span><span class="o">`</span><span class="w">                                    </span><span class="o">//</span><span class="w"> </span><span class="kt">date</span><span class="w"> </span><span class="err">为显示日期的命令</span><span class="w">
+</span><span class="w"></span><span class="err">结果：</span><span class="w"> </span><span class="n">Thu</span><span class="w"> </span><span class="n">Jul</span><span class="w"> </span><span class="mi">24</span><span class="w"> </span><span class="mi">10</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">46</span><span class="w"> </span><span class="n">CST</span><span class="w"> </span><span class="mi">2014</span><span class="w">            </span><span class="o">//</span><span class="err">结果将显示当前日期</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3less--浏览文件"><strong>3.less  浏览文件</strong></h3>
+<p>​	less 与 more 类似，但使用 less 可以随意浏览文件，而 more 仅能向前移动，却不能向后移动，而且 less 在查看之前不会加载整个文件。</p>
+<p><strong>语法:</strong></p>
+<p>​	less [参数] 文件</p>
+<p><strong>参数：</strong></p>
+<p>​	-b &lt;缓冲区大小&gt; 设置缓冲区的大小</p>
+<p>​	-e 当文件显示结束后，自动离开</p>
+<p>​	-m 显示类似more命令的百分比</p>
+<p>​	-N 显示行数</p>
+<p>​	b 向后翻一页    d向后翻半页</p>
+<p>​	h 显示帮助界面</p>
+<p>​	Q 退出less 命令</p>
+<p>​	空格键 滚动一页</p>
+<p>​	回车键 滚动一行</p>
+<p><strong>实例：</strong></p>
+<p>​	查看文件</p>
+<p>​		less hello.c</p>
+<p>​	ps查看进程信息并通过less分页显示</p>
+<p>​		ps -ef |less</p>
+<p>​	查看命令历史使用记录并通过less分页显示</p>
+<p>​		history | less</p>
+<p>​	浏览多个文件</p>
+<p>​		less log2013.log log2014.log</p>
+<p>​			输入 ：n后，切换到 log2014.log</p>
+<p>​			输入 ：p 后，切换到log2013.log</p>
+<h3 id="4more-浏览文件"><strong>4.more 浏览文件</strong></h3>
+<p>​	more 命令类似 cat ，不过会以一页一页的形式显示，更方便使用者逐页阅读，而最基本的指令就是按空白键（space）就往下一页显示，按 b 键就会往回（back）一页显示，而且还有搜寻字串的功能（与 vi 相似），使用中的说明文件，请按 h 。</p>
+<p><strong>语法：</strong></p>
+<p>​	more [-dlfpcsu] [-num] [+/pattern] [+linenum] [fileNames..]</p>
+<p><strong>参数</strong>：</p>
+<p>​	-num 一次显示的行数</p>
+<p>​	+num 从第 num 行开始显示</p>
+<p>​	-s 当遇到有连续两行以上的空白行，就代换为一行的空白行</p>
+<p>​	q 退出more</p>
+<p>​	V 调用vi编辑器</p>
+<p>​	空格键 向下滚动一屏</p>
+<p>​	= 输出当前行行数</p>
+<p>​	Enter 向下n行，默认1行。</p>
+<p><strong>实例：</strong></p>
+<p>​	逐页显示 testfile 文档内容，如有连续两行以上空白行则以一行空白行显示。</p>
+<p>​		more -s testfile</p>
+<p>​	从第 20 行开始显示 testfile 之文档内容。</p>
+<p>​		more +20 testfile</p>
+<h3 id="5which-查找文件"><strong>5.which 查找文件</strong></h3>
+<p>Linux which命令用于查找文件。
+which指令会在环境变量$PATH设置的目录里查找符合条件的文件。
+<strong>实例：</strong>
+​ $ which bash<br>
+​ /bin/bash</p>
+<h2 id="文档资料"><strong>文档资料</strong></h2>
+<h3 id="1man--联机帮助"><strong>1.man  联机帮助</strong></h3>
+<p>​	<strong>man命令</strong>是Linux下的帮助指令，通过man指令可以查看Linux中的指令帮助、配置文件帮助和编程帮助等信息。</p>
+<p><strong>语法：</strong></p>
+<p>​	man(选项)(参数)</p>
+<p><strong>选项：</strong></p>
+<p>​	-a 在所有的man帮助手册中搜索；</p>
+<p>​	-f：等价于whatis指令，显示给定关键字的简短描述信息；</p>
+<p>​	数字：指定从哪本man手册中搜索帮助；</p>
+<p>​	关键字：指定要搜索帮助的关键字。</p>
+<p><strong>实例：</strong></p>
+<p>man是按照手册的章节号的顺序进行搜索的，比如：</p>
+<p>​	man sleep</p>
+<p>​		只会显示sleep命令的手册,如果想查看库函数sleep，就要输入:</p>
+<p>​			man 3 sleep</p>
+<h2 id="编辑"><strong>编辑</strong></h2>
+<h3 id="vivim"><strong>Vi/Vim</strong></h3>
+<p>​	Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。</p>
+<p>​	基本上 vi/vim 共分为三种模式，分别是<strong>命令模式（Command mode）</strong>，<strong>输入模式（Insert mode）<strong>和</strong>底线命令模式（Last line mode）</strong>。</p>
+<p>​	参考网址 <a href="http://www.runoob.com/linux/linux-vim.html">http://www.runoob.com/linux/linux-vim.html</a></p>
+<h2 id="文件"><strong>文件</strong></h2>
+<h3 id="1chmod--设置权限"><strong>1.chmod  设置权限</strong></h3>
+<p>​	(目录列表中有详细介绍)</p>
+<h3 id="2cp--复制"><strong>2.cp  复制</strong></h3>
+<p>​	cp命令主要用于复制文件或目录。</p>
+<p><strong>语法：</strong></p>
+<p>​	cp [options] source dest</p>
+<p><strong>参数：</strong></p>
+<p>​	-d 复制时保留链接（相当于快捷方式）</p>
+<p>​	-f 覆盖已经存在的文件而不给提示</p>
+<p>​	-i 与-f相反，覆盖给出提示，用户确定是否覆盖，回答y时目标文件将被覆盖</p>
+<p>​	-p 除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。</p>
+<p>​	-r 若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。（目录）</p>
+<p>​	-l：不复制文件，只是生成链接文件。</p>
+<p>​	-a：此选项通常在复制目录时使用，它保留链接、文件属性，并复制目录下的所有内容。其作用等于dpR参数组合。</p>
+<p><strong>实例：</strong></p>
+<p>​	使用指令&quot;cp&quot;将当前目录&quot;test/&ldquo;下的所有文件复制到新目录&quot;newtest&quot;下，输入如下命令：</p>
+<p>​		cp –r test/ newtest</p>
+<h3 id="3du--文件目录大小"><strong>3.du  文件/目录大小</strong></h3>
+<p>​	(目录列表中有详细介绍)</p>
+<h3 id="4find--查找文件"><strong>4.find  /查找文件</strong></h3>
+<p>​	find命令用来<strong>在指定目录下查找文件</strong>。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。</p>
+<p><strong>语法：</strong></p>
+<p>​	find   path   -option   [   -print ]   [ -exec   -ok   command ]   {} ;</p>
+<p><strong>实例：</strong></p>
+<p>​	将目前目录及其子目录下所有延伸档名是 c 的文件列出来。</p>
+<p>​		find . -name &ldquo;*.c&rdquo;</p>
+<p>​	将目前目录其其下子目录中所有一般文件列出</p>
+<p>​		find . -type f</p>
+<p>​	将目前目录及其子目录下所有最近 20 天内更新过的文件列出</p>
+<p>​		find . -ctime -20</p>
+<p>​	查找/var/log目录中更改时间在7日以前的普通文件，并在删除之前询问它们：</p>
+<p>​		find /var/log -type f -mtime +7 -ok rm {} ;</p>
+<p>​	为了查找系统中所有文件长度为0的普通文件，并列出它们的完整路径：</p>
+<p>​		find / -type f -size 0 -exec ls -l {} ;</p>
+<h3 id="5in-链接"><strong>5.In 链接</strong></h3>
+<p>​	为某一个文件在另外一个位置建立一个同步的链接。</p>
+<p>​	当我们需要在不同的目录，用到相同的文件时，我们不需要在每一个需要的目录下都放一个必须相同的文件，我们只要在某个固定的目录，放上该文件，然后在 其它的目录下用ln命令链接（link）它就可以，不必重复的占用磁盘空间。</p>
+<p><strong>语法：</strong></p>
+<p>​	ln [参数] [源文件或目录] [目标文件或目录]</p>
+<p><strong>命令功能：</strong></p>
+<p>​	链接分为硬链接（hard link）和软链接（symbolic link）,硬链接的意思是一个档案可以有多个名称，而软链接的方式则是产生一个特殊的档案，该档案的内容是指向另一个档案的位置。硬链接是存在同一个文件系统中，而软链接却可以跨越不同的文件系统。</p>
+<p>​	不论是硬链接或软链接都不会将原本的档案复制一份，只会占用非常少量的磁碟空间。</p>
+<p>​	软链接：</p>
+<p>​			软链接，以路径的形式存在。类似于Windows操作系统中的快捷方式</p>
+<p>​			软链接可以 跨文件系统 ，硬链接不可以</p>
+<p>​			软链接可以对一个不存在的文件名进行链接</p>
+<p>​			软链接可以对目录进行链接</p>
+<p>​	硬链接：</p>
+<p>​			硬链接，以文件副本的形式存在。但不占用实际空间。</p>
+<p>​			不允许给目录创建硬链接</p>
+<p>​			硬链接只有在同一个文件系统中才能创建</p>
+<p><strong>参数：</strong></p>
+<p>​	-b 删除，覆盖以前建立的链接</p>
+<p>​	-d 允许超级用户制作目录的硬链接</p>
+<p>​	-f 强制执行</p>
+<p>​	-i 交互模式，文件存在则提示用户是否覆盖</p>
+<p>​	-s 软链接(符号链接)</p>
+<p>​	-v 显示详细的处理过程</p>
+<p>实例：</p>
+<p>​	给文件创建软链接，为log2013.log文件创建软链接link2013，如果log2013.log丢失，link2013将失效：</p>
+<p>​		ln -s log2013.log link2013</p>
+<h3 id="6ls-显示目录内容"><strong>6.ls 显示目录内容</strong></h3>
+<p>​	(目录列表中有详细介绍)</p>
+<h3 id="7mv-修改名目录"><strong>7.mv 修改名/目录</strong></h3>
+<p>​	(目录列表中有详细介绍)</p>
+<h3 id="8rm--删除"><strong>8.rm  删除</strong></h3>
+<p>​	(目录列表中有详细介绍)</p>
+<h3 id="9touch--新建文件"><strong>9.touch  新建文件</strong></h3>
+<p>​	touch命令用于修改文件或者目录的时间属性，包括存取时间和更改时间。若文件不存在，系统会建立一个新的文件。</p>
+<p>​	ls -l 可以显示档案的时间记录。</p>
+<p><strong>语法：</strong></p>
+<p>​	touch [-acfm] [-d&lt;日期时间&gt;] [-r&lt;参考文件或目录&gt;]  [-t&lt;日期时间&gt;] [&ndash;help]  [&ndash;version] [文件或目录…]</p>
+<p><strong>参数：</strong></p>
+<p>​	a 改变档案的读取时间记录</p>
+<p>​	m 改变档案的修改时间记录</p>
+<p><strong>实例：</strong></p>
+<p>​	使用指令&quot;touch&quot;修改文件&quot;testfile&quot;的时间属性为当前系统时间，输入如下命令：</p>
+<p>​		touch testfile                #修改文件的时间属性</p>
+<p>​	使用指令&quot;touch&quot;时，如果指定的文件不存在，则将创建一个新的空白文件。例如，在当前目录下，使用该指令创建一个空白文件&quot;file&rdquo;，输入如下命令：</p>
+<p>​		touch file            #创建一个名为“file”的新的空白文件</p>
+<h2 id="文件系统"><strong>文件系统</strong></h2>
+<h3 id="1df---磁盘使用情况"><strong>1.df   磁盘使用情况</strong></h3>
+<pre><code>df命令用于显示目前在Linux系统上的文件系统的磁盘使用情况统计。
+</code></pre>
+<p><strong>语法：</strong></p>
+<p>​	df [选项]&hellip; [FILE]&hellip;</p>
+<p>参数：</p>
+<p>​	文件-a, &ndash;all 包含所有的具有 0 Blocks 的文件系统</p>
+<p>​	文件-h, &ndash;human-readable 使用人类可读的格式(预设值是不加这个选项的&hellip;)</p>
+<p><strong>实例：</strong></p>
+<p>​	显示文件系统的磁盘使用情况统计：</p>
+<p>​		df</p>
+<p>​	-h选项，通过它可以产生可读的格式df命令的输出：</p>
+<p>​		df -h</p>
+<p>​		我们可以看到输出显示的数字形式的&rsquo;G'（千兆字节），&ldquo;M&rdquo;（兆字节）和&quot;K&quot;（千字节）。</p>
+<h3 id="2mount--挂载"><strong>2.mount  挂载</strong></h3>
+<p>​	mount命令是经常会使用到的命令，它用于挂载Linux系统外的文件。</p>
+<p><strong>语法：</strong></p>
+<p>​	mount [-hV]</p>
+<p>​	mount -a [-fFnrsvw] [-t vfstype]
+​	mount [-fnrsvw] [-o options [,&hellip;]] device | dir
+​	mount [-fnrsvw] [-t vfstype] [-o options] device dir</p>
+<p><strong>参数：</strong></p>
+<p>​	-V 显示程序版本</p>
+<p>​	-h 显示辅助信息</p>
+<p>​	-v：显示较讯息，通常和 -f 用来除错。</p>
+<p>​	-f：通常用在除错的用途。它会使 mount 并不执行实际挂上的动作，而是模拟整个挂上的过程。通常会和 -v 一起使用。</p>
+<p><strong>实例</strong></p>
+<p>​	将 /dev/hda1 挂在 /mnt 之下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mount /dev/hda1 /mnt
+</code></pre></td></tr></table>
+</div>
+</div><p>​	将 /dev/hda1 用唯读模式挂在 /mnt 之下。</p>
+<p>​		#mount -o ro /dev/hda1 /mnt</p>
+<h3 id="3umount--卸除文件系统"><strong>3.umount  卸除文件系统</strong></h3>
+<p>​	 umount命令用于卸除文件系统。</p>
+<p>​	umount可卸除目前挂在Linux目录中的文件系统。</p>
+<p><strong>语法：</strong></p>
+<p>​	umount [-ahnrvV] [-t &lt;文件系统类型&gt;] [文件系统]</p>
+<p><strong>参数：</strong></p>
+<p>​	-a 卸除/etc/mtab中记录的所有文件系统。</p>
+<p>​	-h 显示帮助</p>
+<p>​	-n 卸除时不要将信息存入/etc/mtab文件中。</p>
+<p>​	-v 执行时显示详细的信息。</p>
+<p><strong>实例</strong></p>
+<p>​	下面两条命令分别通过设备名和挂载点卸载文件系统，同时输出详细信息：</p>
+<p>​		umount -v /dev/sda1          通过设备名卸载</p>
+<p>​		umount -v /mnt/mymount/      通过挂载点卸载</p>
+<p>​	如果设备正忙，卸载即告失败。卸载失败的常见原因是，某个打开的shell当前目录为挂载点里的某个目录：</p>
+<p>​		umount -v /mnt/mymount/</p>
+<h2 id="登录与注销"><strong>登录与注销</strong></h2>
+<h3 id="1login-登入系统"><strong>1.login 登入系统</strong></h3>
+<p>​	login命令用于登入系统。</p>
+<p>login指令让用户登入系统，您亦可通过它的功能随时更换登入身份。在Slackware发行版中 ，您可在指令后面附加欲登入的用户名称，它会直接询问密码，等待用户输入。当/etc目录里含名称为nologin的文件时，系统只root帐号登入系统，其他用户一律不准登入。</p>
+<h3 id="2passwd--修改密码"><strong>2.passwd  修改密码</strong></h3>
+<p>​	passwd命令用来更改使用者的密码</p>
+<p><strong>语法</strong></p>
+<p>​	passwd [-k] [-l] [-u [-f]] [-d] [-S] [username]</p>
+<p><strong>参数：</strong></p>
+<p>​	-d 删除密码</p>
+<p>​	-f 强制执行</p>
+<p>​	-l 停止账户使用</p>
+<p>​	-S 显示密码信息</p>
+<p>​	 -u 启动已被停止</p>
+<p><strong>实例</strong></p>
+<p>​	修改用户密码</p>
+<p>​		passwd runoob  //设置runoob用户的密码</p>
+<p>​		Enter new UNIX password:  //输入新密码，输入的密码无回显
+​		Retype new UNIX password:  //确认密码
+​		passwd: password updated successfully</p>
+<p>​	显示账号密码信息</p>
+<p>​		passwd -S runoob</p>
+<p>​	删除用户密码</p>
+<p>​		passwd -d lx138</p>
+<h3 id="3halt--关闭系统"><strong>3.halt  关闭系统</strong></h3>
+<p>​	Linux halt命令关闭系统</p>
+<p>参数</p>
+<p>​	-n 在关机前不做将记忆体资料写回硬盘的动作</p>
+<p>​	-w 并不会真的关机，只是把记录写到 /var/log/wtmp 档案里</p>
+<p>​	-d 关闭系统，不留下记录</p>
+<p>​	-i 在关机之前先把所有网络相关的装置先停止</p>
+<p>​	-p 当关机的时候，顺便做关闭电源（poweroff）的动作</p>
+<p><strong>实例</strong></p>
+<p>​	关闭系统</p>
+<p>​		halt</p>
+<p>​	关闭系统并关闭电源</p>
+<p>​		halt -p</p>
+<p>​	关闭系统，但不留下纪录</p>
+<p>​		halt -d</p>
+<h3 id="4reboot-重启计算机"><strong>4.reboot 重启计算机</strong></h3>
+<p>​	（系统工具中有详细介绍）</p>
+<h3 id="5shutdown-关机"><strong>5.shutdown 关机</strong></h3>
+<p>​	（系统工具中有详细介绍）</p>
+<h2 id="进程与作业控制"><strong>进程与作业控制</strong></h2>
+<h3 id="1--各种进程控制"><strong>1.&amp;  各种进程控制</strong></h3>
+<p>​	<strong>&amp; 放在命令后面表示设置此进程为后台进程</strong></p>
+<p>​	默认情况下，进程是前台进程，这时此进程（命令执行相当于本质是开启一个进程）就把Shell给占据了，我们无法进行其他操作，对于那些没有交互的进程，很多时候，我们希望将其在后台启动，可以在启动参数的时候加一个'&amp;&lsquo;实现这个目的。</p>
+<p>​	<strong>&amp;&amp; 表示前一条命令执行成功时，才执行后一条命令</strong></p>
+<p>​	<strong>|| 表示上一条命令执行失败后，才执行下一条命令</strong></p>
+<p>​	<strong>来看&gt;符号是指：将正常信息重定向</strong></p>
+<p>​	<strong>&amp;&gt;可以将错误信息或者普通信息都重定向输出</strong></p>
+<h3 id="2---z--中断"><strong>2.   ^Z  中断</strong></h3>
+<p>​	<strong>Linux命令中Ctrl+z、Ctrl+c和Ctrl+d的区别和使用</strong></p>
+<p>​	Ctrl+c和ctrl+z都是中断命令,但是他们的作用却不一样.</p>
+<p>​	Ctrl+c是强制中断程序的执行。</p>
+<p>​	Ctrl+z的是将任务中断,但是此任务并没有结束,他仍然在进程中他只是维持挂起的状态。</p>
+<p>​	Ctrl+d 不是发送信号，而是表示一个特殊的二进制值，表示 EOF。</p>
+<h3 id="3top--进程动态"><strong>3.top  进程动态</strong></h3>
+<p>​	top命令用于实时显示 process 的动态。</p>
+<p><strong>语法</strong></p>
+<p>​	top [-] [d delay] [q] [c] [S] [s] [i] [n] [b]</p>
+<p><strong>参数说明</strong>:</p>
+<p>​	d 改变显示的更新速度</p>
+<p>​	s 安全模式</p>
+<p>​	c 显示模式</p>
+<p>​	-S 累计模式，累计消失的子进程</p>
+<p>​	n 更新的次数，完成后会退出top</p>
+<p><strong>实例</strong></p>
+<p>​	显示进程信息</p>
+<p>​		top</p>
+<p>​	以累积模式显示程序信息</p>
+<p>​		top -S</p>
+<p>​	设置信息更新次数</p>
+<p>​		top -n 2     //表示更新两次后终止更新显示</p>
+<p>​	设置信息更新时间</p>
+<p>​		 top -d 3       //表示更新周期为3秒</p>
+<p>​	显示指定的进程信息</p>
+<p>​		 top -p 139     //显示进程号为139的进程信息，CPU、内存占用率等</p>
+<h3 id="4kill--删除执行"><strong>4.kill  删除执行</strong></h3>
+<p>​	 kill命令用于删除执行中的程序或工作。</p>
+<p>​	kill可将指定的信息送至程序。预设的信息为SIGTERM(15)，可将指定程序终止。若仍无法终止该程序，可使用SIGKILL(9)信息尝试强制删除程序。程序或工作的编号可利用ps指令或jobs指令查看。</p>
+<p><strong>语法</strong></p>
+<p>​	kill [-s &lt;信息名称或编号&gt;] [程序]　或　kill [-l &lt;信息编号&gt;]</p>
+<p><strong>参数：</strong></p>
+<p>​	-l &lt;信息编号&gt; 　若不加&lt;信息编号&gt;选项，则-l参数会列出全部的信息名称。</p>
+<h3 id="5nice---优先序来执行程序"><strong>5.nice   优先序来执行程序</strong></h3>
+<p>​	nice命令以更改过的优先序来执行程序，如果未指定程序，则会印出目前的排程优先序，内定的 adjustment 为 10，范围为 -20（最高优先序）到 19（最低优先序）。</p>
+<p><strong>语法：</strong></p>
+<p>​	nice [-n adjustment] [-adjustment] [&ndash;adjustment=adjustment] [&ndash;help] [&ndash;version] [command [arg&hellip;]]</p>
+<p><strong>实例</strong></p>
+<p>​</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># vi &amp; //后台运行
+[1] 15297
+# nice vi &amp; //设置默认优先级
+[2] 15298
+</code></pre></td></tr></table>
+</div>
+</div><p>​	将 ls 的优先序加 1 并执行</p>
+<p>​		nice -n 1 ls</p>
+<p>​	将 ls 的优先序加 10 并执行（默认10）</p>
+<p>​		nice ls</p>
+<h3 id="6ps--进程状态"><strong>6.ps  进程状态</strong></h3>
+<p>​	ps命令用于显示当前进程 (process) 的状态。</p>
+<p><strong>语法</strong></p>
+<p>​	ps [options] [&ndash;help]</p>
+<p><strong>参数</strong></p>
+<p>​	-A 列出所有进程</p>
+<p>​	-aux 显示所有包含其他使用者的行程</p>
+<p>​	%CPU: 占用的 CPU 使用率</p>
+<p><strong>实例</strong></p>
+<p>​	ps -A 显示进程信息</p>
+<p>​	显示指定用户信息</p>
+<p>​		ps -u root //显示root进程用户信息</p>
+<p>​	显示所有进程信息，连同命令行</p>
+<p>​		ps -ef //显示所有命令，连带命令行</p>
+<h2 id="shell">shell</h2>
+<h3 id="1"><strong>1.!</strong></h3>
+<p>​	shell 中！叫做事件提示符，英文是：Event Designators,可以方便的引用历史命令， 也就是history中记录的命令</p>
+<p>​	! 当后面跟随的字母不是“空格、换行、回车、=和(”时，做命令替换</p>
+<p>​	<strong>!!<strong>是!-1的一个alias ，因为</strong>执行上一条命令</strong>的情况比较多一些，一般如果只是执行上一条命令只按下键盘中的↑即可，有时候如果命令前加点东西执行起来会快一点（当然↑然后ctrl+a也可以跳到命令最面前插入内容）</p>
+<h3 id="2bash-shell"><strong>2.bash shell</strong></h3>
+<p>​	Linux 的 Shell的一种，也就是 Bourne Again Shell，由于易用和免费，Bash 在日常工作中被广泛使用。同时，Bash 也是大多数Linux 系统默认的 Shell。</p>
+<p>​	像 <strong>#!/bin/sh</strong>，它同样也可以改为 <strong>#!/bin/bash</strong>。</p>
+<p>​	<strong>#!</strong> 告诉系统其后路径所指定的程序即是解释此脚本文件的 Shell 程序。</p>
+<p><strong>实例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="nb">echo</span> <span class="s2">&#34;Hello World !&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>运行 Shell 脚本有两种方法：</strong></p>
+<p>​	1.将上面的代码保存为 test.sh，并 cd 到相应目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">chmod +x ./test.sh  <span class="c1">#使脚本具有执行权限</span>
+./test.sh  <span class="c1">#执行脚本</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>​	2、作为解释器参数</p>
+<h3 id="3exit--退出shell"><strong>3.exit  退出shell</strong></h3>
+<p>​	exit命令用于退出目前的shell。</p>
+<p>执行exit可使shell以指定的状态值退出。若不设置状态值参数，则shell以预设值退出。状态值0代表执行成功，其他值代表执行失败。exit也可用在script，离开正在执行的script，回到shell。</p>
+<p><strong>语法</strong></p>
+<p>​	exit [状态值]</p>
+<p><strong>实例</strong></p>
+<p>​	退出终端</p>
+<p>​		# exit</p>
+<h3 id="4fc"><strong>4.fc</strong></h3>
+<p>​	fc 命令显示了历史命令文件内容或调用一个编辑器去修改并重新执行以前在 shell 中输入的命令。</p>
+<p><strong>实例</strong></p>
+<p>​</p>
+<ul>
+<li>要对最近所使用的命令调用环境变量 FCEDIT 所定义的编辑器（缺省的编辑器是 /usr/bin/ed），请输入：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">fc 当完成编辑之后，执行该命令。
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>要列出执行过的前两个命令，请输入：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">fc -l -2
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>要找到以 cc 字符开始的命令，且将 foo 更改为 bar，并显示和执行该命令，请输入：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">fc -s foo=bar cc
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>要列出先前执行的命令及其执行时间，请输入：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">fc –t
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="选择数据"><strong>选择数据</strong></h2>
+<h3 id="1grep-查找字符串"><strong>1.grep 查找字符串</strong></h3>
+<p>​	grep命令用于查找文件里符合条件的字符串。</p>
+<p>​	grep指令用于查找内容包含指定的范本样式的文件，如果发现某文件的内容符合所指定的范本样式，预设grep指令会把含有范本样式的那一列显示出来。若不指定任何文件名称，或是所给予的文件名为&quot;-&quot;，则grep指令会从标准输入设备读取数据。</p>
+<p><strong>语法：</strong></p>
+<p>​	grep [-abcEFGhHilLnqrsvVwxy] [-A&lt;显示列数&gt;] [-B&lt;显示列数&gt;] [-C&lt;显示列数&gt;] [-d&lt;进行动作&gt;] [-e&lt;范本样式&gt;] [-f&lt;范本文件&gt;] [&ndash;help] [范本样式] [文件或目录&hellip;]</p>
+<p><strong>参数</strong></p>
+<p>​	-a 或 &ndash;text : 不要忽略二进制的数据。**</p>
+<p>​	-A&lt;显示行数&gt; 或 &ndash;after-context=&lt;显示行数&gt; : 除了显示符合范本样式的那一列之外，	并显示该行之后的内容。</p>
+<p>​	-b 或 &ndash;byte-offset : 在显示符合样式的那一行之前，标示出该行第一个字符的编号。
+​	-B&lt;显示行数&gt; 或 &ndash;before-context=&lt;显示行数&gt; : 除了显示符合样式的那一行之外，并显示该行之前的内容。
+​	-c 或 &ndash;count : 计算符合样式的列数。
+​	-C&lt;显示行数&gt; 或 &ndash;context=&lt;显示行数&gt;或-&lt;显示行数&gt; : 除了显示符合样式的那一行之外，并显示该行之前后的内容。
+​	-d &lt;动作&gt; 或 &ndash;directories=&lt;动作&gt; : 当指定要查找的是目录而非文件时，必须使用这项参数，否则grep指令将回报信息并停止动作。
+​	-e&lt;范本样式&gt; 或 &ndash;regexp=&lt;范本样式&gt; : 指定字符串做为查找文件内容的样式。
+​	-E 或 &ndash;extended-regexp : 将样式为延伸的普通表示法来使用。
+​	-f&lt;规则文件&gt; 或 &ndash;file=&lt;规则文件&gt; : 指定规则文件，其内容含有一个或多个规则样式，让grep查找符合规则条件的文件内容，格式为每行一个规则样式。
+​	-F 或 &ndash;fixed-regexp : 将样式视为固定字符串的列表。
+​	-G 或 &ndash;basic-regexp : 将样式视为普通的表示法来使用。
+​	-h 或 &ndash;no-filename : 在显示符合样式的那一行之前，不标示该行所属的文件名称。
+​	-H 或 &ndash;with-filename : 在显示符合样式的那一行之前，表示该行所属的文件名称。
+​	-i 或 &ndash;ignore-case : 忽略字符大小写的差别。
+​	-l 或 &ndash;file-with-matches : 列出文件内容符合指定的样式的文件名称。
+​	-L 或 &ndash;files-without-match : 列出文件内容不符合指定的样式的文件名称。
+​	-n 或 &ndash;line-number : 在显示符合样式的那一行之前，标示出该行的列数编号。
+​	-o 或 &ndash;only-matching : 只显示匹配PATTERN 部分。
+​	-q 或 &ndash;quiet或&ndash;silent : 不显示任何信息。
+​	-r 或 &ndash;recursive : 此参数的效果和指定&quot;-d recurse&quot;参数相同。
+​	-s 或 &ndash;no-messages : 不显示错误信息。
+​	-v 或 &ndash;revert-match : 显示不包含匹配文本的所有行。
+​	-V 或 &ndash;version : 显示版本信息。
+​	-w 或 &ndash;word-regexp : 只显示全字符合的列。
+​	-x &ndash;line-regexp : 只显示全列符合的列。
+​	-y : 此参数的效果和指定&quot;-i&quot;参数相同。</p>
+<p><strong>实例</strong></p>
+<p>​	1.在当前目录中，查找后缀有 file 字样的文件中包含 test 字符串的文件，并打印出该字符串的行。此时，可以使用如下命令：</p>
+<p>​		grep test *file</p>
+<p>​	2.以递归的方式查找符合条件的文件。例如，查找指定目录/etc/acpi 及其子目录（如果存在子目录的话）下所有文件中包含字符串&quot;update&quot;的文件，并打印出该字符串所在行的内容，使用的命令为：</p>
+<p>​		grep -r update /etc/acpi</p>
+<p>​	3.反向查找。前面各个例子是查找并打印出符合条件的行，通过&quot;-v&quot;参数可以打印出不符合条件行的内容。</p>
+<p>查找文件名中包含 test 的文件中不包含test 的行，此时，使用的命令为：</p>
+<p>​		grep -v test <em>test</em></p>
+<h3 id="2awk"><strong>2.awk</strong></h3>
+<p>AWK是一种处理文本文件的语言，是一个强大的文本分析工具。</p>
+<p><strong>语法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">awk <span class="o">[</span>选项参数<span class="o">]</span> <span class="s1">&#39;script&#39;</span> <span class="nv">var</span><span class="o">=</span>value file<span class="o">(</span>s<span class="o">)</span>
+或
+awk <span class="o">[</span>选项参数<span class="o">]</span> -f scriptfile <span class="nv">var</span><span class="o">=</span>value file<span class="o">(</span>s<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3sed"><strong>3.sed</strong></h3>
+<p>Linux sed命令是利用script来处理文本文件。</p>
+<p>sed可依照script的指令，来处理、编辑文本文件。</p>
+<p>Sed主要用来自动编辑一个或多个文件；简化对文件的反复操作；编写转换程序等。</p>
+<p><strong>语法</strong></p>
+<p>​	sed [-hnV] [-e &lt; script &gt; ] [-f&lt;script文件&gt;]  [文本文件]</p>
+<p><strong>参数</strong></p>
+<p>-e&lt; script &gt;或&ndash;expression=&lt; script &gt; 以选项中指定的script来处理输入的文本文件。</p>
+<p>-f&lt;script文件&gt;或&ndash;file=&lt;script文件&gt; 以选项中指定的script文件来处理输入的文本文件。
+-h或&ndash;help 显示帮助。
+-n或&ndash;quiet或&ndash;silent 仅显示script处理后的结果。
+-V或&ndash;version 显示版本信息。</p>
+<h2 id="系统工具"><strong>系统工具</strong></h2>
+<h3 id="1reboot-重启"><strong>1.reboot 重启</strong></h3>
+<p>​	reboot命令用于用来重新启动计算机。</p>
+<p>​	若系统的 runlevel 为 0 或 6 ，则重新开机，否则以 shutdown 指令（加上 -r 参数）来取代</p>
+<p><strong>语法</strong></p>
+<p>​	reboot [-n] [-w] [-d] [-f] [-i]</p>
+<p>参数</p>
+<p>​	-n 在重开机前不做将记忆体资料写回硬盘的动作</p>
+<p>​	-w 并不会真的重开机，只是把记录写到 /var/log/wtmp 档案里</p>
+<p>​	-d 不把记录写到 /var/log/wtmp 档案里（-n 这个参数包含了 -d）</p>
+<p>​	-f 强迫重开机，不呼叫 shutdown 这个指令</p>
+<p>​	-i 在重开机之前先把所有网络相关的装置先停止</p>
+<p><strong>实例</strong></p>
+<p>​	重新启动</p>
+<p>​		reboot</p>
+<h3 id="2shutdown--关机"><strong>2.shutdown  关机</strong></h3>
+<p>​	shutdown命令可以用来进行关机程序，并且在关机以前传送讯息给所有使用者正在执行的程序，shutdown 也可以用来重开机。</p>
+<p><strong>语法</strong></p>
+<p>​	shutdown [-t seconds] [-rkhncfF] time [message]</p>
+<p><strong>参数</strong></p>
+<p>​	-t seconds 设定在几秒钟之后进行关机程序。</p>
+<p>​	-k 并不会真的关机，只是将警告讯息传送给所有使用者。</p>
+<p>​	-r 关机后重新开机。</p>
+<p>​	-h 关机后停机。</p>
+<p>​	-n 不采用正常程序来关机，用强迫的方式杀掉所有执行中的程序后自行关机。</p>
+<p>​	time 设定关机的时间。</p>
+<p>​	message 传送给所有使用者的警告讯息。</p>
+<p>实例</p>
+<p>​	立即关机</p>
+<p>​		shutdown -h now</p>
+<h3 id="3su---变更身份"><strong>3.su   变更身份</strong></h3>
+<p>​	su命令用于变更为其他使用者的身份，除 root 外，需要键入该使用者的密码。</p>
+<p><strong>语法</strong></p>
+<p>​	su [-fmp] [-c command] [-s shell] [&ndash;help] [&ndash;version] [-] [USER [ARG]]</p>
+<p><strong>参数说明</strong></p>
+<p>​	-f 不必读启动档</p>
+<p>​	-m -p 执行su时不改变环境变数</p>
+<p>​	-c command 或 &ndash;command=command 变更为帐号为 USER 的使用者并执行指令（command）后再变回原来使用者</p>
+<p><strong>实例</strong></p>
+<p>​	变更帐号为 root 并在执行 ls 指令后退出变回原使用者</p>
+<p>​		su -c ls root</p>
+<p>​	变更帐号为 root 并传入 -f 参数给新执行的 shell</p>
+<p>​		su root -f</p>
+<p>​	变更帐号为 clsung 并改变工作目录至 clsung 的家目录（home dir）</p>
+<p>​		su - clsung</p>
+<p>​	su root //切换到root用户</p>
+<h3 id="4sudo-管理员身份"><strong>4.sudo 管理员身份</strong></h3>
+<p>​	 sudo命令以系统管理者的身份执行指令，也就是说，经由 sudo 所执行的指令就好像是 root 亲自执行。</p>
+<p><strong>语法</strong></p>
+<p>​	sudo [ -b ] [ -p prompt ] [ -u username/#uid] -s</p>
+<p><strong>参数</strong></p>
+<p>​	-V 显示版本编号</p>
+<p>​	-h 会显示版本编号及指令的使用方式说明</p>
+<p>​	-l 显示出自己（执行 sudo 的使用者）的权限</p>
+<p>​	-v 因为 sudo 在第一次执行时或是在 N 分钟内没有执行（N 预设为五）会问密码，这个参数是重新做一次确认，如果超过 N 分钟，也会问密码</p>
+<p>​	-k 将会强迫使用者在下一次执行 sudo 时问密码（不论有没有超过 N 分钟）</p>
+<p>​</p>
+<p>实例</p>
+<p>​	以root权限执行上一条命令</p>
+<p>​		sudo !!</p>
+<p>​	列出目前的权限</p>
+<p>​		sudo -l</p>
+<p>​	列出 sudo 的版本资讯</p>
+<p>​		sudo -V</p>
+<h3 id="5uname---显示系统信息"><strong>5.uname   显示系统信息</strong></h3>
+<p>​	uname命令用于显示系统信息。uname可显示电脑以及操作系统的相关信息。</p>
+<p><strong>语法</strong></p>
+<p>​	uname [-amnrsv] [&ndash;help] [&ndash;version]</p>
+<p><strong>参数</strong></p>
+<p>​	-a 显示全部信息</p>
+<p>​	-m 显示电脑类型</p>
+<p>​	-n 显示在网络上的主机名称。</p>
+<p>​	-r 显示操作系统发行编号</p>
+<p>​	-s 显示操作系统名称</p>
+<p>​	-v 显示操作系统版本</p>
+<p><strong>实例</strong></p>
+<p>​	显示系统信息</p>
+<p>​		uname -a</p>
+<p>​	显示计算机类型</p>
+<p>​		uname -m</p>
+<p>​	显示计算机名</p>
+<p>​		uname -n</p>
+<p>​	显示操作系统名称</p>
+<p>​		uname -s</p>
+<p>​	显示系统时间</p>
+<p>​		uname -v</p>
+<h3 id="6uptime"><strong>6.uptime</strong></h3>
+<p>​	显示系统已经运行了多长时间，它依次显示下列信息：当前时间、系统已经运行了多长时间、目前有多少登陆用户、系统在过去的1分钟、5分钟和15分钟内的平均负载。</p>
+<p><strong>实例</strong></p>
+<p>​</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">uptime
+  08:21:34 up <span class="m">36</span> min,  <span class="m">2</span> users,  load average: 0.00, 0.00, 0.00
+ 
+<span class="c1">#当前服务器时间：    08:21:34</span>
+<span class="c1">#当前服务器运行时长  36 min</span>
+<span class="c1">#当前用户数          2 users</span>
+<span class="c1">#当前的负载均衡      load average  0.00, 0.00, 0.00，分别取1min,5min,15min的均值</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="终端"><strong>终端</strong></h2>
+<h3 id="1tty"><strong>1.tty</strong></h3>
+<p>​	tty命令用于显示终端机连接标准输入设备的文件名称。</p>
+<p><strong>语法</strong></p>
+<p>​	tty [-s ] [&ndash;help] [&ndash;version]</p>
+<p><strong>参数</strong></p>
+<p>​	-s 不显示任何信息，只回传状态代码</p>
+<p>​	&ndash;help 在线帮助</p>
+<p>​	&ndash;version 显示版本信息</p>
+<p><strong>实例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">tty
+/dev/pts/4
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="文本格式化"><strong>文本格式化</strong></h2>
+<h3 id="1fmt"><strong>1.fmt</strong></h3>
+<p>​	fmt命令用于编排文本文件。</p>
+<p>​	fmt指令会从指定的文件里读取内容，将其依照指定格式重新编排后，输出到标准输出设备。若指定的文件名为&quot;-&quot;，则fmt指令会从标准输入设备读取数据。</p>
+<p><strong>语法</strong></p>
+<p>​	fmt [-cstu] [-p&lt;列起始字符串&gt;] [-w&lt;每列字符数&gt;] [&ndash;help] [&ndash;version] [文件&hellip;]</p>
+<p><strong>参数说明</strong></p>
+<p>​	-c 每段前两列缩排</p>
+<p>​	-w&lt;每列字符数&gt;或&ndash;width=&lt;每列字符数&gt;或-&lt;每列字符数&gt; 设置每列的最大字符数。</p>
+<p><strong>实例</strong></p>
+<p>​	重排指定文件。如文件testfile共5 行文字，可以通过命令对该文件格式进行重排，其命令为：</p>
+<p>​		fmt testfile</p>
+<p>​	将文件testfile重新排成85 个字符一行，并在标准输出设备上输出，其命令应该为：</p>
+<p>​		fmt -w 85 testfile</p>
+<h2 id="工具"><strong>工具</strong></h2>
+<h3 id="1bcdc--计算器"><strong>1.bc/dc  计算器</strong></h3>
+<p>​	bc 命令是任意精度计算器语言，通常在linux下当计算器用。</p>
+<p>​	它类似基本的计算器, 使用这个计算器可以做基本的数学运算。</p>
+<p>​	加减乘除指数余数都可以</p>
+<p>​	( dc古老一些，是desk caclulator的缩写，使用逆波兰式来表达算式)</p>
+<p><strong>语法</strong></p>
+<p>​	bc(选项)(参数)</p>
+<p><strong>选项值</strong></p>
+<p>​	-i 强制进入交互模式</p>
+<p>​	-l 定义使用的标准数学库</p>
+<p>​	输入quit退出</p>
+<p><strong>实例</strong></p>
+<p>​	通过管道符</p>
+<p>​	cho &ldquo;15+5&rdquo; | bc</p>
+<p>​	计算平方和平方根：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ <span class="nb">echo</span> <span class="s2">&#34;10^10&#34;</span> <span class="p">|</span> bc 
+<span class="m">10000000000</span>
+$ <span class="nb">echo</span> <span class="s2">&#34;sqrt(100)&#34;</span> <span class="p">|</span> bc
+<span class="m">10</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2cal-日历"><strong>2.cal 日历</strong></h3>
+<p>​	cal命令可以用来显示公历（阳历）日历。</p>
+<p><strong>语法</strong></p>
+<p>​	cal [参数] [月份] [年份]</p>
+<p><strong>参数</strong></p>
+<p>​	-1 显示一个月的月历</p>
+<p>​	-3 显示系统前一个月，当前月，下一个月的月历
+​	-s  显示星期天为一个星期的第一天，默认的格式
+​	-m 显示星期一为一个星期的第一天
+​	-j  显示在当年中的第几天（一年日期按天算，从1月1号算起，默认显示当前月在一年中的天数）
+​	-y  显示当前年份的日历</p>
+<p><strong>实例</strong></p>
+<p>​	显示当前月份日历</p>
+<p>​		cat</p>
+<p>​	显示指定月份的日历</p>
+<p>​		cal 9 2012     //2012年9月</p>
+<h3 id="3date-日期时间"><strong>3.date 日期时间</strong></h3>
+<p>​	date命令可以用来显示或设定系统的日期与时间，在显示方面，使用者可以设定欲显示的格式，格式设定为一个加号后接数个标记，其中可用的标记列表如下：</p>
+<p><strong>参数</strong></p>
+<p>​	%c 直接显示日期与时间</p>
+<p>​	%Y : 完整年份 (0000..9999)</p>
+<p>​	%T : 直接显示时间 (24 小时制)</p>
+<p>​	%Z : 显示时区</p>
+<p>​	%n : 下一行</p>
+<p>​	&hellip;</p>
+<p><strong>实例</strong></p>
+<p>​	显示当前时间</p>
+<p>​		date</p>
+<p>​	显示时间后跳行，再显示目前日期</p>
+<p>​		date &lsquo;+%T%n%D&rsquo;</p>
+<p>​	显示月份与日数</p>
+<p>​		date &lsquo;+%B %d&rsquo;</p>
+<h3 id="4sleep-延迟"><strong>4.sleep 延迟</strong></h3>
+<p>​	sleep命令可以用来将目前动作延迟一段时间。</p>
+<p><strong>语法</strong></p>
+<p>​	sleep [&ndash;help] [&ndash;version] number[smhd]</p>
+<p><strong>参数</strong></p>
+<p>​	number : 时间长度，后面可接 s、m、h 或 d</p>
+<p>​	其中 s 为秒，m 为 分钟，h 为小时，d 为日数</p>
+<p><strong>实例</strong></p>
+<p>​	休眠五分钟</p>
+<p>​		sleep 5m</p>
+<p>​	显示目前时间后延迟 1 分钟，之后再次显示时间</p>
+<p>​		date;sleep 1m;date</p>
+<h3 id="5wc"><strong>5.wc</strong></h3>
+<p>​	 wc命令用于计算字数。</p>
+<p>​	利用wc指令我们可以计算文件的Byte数、字数、或是列数，若不指定文件名称、或是所给予的文件名为&quot;-&quot;，则wc指令会从标准输入设备读取数据。</p>
+<p><strong>语法</strong></p>
+<p>​	wc [-clw] [&ndash;help] [&ndash;version] [文件&hellip;]</p>
+<p><strong>参数</strong></p>
+<p>​	-c 只显示Bytes数</p>
+<p>​	-l 只显示行数</p>
+<p>​	-w 只显示字数</p>
+<p><strong>实例</strong></p>
+<p>​	在默认的情况下，wc将计算指定文件的行数、字数，以及字节数。使用的命令为：</p>
+<p>​	wc testfile</p>
+<p>​	3 92 598 testfile       # testfile文件的行数为3、单词数92、字节数598</p>
+<h2 id="用户与用户标识"><strong>用户与用户标识</strong></h2>
+<h3 id="1id---显示用户id"><strong>1.id   显示用户ID</strong></h3>
+<p>​	id命令用于显示用户的ID，以及所属群组的ID。</p>
+<p>​	id会显示用户以及所属群组的实际与有效ID。若两个ID相同，则仅显示实际ID。若仅指定用户名称，则显示目前用户的ID。</p>
+<p><strong>语法</strong></p>
+<p>​	id [-gGnru] [&ndash;help] [&ndash;version] [用户名称]</p>
+<p><strong>参数</strong></p>
+<p>​	-g 显示用户所属群组的ID</p>
+<p>​	-G 显示用户所属附加群组的ID。</p>
+<p>​	-n 显示用户，所属群组或附加群组的名称。</p>
+<p>​	-r 显示实际ID</p>
+<p>​	-u 显示用户ID</p>
+<p><strong>实例</strong></p>
+<p>​	显示当前用户信息</p>
+<p>​	id</p>
+<p>​	显示用户群组的ID</p>
+<p>​	id -g</p>
+<p>​	显示指定用户信息</p>
+<p>​	id yijiu</p>
+<h3 id="2last---显示用户最近登录信息"><strong>2.last   显示用户最近登录信息</strong></h3>
+<p>​	 last 命令用于显示用户最近登录信息。</p>
+<p><strong>语法</strong></p>
+<p>​	shell&raquo; last [options]</p>
+<p><strong>参数</strong></p>
+<p>​	-R 省略 hostname 的栏位</p>
+<p>​	-num 展示前num个</p>
+<p>​	username 展示 username 的登入讯息</p>
+<p>​	tty 限制登入讯息包含终端机代号</p>
+<p>实例</p>
+<p>​	一般显示方法</p>
+<p>​		last</p>
+<p>​	简略显示，并指定显示的个数</p>
+<p>​		last -n 5 -R</p>
+<h3 id="3who--显示系统使用者"><strong>3.who  显示系统使用者</strong></h3>
+<p>​	who命令用于显示系统中有哪些使用者正在上面，显示的资料包含了使用者 ID、使用的终端机、从哪边连上来的、上线时间、呆滞时间、CPU 使用量、动作等等。</p>
+<p>(<strong>whoami</strong>命令用于显示自身用户名称，本指令相当于执行&quot;id -un&quot;指令。)</p>
+<p><strong>语法</strong></p>
+<p>​	who - [husfV] [user]</p>
+<p><strong>参数</strong></p>
+<p>​	-H 显示各栏位的标题信息列；</p>
+<p>​	-i 显示闲置时间</p>
+<p>​	-w 显示用户的信息状态栏；</p>
+<p>​	-q 只显示登入系统的帐号名称和总人数；</p>
+<p><strong>实例</strong></p>
+<p>​	显示当前登录系统的用户</p>
+<p>​		who</p>
+<p>​	显示标题栏</p>
+<p>​		who -H</p>
+<p>​	显示用户登录来源</p>
+<p>​		who -l -H</p>
+<p>​	显示登入系统的帐号名称和总人数</p>
+<p>​		who -q</p>
+<h2 id="变量"><strong>变量</strong></h2>
+<h3 id="1echo"><strong>1.echo</strong></h3>
+<p>​	(在显示数据列表中有详细介绍)</p>
+<h3 id="2export--设置或显示环境变量"><strong>2.export  设置或显示环境变量</strong></h3>
+<p>​	 export命令用于设置或显示环境变量。</p>
+<p>​	在shell中执行程序时，shell会提供一组环境变量。export可新增，修改或删除环境变量，供后续执行的程序使用。export的效力仅及于该次登陆操作。</p>
+<p><strong>语法</strong></p>
+<p>​	export [-fnp] [变量名称]=[变量设置值]</p>
+<p><strong>参数</strong></p>
+<p>​	-f 代表[变量名称]中为函数名称。</p>
+<p>​	-n 删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。</p>
+<p>​	-p 列出所有的shell赋予程序的环境变量。</p>
+<p><strong>实例</strong></p>
+<p>​	列出当前所有的环境变量</p>
+<p>​		export -p //列出当前的环境变量值</p>
+<p>​	定义环境变量</p>
+<p>​		export MYENV //定义环境变量</p>
+<p>​	定义环境变量赋值</p>
+<p>​		export MYENV=7 //定义环境变量并赋值</p>
+<h3 id="3setenv-查询或显示环境变量"><strong>3.setenv 查询或显示环境变量。</strong></h3>
+<p>​	 setenv命令用于查询或显示环境变量。</p>
+<p>​	setenv为tsch中查询或设置环境变量的指令。</p>
+<p>​	(set/env可能需要分开使用)</p>
+<p><strong>语法</strong></p>
+<p>​	setenv [变量名称] [变量值]</p>
+<p><strong>实例</strong></p>
+<p>​	显示环境变量</p>
+<p>​		setenv</p>
+<p>​	设置环境变量</p>
+<p>​		setenv USER lx138</p>
+<h3 id="4unset-删除变量或函数"><strong>4.unset 删除变量或函数</strong></h3>
+<p>​	 unset命令用于删除变量或函数。</p>
+<p>​	unset为shell内建指令，可删除变量或函数。</p>
+<p><strong>语法</strong></p>
+<p>​	unset [-fv] [变量或函数名称]</p>
+<p>参数</p>
+<p>​	-f 仅删除函数</p>
+<p>​	-v 仅删除变量</p>
+<h2 id="压缩"><strong>压缩</strong></h2>
+<h3 id="1tar"><strong>1.tar</strong></h3>
+<p>​	tar命令用于备份文件。</p>
+<p>​	tar是用来建立，还原备份文件的工具程序，它可以加入，解开备份文件内的文件。</p>
+<p><strong>语法</strong></p>
+<p>​	tar [-ABcdgGhiklmMoOpPrRsStuUvwWxzZ]&hellip;&hellip;</p>
+<p><strong>参数</strong></p>
+<p>​	-c 建立新的备份文件。</p>
+<p>​	-z 通过gzip指令处理备份文件。</p>
+<p>​	-v 显示指令执行过程。</p>
+<p>​	-f &lt;备份文件&gt;或&ndash;file=&lt;备份文件&gt; 指定备份文件。</p>
+<p>​	-t 列出备份文件的内容。</p>
+<p>​	-x 从备份文件中还原文件。</p>
+<p><strong>实例</strong></p>
+<p>​	压缩文件 非打包</p>
+<p>​		tar -czvf test.tar.gz a.c   //压缩 a.c文件为test.tar.gz</p>
+<p>​	列出压缩文件内容</p>
+<p>​		tar -tzvf test.tar.gz</p>
+<p>​	解压文件（常用）</p>
+<p>​		tar -xzvf test.tar.gz</p>
+<h3 id="2zip"><strong>2.zip</strong></h3>
+<p>​	zip命令用于压缩文件。</p>
+<p>​	zip是个使用广泛的压缩程序，文件经它压缩后会另外产生具有&quot;.zip&quot;扩展名的压缩文件。</p>
+<p><strong>语法</strong></p>
+<p>​	zip [-AcdDfFghjJKlLmoqrSTuvVwXyz$]&hellip;..</p>
+<p>参数</p>
+<p>​	-d 从压缩文件内删除指定的文件。</p>
+<p>​	-F 尝试修复已损坏的压缩文件。</p>
+<p>​	-g 将文件压缩后附加在既有的压缩文件之后，而非另行建立新的压缩文件。</p>
+<p>​	-m 将文件压缩并加入压缩文件后，删除原始文件，即把文件移到压缩文件中。</p>
+<p>​	-q 不显示指令执行过程。</p>
+<p>​	-r 递归处理，将指定目录下的所有文件和子目录一并处理。</p>
+<p>​	-v 显示指令执行过程或显示版本信息。</p>
+<p>​</p>
+<p><strong>实例</strong></p>
+<p>​	将 /home/html/ 这个目录下所有文件和文件夹打包为当前目录下的 html.zip：</p>
+<p>​		zip -q -r html.zip /home/html</p>
+<p>​	如果在我们在 /home/html 目录下，可以执行以下命令：</p>
+<p>​		zip -q -r html.zip *</p>
+<p>​	从压缩文件 cp.zip 中删除文件 a.c</p>
+<p>​		zip -dv cp.zip a.c</p>
+<h3 id="3unzip"><strong>3.unzip</strong></h3>
+<p>​	unzip命令用于解压缩zip文件</p>
+<p>​	unzip为.zip压缩文件的解压缩程序。</p>
+<p><strong>语法</strong></p>
+<p>​	unzip [-cflptuvz] [-agCjLMnoqsVX] [-P &lt;密码&gt;] [.zip文件] [文件] [-d &lt;目录&gt;] [-x &lt;文件&gt;] 或 unzip [-Z]</p>
+<p>参数</p>
+<p>​	-c 将解压缩的结果显示到屏幕上，并对字符做适当的转换。</p>
+<p>​	-l 显示压缩文件内所包含的文件。</p>
+<p>​	-t 检查压缩文件是否正确。</p>
+<p>​	-v 执行是时显示详细的信息。</p>
+<p>​	-C 压缩文件中的文件名称区分大小写。</p>
+<p>​	-P&lt;密码&gt; 使用zip的密码选项。</p>
+<p>​	-q 执行时不显示任何信息。</p>
+<p>​	-d&lt;目录&gt; 指定文件解压缩后所要存储的目录。</p>
+<p><strong>实例</strong></p>
+<p>​	查看压缩文件中包含的文件：</p>
+<p>​		 unzip -l abc.zip</p>
+<p>​	-v 参数用于查看压缩文件目录信息，但是不解压该文件。</p>
+<p>​		unzip -v abc.zip</p>
+<h2 id="托管"><strong>托管</strong></h2>
+<h3 id="1git"><strong>1.git</strong></h3>
+<p>​	(敬请期待)</p>
+<h2 id="软件"><strong>软件</strong></h2>
+<h3 id="1gccg"><strong>1.gcc/g++</strong></h3>
+<p>​	gcc 与 g++ 分别是 gnu 的 c &amp; c++ 编译器 gcc/g++ 在执行编译工作的时候，总共需要4步：</p>
+<p>​	1、预处理,生成 .i 的文件[预处理器cpp]</p>
+<p>​	2、将预处理后的文件不转换成汇编语言, 生成文件 .s [编译器egcs]</p>
+<p>​	3、有汇编变为目标代码(机器代码)生成 .o 的文件[汇编器as]</p>
+<p>​	4、连接目标代码, 生成可执行程序 [链接器ld]</p>
+<p><strong>gcc常用选项</strong></p>
+<p>​	-v ：查看gcc版本号</p>
+<p>​	-I：注意这是大写的 i，指定头文件目录，注意-I和目录之间没有空格</p>
+<p>​	-c ：只编译，生成.o文件，不进行链接</p>
+<p>​	-g ：包含调试信息</p>
+<p>​	-On ：n=0∼3 编译优化，n越大优化得越多</p>
+<p>​	-Wall ：提示更多警告信息</p>
+<p>​	-D ：编译时定义宏，注意-D和之间没有空格</p>
+<p>​	-E ：生成预处理文件</p>
+<p>​	-M ：生成.c文件与头文件依赖关系以用于Makefile，包括系统库的头文件</p>
+<p>​	-MM ：生成.c文件与头文件依赖关系以用于Makefile，不包括系统库的头文件</p>
+<p>​	-wl,option ：该选项把 option 传递给 linker，option选项用逗号分割</p>
+<h3 id="2curl"><strong>2.curl</strong></h3>
+<p>​	在Linux中curl是一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文件的上传和下载，是综合传输工具，但按传统，习惯称url为下载工具。</p>
+<p><strong>语法</strong></p>
+<p>​	curl [option] [url]</p>
+<p>参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">-A/--user-agent &lt;string&gt;              设置用户代理发送给服务器
+-b/--cookie &lt;name=string/file&gt;    cookie字符串或文件读取位置
+-c/--cookie-jar &lt;file&gt;                    操作结束后把cookie写入到这个文件中
+-C/--continue-at &lt;offset&gt;            断点续转
+-D/--dump-header &lt;file&gt;              把header信息写入到该文件中
+-e/--referer                                  来源网址
+-f/--fail                                          连接失败时不显示http错误
+-o/--output                                  把输出写到该文件中
+-O/--remote-name                      把输出写到该文件中，保留远程文件的文件名
+-r/--range &lt;range&gt;                      检索来自HTTP/1.1或FTP服务器字节范围
+-s/--silent                                    静音模式。不输出任何东西
+-T/--upload-file &lt;file&gt;                  上传文件
+-u/--user &lt;user[:password]&gt;      设置服务器的用户和密码
+-w/--write-out [format]                什么输出完成后
+-x/--proxy &lt;host[:port]&gt;              在给定的端口上使用HTTP代理
+-#/--progress-bar                        进度条显示当前的传送状态
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3wget"><strong>3.wget</strong></h3>
+<p>​	Linux系统中的wget是一个下载文件的工具，它用在命令行下。对于Linux用户是必不可少的工具，我们经常要下载一些软件或从远程服务器恢复备份到本地服务器。wget支持HTTP，HTTPS和FTP协议，可以使用HTTP代理。（可在后台下载）</p>
+<p><strong>命令格式</strong></p>
+<p>​	wget [参数] [URL地址]</p>
+<p><strong>参数</strong></p>
+<p>​	-a&lt;日志文件&gt;：在指定的日志文件中记录资料的执行过程；</p>
+<p>​	-A&lt;后缀名&gt;：指定要下载文件的后缀名，多个后缀名之间使用逗号进行分隔；</p>
+<p>​	-b：进行后台的方式运行wget；</p>
+<p>​	-i&lt;文件&gt;：从指定文件获取要下载的URL地址；</p>
+<p>​	-r：递归下载方式；</p>
+<p>​	-nc：文件存在时，下载文件不覆盖原有文件；</p>
+<p>​	-q：不显示指令执行过程；</p>
+<p>​	-v：显示详细执行过程；</p>
+<p>​	-V：显示版本信息；</p>
+<p><strong>实例</strong></p>
+<p>​	下载单个文件</p>
+<p>​		wget 文件的URL</p>
+<p>​	限速下载文件</p>
+<p>​		wget –limit-rate=300k 文件的URL</p>
+<p>​	后台下载文件</p>
+<p>​		wget -b 文件的URL</p>
+<h3 id="4aptapt-get"><strong>4.apt/apt-get</strong></h3>
+<p>​	<em>apt</em>-get，是一条linux<em>命令</em>，适用于deb包管理式的操作系统，主要用于自动从互联网的软件仓库中搜索、安装、升级、卸载软件或操作系统。(apt是新出的一种包管理工具，建议在Ubuntu下直接使用apt)</p>
+<p>常用操作</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">apt 命令</th>
+<th style="text-align:center">取代的命令</th>
+<th style="text-align:center">命令的功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">apt install</td>
+<td style="text-align:center">apt-get install</td>
+<td style="text-align:center">安装软件包</td>
+</tr>
+<tr>
+<td style="text-align:center">apt remove</td>
+<td style="text-align:center">apt-get remove</td>
+<td style="text-align:center">移除软件包</td>
+</tr>
+<tr>
+<td style="text-align:center">apt purge</td>
+<td style="text-align:center">apt-get purge</td>
+<td style="text-align:center">移除软件包及配置文件</td>
+</tr>
+<tr>
+<td style="text-align:center">apt update</td>
+<td style="text-align:center">apt-get update</td>
+<td style="text-align:center">刷新存储库索引</td>
+</tr>
+<tr>
+<td style="text-align:center">apt upgrade</td>
+<td style="text-align:center">apt-get upgrade</td>
+<td style="text-align:center">升级所有可升级的软件包</td>
+</tr>
+<tr>
+<td style="text-align:center">apt autoremove</td>
+<td style="text-align:center">apt-get autoremove</td>
+<td style="text-align:center">自动删除不需要的包</td>
+</tr>
+<tr>
+<td style="text-align:center">apt full-upgrade</td>
+<td style="text-align:center">apt-get dist-upgrade</td>
+<td style="text-align:center">在升级软件包时自动处理依赖关系</td>
+</tr>
+<tr>
+<td style="text-align:center">apt search</td>
+<td style="text-align:center">apt-cache search</td>
+<td style="text-align:center">搜索应用程序</td>
+</tr>
+<tr>
+<td style="text-align:center">apt show</td>
+<td style="text-align:center">apt-cache show</td>
+<td style="text-align:center">显示装细节</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">新的apt命令</th>
+<th style="text-align:center">命令的功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">apt list</td>
+<td style="text-align:center">列出包含条件的包（已安装，可升级等）</td>
+</tr>
+<tr>
+<td style="text-align:center">apt edit-sources</td>
+<td style="text-align:center">编辑源列表</td>
+</tr>
+</tbody>
+</table>
+<p>​	目前还没有任何 Linux 发行版官方放出 apt-get 将被停用的消息，至少它还有比 apt 更多、更细化的操作功能。对于低级操作，仍然需要 apt-get。</p>
+<ul>
+<li>apt 可以看作 apt-get 和 apt-cache 命令的子集, 可以为包管理提供必要的命令选项。</li>
+<li>apt-get 虽然没被弃用，但作为普通用户，还是应该首先使用 apt。</li>
+</ul>
+<h3 id="5yum"><strong>5.yum</strong></h3>
+<p>​	Yum(全称为 Yellow dogUpdater, Modified)是一个在Fedora和RedHat以及CentOS中的Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p>
+<p><strong>语法</strong></p>
+<p>​	yum –选项命令包</p>
+<p>​	其中选项是可选的，选项包括-h（帮助），-y（当安装过程提示选择全部为&quot;yes&quot;），-q（不显示安装的过程）等等。[command]为所要进行的操作，[package &hellip;]是操作的对象。</p>
+<p><strong>实例参考</strong></p>
+<p>1 安装
+yum install 全部安装
+yum install package1 安装指定的安装包package1
+yum groupinsall group1 安装程序组group1</p>
+<p>2 更新和升级
+yum update 全部更新
+yum update package1 更新指定程序包package1
+yum check-update 检查可更新的程序
+yum upgrade package1 升级指定程序包package1
+yum groupupdate group1 升级程序组group1</p>
+<p>3 查找和显示
+yum info package1 显示安装包信息package1
+yum list 显示所有已经安装和可以安装的程序包
+yum list package1 显示指定程序包安装情况package1
+yum groupinfo group1 显示程序组group1信息yum search string 根据关键字string查找安装包</p>
+<p>4 删除程序
+yum remove | erase package1 删除程序包package1
+yum groupremove group1 删除程序组group1
+yum deplist package1 查看程序package1依赖情况</p>
+<p>5 清除缓存
+yum clean packages 清除缓存目录下的软件包
+yum clean headers 清除缓存目录下的 headers
+yum clean oldheaders 清除缓存目录下旧的 headers
+yum clean, yum clean all (= yum clean packages; yum clean oldheaders) 清除缓存目录下的软件包及旧的header</p>
+<h2 id="网络"><strong>网络</strong></h2>
+<h3 id="1ifconfig---设置网络设备"><strong>1.ifconfig   设置网络设备</strong></h3>
+<p>​	ifconfig命令用于显示或设置网络设备。</p>
+<p>​	ifconfig可设置网络设备的状态，或是显示目前的设置。</p>
+<p><strong>参数</strong></p>
+<p>​	add&lt;地址&gt; 设置网络设备IPv6的IP地址。</p>
+<p>​	del&lt;地址&gt; 删除网络设备IPv6的IP地址。</p>
+<p>​	down 关闭指定的网络设备。</p>
+<p>​	&lt;hw&lt;网络设备类型&gt;&lt;硬件地址&gt; 设置网络设备的类型与硬件地址。</p>
+<p>​	io_addr&lt;I/O地址&gt; 设置网络设备的I/O地址。</p>
+<p>​	up 启动指定的网络设备。</p>
+<p>​	[IP地址] 指定网络设备的IP地址。</p>
+<p>​	[网络设备] 指定网络设备的名称。</p>
+<p><strong>实例</strong></p>
+<p>​	显示网络设备信息</p>
+<p>​		ifconfig</p>
+<p>​	启动关闭指定网卡</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"> <span class="c1">#ifconfig eth0 down</span>
+<span class="c1"># ifconfig eth0 up</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>​	为网卡配置和删除IPv6地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># ifconfig eth0 add 33ffe:3240:800:1005::2/ 64 //为网卡诶之IPv6地址</span>
+<span class="c1"># ifconfig eth0 del 33ffe:3240:800:1005::2/ 64 //为网卡删除IPv6地址</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>​	用ifconfig修改MAC地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># ifconfig eth0 down //关闭网卡</span>
+<span class="c1"># ifconfig eth0 hw ether 00:AA:BB:CC:DD:EE //修改MAC地址</span>
+<span class="c1"># ifconfig eth0 up //启动网卡</span>
+<span class="c1"># ifconfig eth1 hw ether 00:1D:1C:1D:1E //关闭网卡并修改MAC地址 </span>
+<span class="c1"># ifconfig eth1 up //启动网卡</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>​	配置IP地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># ifconfig eth0 192.168.1.56 </span>
+//给eth0网卡配置IP地址
+<span class="c1"># ifconfig eth0 192.168.1.56 netmask 255.255.255.0 </span>
+// 给eth0网卡配置IP地址,并加上子掩码
+<span class="c1"># ifconfig eth0 192.168.1.56 netmask 255.255.255.0 broadcast 192.168.1.255</span>
+// 给eth0网卡配置IP地址,加上子掩码,加上个广播地址
+</code></pre></td></tr></table>
+</div>
+</div><p>​	启用和关闭ARP协议</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># ifconfig eth0 arp  //开启</span>
+<span class="c1"># ifconfig eth0 -arp  //关闭</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>​	设置最大传输单元</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># ifconfig eth0 mtu 1500 </span>
+//设置能通过的最大数据包大小为 <span class="m">1500</span> bytes
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2ip--网络配置工具"><strong>2.ip  网络配置工具</strong></h3>
+<p>​	ip是iproute2软件包里面的一个强大的网络配置工具，用来显示或操作路由、网络设备、策略路由和隧道，它能够替代一些传统的网络管理工具，例如ifconfig、route等。用ip配置的设备信息，大部分会在设备重启后还原，如果想永久保留配置，请尽量进入配置文件修改。</p>
+<p><strong>语法</strong></p>
+<p>​	ip [ OPTIONS ] OBJECT { COMMAND | help }</p>
+<p><strong>对象</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">link 网络设备
+address 设备上的协议（IP或IPv6）地址
+addrlabel 协议地址选择的标签配置
+neighbour ARP或NDISC缓存条目
+route 路由表条目
+rule 路由策略数据库中的规则
+maddress 组播地址
+mroute 组播路由缓存条目
+tunnel IP隧道
+xfrm IPSec协议框架
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>参数选项</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">-V，-Version 显示指令版本信息
+-s,-stats,statistics 输出详细信息
+-h,-human,-human-readable 输出人类可读的统计信息和后缀
+-iec 以IEC标准单位打印人类可读速率（例如1K<span class="o">=</span>1024）
+-f,-family &lt;FAMILY&gt; 指定要使用的协议族。协议族标识可以是inet、inet6、ipx、dnet或link之一。如果此选项不存在，则从其他参数中推测协议族。如果命令行的其余部分没有提供足够的信息来推测该族，则ip会退回到默认值，通常是inet或any。link是一个特殊的系列标识符，表示不涉及网络协议。
+-4 –family inet的快捷方式
+-6 –family inet6的快捷方式
+-0 –family link的快捷方式
+-o,-oneline 将每条记录输出到一行，用’<span class="se">\’</span>字符替换换行符。
+-r,-resolve 使用系统名称解析程序来打印DNS名称而不是主机地址。
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>实例</strong></p>
+<p>以下介绍的ip命令都是临时配置，一但重启就会还原，如&quot;service network restart&quot;</p>
+<p>​	查看所有IP地址</p>
+<p>​		ip a/addr/address</p>
+<p>​		ip a/addr/address sh/show</p>
+<p>​	查看指定IP地址</p>
+<p>​		ip a/addr/address sh/show dev eth1</p>
+<p>​		ip a/addr/address sh/show eth1</p>
+<p>​	增加或删除IP地址</p>
+<p>​		ip a/addr/address add 192.168.78.130/24 dev eth1</p>
+<p>​		ip a/addr/address del/delete 192.168.78.130/24 dev eth1</p>
+<p>​	删除eth1所有IP地址</p>
+<p>​		ip a flush dev eth1</p>
+<p>​	删除eth1的所有IPv4的IP地址</p>
+<p>​		ip -4 a flush dev eth1</p>
+<p>​	默认路由的删除、添加与修改</p>
+<p>​		ip r/ro/route d/del/delete default</p>
+<p>​		ip r/ro/route add default via 192.168.78.1</p>
+<p>​		ip r/ro/route chg/change default via 192.168.78.2</p>
+<p>​	查看ARP表</p>
+<p>​		ip n/neigh/neighbuor sh/show</p>
+<h3 id="3ping--检测主机"><strong>3.ping  检测主机</strong></h3>
+<p>​	 ping命令用于检测主机。</p>
+<p>​	执行ping指令会使用<strong>ICMP传输协议</strong>，发出要求回应的信息，若远端主机的网络功能没有问题，就会回应该信息，因而得知该主机运作正常。</p>
+<p><strong>语法</strong></p>
+<p>​	ping [-dfnqrRv] [-c&lt;完成次数&gt;] [-i&lt;间隔秒数&gt;] [-I&lt;网络界面&gt;] [-l&lt;前置载入&gt;] [-p&lt;范本样式&gt;] [-s&lt;数据包大小&gt;] [-t&lt;存活数值&gt;] [主机名称或IP地址]</p>
+<p><strong>参数</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">-d 使用Socket的SO_DEBUG功能。
+-c&lt;完成次数&gt; 设置完成要求回应的次数。
+-f 极限检测。
+-i&lt;间隔秒数&gt; 指定收发信息的间隔时间。
+-I&lt;网络界面&gt; 使用指定的网络接口送出数据包。
+-l&lt;前置载入&gt; 设置在送出要求信息之前，先行发出的数据包。
+-n 只输出数值。
+-p&lt;范本样式&gt; 设置填满数据包的范本样式。
+-q 不显示指令执行过程，开头和结尾的相关信息除外。
+-r 忽略普通的Routing Table，直接将数据包送到远端主机上。
+-R 记录路由过程。
+-s&lt;数据包大小&gt; 设置数据包的大小。
+-t&lt;存活数值&gt; 设置存活数值TTL的大小。
+-v 详细显示指令的执行过程。
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>实例</strong></p>
+<p>​	检测是否与主机连通</p>
+<p>​		ping <a href="http://www.baidu.com">www.baidu.com</a></p>
+<p>​	指定接收包的次数</p>
+<p>​		ping -c 2 <a href="http://www.baidu.com">www.baidu.com</a></p>
+<p>​		//收到两次包后，自动退出</p>
+<p>​	多参数使用</p>
+<p>​		ping -i 3 -s 1024 -t 255 g.cn //ping主机</p>
+<p>​		//-i 3 发送周期为 3秒 -s 设置发送包的大小 -t 设置TTL值为 255</p>
+<h3 id="4netstat-----显示网络状态"><strong>4.netstat     显示网络状态</strong></h3>
+<p>​	netstat命令用于显示网络状态。</p>
+<p>​	利用netstat指令可让你得知整个Linux系统的网络情况。</p>
+<p><strong>语法</strong></p>
+<p>​	netstat [-acCeFghilMnNoprstuvVwx] [-A&lt;网络类型&gt;] [&ndash;ip]</p>
+<p><strong>参数</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">-a或--all 显示所有连线中的Socket。
+-A&lt;网络类型&gt;或--&lt;网络类型&gt; 列出该网络类型连线中的相关地址。
+-c或--continuous 持续列出网络状态。
+-C或--cache 显示路由器配置的快取信息。
+-e或--extend 显示网络其他相关信息。
+-F或--fib 显示FIB。
+-g或--groups 显示多重广播功能群组组员名单。
+-h或--help 在线帮助。
+-i或--interfaces 显示网络界面信息表单。
+-l或--listening 显示监控中的服务器的Socket。
+-M或--masquerade 显示伪装的网络连线。
+-n或--numeric 直接使用IP地址，而不通过域名服务器。
+-N或--netlink或--symbolic 显示网络硬件外围设备的符号连接名称。
+-o或--timers 显示计时器。
+-p或--programs 显示正在使用Socket的程序识别码和程序名称。
+-r或--route 显示Routing Table。
+-s或--statistice 显示网络工作信息统计表。
+-t或--tcp 显示TCP传输协议的连线状况。
+-u或--udp 显示UDP传输协议的连线状况。
+-v或--verbose 显示指令执行过程。
+-V或--version 显示版本信息。
+-w或--raw 显示RAW传输协议的连线状况。
+-x或--unix 此参数的效果和指定<span class="s2">&#34;-A unix&#34;</span>参数相同。
+--ip或--inet 此参数的效果和指定<span class="s2">&#34;-A inet&#34;</span>参数相同。
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>实例</strong></p>
+<p>​	显示详细的网络状况</p>
+<p>​		netstat -a</p>
+<p>​	显示当前户籍UDP连接状况</p>
+<p>​		netstat -nu</p>
+<p>​	显示UDP端口号的使用情况</p>
+<p>​		netstat -apu</p>
+<p>​	显示网卡列表</p>
+<p>​		netstat -i</p>
+<p>​	显示网络统计信息</p>
+<p>​		netstat -s</p>
+<p>​	显示监听的套接口</p>
+<p>​		netstat -l</p>
+<h3 id="5telnet--远端登入"><strong>5.telnet  远端登入</strong></h3>
+<p>​	telnet命令用于远端登入。</p>
+<p>​	执行telnet指令开启终端机阶段作业，并登入远端主机。</p>
+<p><strong>参数</strong></p>
+<p>​	-a 尝试自动登入远端系统。</p>
+<p>​	-b&lt;主机别名&gt; 使用别名指定远端主机名称。</p>
+<p>​	-n&lt;记录文件&gt; 指定文件记录相关信息。</p>
+<p><strong>实例</strong></p>
+<p>​	telnet 192.168.0.2</p>
+<p>​	//登录IP为 192.168.0.2 的远程主机</p>
+<h3 id="6ftp-文件传输"><strong>6.ftp 文件传输</strong></h3>
+<p>​	 ftp命令设置文件系统相关功能。</p>
+<p>​	FTP是ARPANet的标准文件传输协议，该网络就是现今Internet的前身。</p>
+<p><strong>语法</strong></p>
+<p>​	ftp [-dignv] [主机名称或IP地址]</p>
+<p><strong>参数</strong></p>
+<p>-d 详细显示指令执行过程，便于排错或分析程序执行的情形。</p>
+<p>-i 关闭互动模式，不询问任何问题。</p>
+<p>-g 关闭本地主机文件名称支持特殊字符的扩充特性。</p>
+<p>-n 不使用自动登陆。</p>
+<p>-v 显示指令执行过程。</p>
+<p><strong>实例</strong></p>
+<p>​	例如使用ftp命令匿名登录ftp.kernel.org服务器，该服务是Linux 内核的官方服务器，可以使用如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ftp ftp.kernel.org <span class="c1">#发起链接请求 </span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="7tftp-文件传输"><strong>7.tftp 文件传输</strong></h3>
+<p>​	tftp命令用于传输文件。</p>
+<p>​	FTP让用户得以下载存放于远端主机的文件，也能将文件上传到远端主机放置。tftp是简单的文字模式ftp程序，它所使用的指令和FTP类似。</p>
+<p><strong>语法</strong></p>
+<p>​	tftp [主机名称或IP地址]</p>
+<p><strong>参数</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">connect：连接到远程tftp服务器
+mode：文件传输模式
+put：上传文件
+get：下载文件
+quit：退出
+verbose：显示详细的处理信息
+trace：显示包路径
+status：显示当前状态信息
+binary：二进制传输模式
+ascii：ascii 传送模式
+rexmt：设置包传输的超时时间
+timeout：设置重传的超时时间
+help：帮助信息
+? ：帮助信息
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>实例</strong></p>
+<p>​	连接远程服务器&quot;218.28.188.288&quot;，然后使用put 命令下载其中根目录下的文件&quot;README&quot;，可使用命令如下：</p>
+<p>​	tftp 218.28.188.288 #连接远程服务器  #连接远程服务器</p>
+<p>​	tftp&gt;get README  #远程下载README文件</p>
+<p>​	tftp&gt;quit  #离开tftp</p>
+<h3 id="8route--路由表"><strong>8.route  路由表</strong></h3>
+<p>​	route命令用于显示和操作IP路由表。要实现两个不同的子网之间的通信，需要一台连接两个网络的路由器，或者同时位于两个网络的网关来实现。在Linux系统中，设置路由通常是为了解决以下问题：该Linux系统在一个局域网中，局域网中有一个网关，能够让机器访问Internet，那么就需要将这台机器的IP地址设置为 Linux机器的默认路由。要注意的是，直接在命令行下执行route命令来添加路由，不会永久保存，当网卡重启或者机器重启之后，该路由就失效了；</p>
+<p><strong>参数</strong></p>
+<p>​	 -n  ：不要使用通讯协定或主机名称，直接使用 IP 或 port number；</p>
+<p>​	 -ee ：使用更详细的资讯来显示</p>
+<p>​	增加 (add) 与删除 (del) 路由的相关参数：</p>
+<p>​	 -net：表示后面接的路由为一个网域；</p>
+<p>​	 -host：表示后面接的为连接到单部主机的路由；</p>
+<p>​	 netmask ：与网域有关，可以设定 netmask 决定网域的大小；</p>
+<p>​	 gw：gateway 的简写，后续接的是 IP 的数值喔，与 dev 不同；</p>
+<p>​	dev：如果只是要指定由那一块网路卡连线出去，则使用这个设定，后面接 eth0 等</p>
+<p>​	-v 显示详细的处理信息</p>
+<p>​	-F 显示发送信息</p>
+<p>​	-C 显示路由缓存</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>add</td>
+<td>增加路由记录</td>
+</tr>
+<tr>
+<td>del</td>
+<td>删除路由记录</td>
+</tr>
+<tr>
+<td>target</td>
+<td>目标网络或目的主机</td>
+</tr>
+<tr>
+<td>gw</td>
+<td>设置默认网关。gateway 的简写，后续接的是 IP 的数值。</td>
+</tr>
+<tr>
+<td>mss</td>
+<td>设置TCP的最大区块长度（MSS），单位MB。</td>
+</tr>
+<tr>
+<td>window</td>
+<td>指定通过路由表的TCP连接的TCP窗口大小。</td>
+</tr>
+<tr>
+<td>dev</td>
+<td>如果只是要指定由那一块网路卡连线出去，则使用这个设定，后面接 eth0 等。</td>
+</tr>
+<tr>
+<td>reject</td>
+<td>设置到指定网络为不可达，避免在连接到这个网络的地址时程序过长时间的等待，直接就知道该网络不可达。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实例</strong></p>
+<p>​	添加和删除路由</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">route <span class="o">{</span>add <span class="p">|</span> del <span class="o">}</span> <span class="o">[</span>-net<span class="p">|</span>-host<span class="o">]</span> <span class="o">[</span>网域或主机<span class="o">]</span> netmask <span class="o">[</span>mask<span class="o">]</span> <span class="o">[</span>gw<span class="p">|</span>dev<span class="o">]</span>
+ 
+ 
+增加 <span class="o">(</span>add<span class="o">)</span> 与删除 <span class="o">(</span>del<span class="o">)</span> 路由的相关参数：
+<span class="o">(</span>a<span class="o">)</span> -net ：表示后面接的路由为一个网域。
+<span class="o">(</span>b<span class="o">)</span> -host ：表示后面接的为连接到单部主机的路由。
+<span class="o">(</span>c<span class="o">)</span> netmask ：与网域有关，可以设定 netmask 决定网域的大小。
+<span class="o">(</span>d<span class="o">)</span> gw ：gateway 的简写，后续接的是 IP 的数值，与 dev 不同。
+<span class="o">(</span>e<span class="o">)</span> dev ：如果只是要指定由那一块网路卡连线出去，则使用这个设定，后面接 eth0 等。
+</code></pre></td></tr></table>
+</div>
+</div><p>​	查询路由信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">route -nee
+ 
+<span class="o">(</span>a<span class="o">)</span> -n：不要使用通讯协定或主机名称，直接使用 IP 或 port number。
+<span class="o">(</span>b<span class="o">)</span> -ee：使用更详细的资讯来显示。
+</code></pre></td></tr></table>
+</div>
+</div><p>​	添加/删除默认网关路由</p>
+<p>​</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">route <span class="o">{</span>add <span class="p">|</span> del <span class="o">}</span> default gw <span class="o">{</span>IP-ADDRESS<span class="o">}</span> <span class="o">{</span>INTERFACE-NAME<span class="o">}</span>
+ 
+<span class="o">(</span>a<span class="o">)</span> IP-ADDRESS：用于指定路由器（网关）的IP地址。
+<span class="o">(</span>b<span class="o">)</span> INTERFACE-NAME：用于指定接口名称，如eth0。
+ 
+ 
+例1：route add default gw 192.168.1.1 eth0
+例2：route del default gw 192.168.1.1 eth0
+</code></pre></td></tr></table>
+</div>
+</div><p>​	添加/删除到指定网络的路由规则</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">route <span class="o">{</span>add <span class="p">|</span> del <span class="o">}</span> -net <span class="o">{</span>NETWORK-ADDRESS<span class="o">}</span> netmask <span class="o">{</span>NETMASK<span class="o">}</span> dev <span class="o">{</span>INTERFACE-NAME<span class="o">}</span>
+ 
+<span class="o">(</span>a<span class="o">)</span> NETWORK-ADDRESS：用于指定网络地址。
+<span class="o">(</span>b<span class="o">)</span> NETMASK：用于指定子网掩码。
+<span class="o">(</span>c<span class="o">)</span> INTERFACE-NAME：用于指定接口名称，如eth0。
+ 
+ 
+例1：route add -net 192.168.1.0 netmask 255.255.255.0 dev eth0
+例2：route del -net 192.168.1.0 netmask 255.255.255.0 dev eth0
+</code></pre></td></tr></table>
+</div>
+</div><p>​	添加/删除路由到指定网络为不可达</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">设置到指定网络为不可达，避免在连接到这个网络的地址时程序过长时间的等待，直接就知道该网络不可达。
+ 
+route <span class="o">{</span>add <span class="p">|</span> del <span class="o">}</span> -net <span class="o">{</span>NETWORK-ADDRESS<span class="o">}</span> netmask <span class="o">{</span>NETMASK<span class="o">}</span> reject
+ 
+<span class="o">(</span>a<span class="o">)</span> NETWORK-ADDRESS：用于指定网络地址。
+<span class="o">(</span>b<span class="o">)</span> NETMASK：用于指定子网掩码。
+ 
+ 
+例1：route add -net 10.0.0.0 netmask 255.0.0.0 reject
+例2：route del -net 10.0.0.0 netmask 255.0.0.0 reject
+</code></pre></td></tr></table>
+</div>
+</div><p>​	查看路由信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># route -n</span>
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.1.1     0.0.0.0         UG    <span class="m">0</span>      <span class="m">0</span>        <span class="m">0</span> eth0
+169.254.0.0     0.0.0.0         255.255.0.0     U     <span class="m">1002</span>   <span class="m">0</span>        <span class="m">0</span> eth0
+192.168.1.0     0.0.0.0         255.255.255.0   U     <span class="m">0</span>      <span class="m">0</span>        <span class="m">0</span> eth0
+192.168.233.0   0.0.0.0         255.255.255.0   U     <span class="m">0</span>      <span class="m">0</span>        <span class="m">0</span> eth1
+</code></pre></td></tr></table>
+</div>
+</div><p>更多例子请访问：<a href="https://blog.csdn.net/u011857683/article/details/83795435">https://blog.csdn.net/u011857683/article/details/83795435</a></p>
+<h3 id="9rlogin-远端登入"><strong>9.rlogin 远端登入</strong></h3>
+<pre><code>rlogin命令用于远端登入。
+</code></pre>
+<p>​	执行rlogin指令开启终端机阶段操作，并登入远端主机。</p>
+<p><strong>语法</strong></p>
+<p>​	rlogin [-8EL] [-e &lt;脱离字符&gt;] [-l &lt;用户名称&gt;] [主机名称或IP地址]</p>
+<p><strong>参数</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">-E 忽略escape字符
+-8 只识别8位字的字符
+-L 允许rlogin会话运行在litout模式
+-ec 设置escape字符为c
+-c 断开连接前要求确认
+-a 强制要求远程主机在发送完一个空的本地用户名之后请求一个密码
+-f 向远端主机发送一个本地认证
+-F 向远程主机发送一个可转寄的本地认证
+-7 强制执行7为的传输
+-d 打开用于远端主机通信的TCP套接口的调试
+-k 要求包含远端主机的tisckets
+-x 启动数据传输的DES加密
+-4 只使用 kerkberos的版本4的认证
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>实例</strong></p>
+<p>​	显示rlogin服务是否开启</p>
+<p>​		 chkconfig &ndash;list //检测rlogin服务是否开启</p>
+<p>​	开启rlogin服务</p>
+<p>​		chkconfig rlogin on //开启rlogin服务</p>
+<p>​	登陆远程主机</p>
+<p>​		rlogin 192.168.1.88</p>
+<p>​	指定用户名登陆远程主机</p>
+<p>​		rlogin 192.168.1.88 -l hnlinux</p>
+<h3 id="10rcp--复制远程文件"><strong>10.rcp  复制远程文件</strong></h3>
+<p>​	 rcp命令用于复制远程文件或目录。</p>
+<p>rcp指令用在远端复制文件或目录，如同时指定两个以上的文件或目录，且最后的目的地是一个已经存在的目录，则它会把前面指定的所有文件或目录复制到该目录中。</p>
+<p><strong>语法</strong></p>
+<p>​	rcp [-pr] [源文件或目录] [目标文件或目录]</p>
+<p><strong>参数</strong></p>
+<p>-p 　保留源文件或目录的属性，包括拥有者，所属群组，权限与时间。</p>
+<p>-r 　递归处理，将指定目录下的文件与子目录一并处理。</p>
+<p><strong>实例</strong></p>
+<p>​	使用rcp指令复制远程文件到本地进行保存。</p>
+<p>​	设本地主机当前账户为rootlocal，远程主机账户为root，要将远程主机（218.6.132.5）主目录下的文件&quot;testfile&quot;复制到本地目录&quot;test&quot;中，则输入如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rcp root@218.6.132.5:./testfile testfile  <span class="c1">#复制远程文件到本地  </span>
+rcp root@218.6.132.5:home/rootlocal/testfile testfile  
+<span class="c1">#要求当前登录账户cmd 登录到远程主机  </span>
+rcp 218.6.132.5:./testfile testfile
+</code></pre></td></tr></table>
+</div>
+</div><p>指令&quot;rcp&quot;执行以后不会有返回信息，仅需要在目录&quot;test&quot;下查看是否存在文件&quot;testfile&quot;。若存在，则表示远程复制操作成功，否则远程复制操作失败。</p>
+<h3 id="11finger--查询资料"><strong>11.finger  查询资料</strong></h3>
+<p>​	 finger命令可以让使用者查询一些其他使用者的资料。</p>
+<p><strong>语法</strong></p>
+<p>​	finger [options] user[@address]</p>
+<p><strong>参数</strong></p>
+<p>​	-l 多行显示。</p>
+<p>​	-s 单行显示。这个选项只显示登入名称、真实姓名、终端机名称、闲置时间、登入时间、办公室号码及电话号码。如果所查询的使用者是远端服务器的使用者，这个选项无效。</p>
+<p><strong>实例</strong></p>
+<p>​	列出当前登录用户的相关信息</p>
+<p>​		 finger -l //显示用户信息</p>
+<p>​	显示指定用户信息</p>
+<p>​		finger -m hnlinux</p>
+<p>​	显示远程用户信息</p>
+<p>​		finger -m <a href="mailto:root@192.168.1.13">root@192.168.1.13</a></p>
+<h3 id="12mail---邮件"><strong>12.mail   邮件</strong></h3>
+<p>​	mail 是 Linux 的邮件客户端命令，可以利用这个命令给其他用户发送邮件。</p>
+<p>​	使用mail发邮件时，必须先将<a href="http://www.server110.com/sendmail/">sendmail</a>服务启动。</p>
+<p><strong>参数</strong></p>
+<p>​	mail –s “邮件主题”</p>
+<p>​	 –c”抄送地址”</p>
+<p>​	–b “密送地址”</p>
+<p>​	 &ndash; -f 发送人邮件地址</p>
+<p>​	–F 发件人姓名 &lt; 要发送的邮件内容&gt;</p>
+<p><strong>三种常用格式发信</strong></p>
+<p>​	mail -s test <a href="mailto:yangfang@fudan.edu.cn">yangfang@fudan.edu.cn</a> #第一种方法，你可以把当前shell当成编辑器来用，编辑完内容后Ctrl-D结束</p>
+<p>　　echo “mail content”|mail -s test <a href="mailto:yangfang@fudan.edu.cn">yangfang@fudan.edu.cn</a> #第二种方法，我用的最多，可能是喜欢管道的缘故吧</p>
+<p>　　mail -s test <a href="mailto:yangfang@fudan.edu.cn">yangfang@fudan.edu.cn</a> &lt; file #第三种方法，以file的内容为邮件内容发信</p>
+<h3 id="13nslookup--dns域名"><strong>13.nslookup  DNS域名</strong></h3>
+<p>​	nslookup命令是常用域名查询工具。</p>
+<p>​	nslookup有两种工作模式，即交互模式和非交互模式。在交互模式下，用户可以向域名服务器查询各类主机，域名的信息</p>
+<p>​	或者输出域名中的主机列表。而在非交互模式下，用户可以针对一个主机或域名仅仅获取特定的名称或所需要信息</p>
+<p>​	进入交互模式：直接输入nslookup命令，不带任何参数，则直接进入交互模式，此时nslookup会连接到默认的域名服务器</p>
+<p>​	即/etc/resolv.conf的第一个dns地址），或者输入nslookup -nameserver/ip。进入非交互模式，就直接输入nslookup域</p>
+<p><strong>语法</strong></p>
+<p>​	nslookup (选项) (参数)</p>
+<p><strong>选项</strong></p>
+<p>​	-sil：不显示任何警告信息</p>
+<p><strong>参数</strong></p>
+<p>​	域名：指定要查询域名</p>
+<p><strong>实例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ nslookup
+&gt; www.baidu.com
+Server:         61.139.2.69 //上连的DNS服务器
+Address:        61.139.2.69#53 //上连的DNS服务器的IP地址与端口号
+
+Non-authoritative answer: //非权威答案，即从上连DNS服务器的本地缓存中读取出的值，而非实际去查询到的值
+www.baidu.com   canonical <span class="nv">name</span> <span class="o">=</span> www.a.shifen.com. //说明www.baidu.com有个别名叫www.a.shifen.com
+Name:   www.a.shifen.com //域名www.a.shifen.com
+Address: 119.75.217.56 //对应的IP地址之一
+Name:   www.a.shifen.com
+Address: 119.75.218.77//对应的IP地址之二
+</code></pre></td></tr></table>
+</div>
+</div><p>​	exit 退出nslookup的交互模式。</p>
+<p>​	set all 列出nslookup工具的常用选项的当前设置值。</p>
+<p>​</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Yijiu</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-04-10
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux_primary/linux%E5%BC%80%E6%9C%BA%E6%B5%81%E7%A8%8B/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux 开机流程</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Y1jiu - <a href='https://beian.miit.gov.cn/'>蜀ICP备19017120号</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
